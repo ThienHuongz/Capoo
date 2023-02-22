@@ -7,7 +7,7 @@ public class game {
 
         KeyHandle key=new KeyHandle();
         JFrame panel=new JFrame("Capoo Game");
-        panel.setContentPane(new GamePanel());
+        panel.setContentPane(new GamePanel(key));
 
         panel.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         panel.setSize(1200,800);
