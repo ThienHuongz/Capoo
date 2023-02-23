@@ -4,13 +4,17 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class KeyHandle implements KeyListener {
-    private boolean keyW, keyA, keyS, keyD, keySpace;
+    private boolean keyW, keyA, keyS, keyD, keySpace,keyEsc;
 
-    public boolean isKeyW() {
-        return this.keyW;
+    public boolean isKeyEsc() {
+        return this.keyEsc;
     }
 
-    public boolean getKeyW() {
+    public void setKeyEsc(boolean keyEsc) {
+        this.keyEsc = keyEsc;
+    }
+
+    public boolean isKeyW() {
         return this.keyW;
     }
 
@@ -22,19 +26,11 @@ public class KeyHandle implements KeyListener {
         return this.keyA;
     }
 
-    public boolean getKeyA() {
-        return this.keyA;
-    }
-
     public void setKeyA(boolean keyA) {
         this.keyA = keyA;
     }
 
     public boolean isKeyS() {
-        return this.keyS;
-    }
-
-    public boolean getKeyS() {
         return this.keyS;
     }
 
@@ -46,19 +42,11 @@ public class KeyHandle implements KeyListener {
         return this.keyD;
     }
 
-    public boolean getKeyD() {
-        return this.keyD;
-    }
-
     public void setKeyD(boolean keyD) {
         this.keyD = keyD;
     }
 
     public boolean isKeySpace() {
-        return this.keySpace;
-    }
-
-    public boolean getKeySpace() {
         return this.keySpace;
     }
 
@@ -86,6 +74,9 @@ public class KeyHandle implements KeyListener {
         }
         if (e.getKeyCode() == KeyEvent.VK_SPACE) {
             keySpace = true;
+        }
+        if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            keyEsc=true;
         }
     }
 

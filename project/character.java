@@ -5,7 +5,7 @@ import javax.imageio.ImageIO;
 import java.awt.Graphics2D;
 
 public class character {
-    private int x,y, speed,step=0,counterStep=0;
+    private int x,y, speed,step=0,counterStep=0, d=0;
     private KeyHandle key;
     private BufferedImage b[] = new BufferedImage[7];
     private boolean isRight=true,isJump=false;
@@ -66,9 +66,8 @@ public class character {
             isRight=false;
             x-=speed;
         }
-        if (key.isKeyW() == true){
+        if (key.isKeyW() == true || key.isKeySpace() == true){
             if (isJump == false) isJump=true;
-            y-=speed;
         }
         if (key.isKeyS() == true){
             y+=speed;
@@ -77,10 +76,20 @@ public class character {
             isRight=true;
             x+=speed;
         }
-        if (key.isKeySpace() == true){
-            if (isJump == false) isJump=true;
+
+        if (isJump && d<20){
+            d++;
             y-=speed;
         }
+        else if (isJump && d<40){
+            d++;
+            y+=speed;
+        }
+        else {
+            isJump=false;
+            d=0;
+        }
+
         counterStep++;
         if (counterStep >10){
             step++;
