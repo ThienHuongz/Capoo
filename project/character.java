@@ -3,13 +3,15 @@ package project;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 import java.awt.Graphics2D;
-
 public class character {
     private int x,y, speed,step=0,counterStep=0, d=0;
     private KeyHandle key;
     private BufferedImage b[] = new BufferedImage[7];
     private boolean isRight=true,isJump=false;
-    
+
+    private static final int totalImageOfCharacter=7;
+    private static final int animation = (int)(GamePanel.getFPS()/ totalImageOfCharacter);
+
     public character(KeyHandle key){
         x=100;
         y=100;
@@ -43,7 +45,7 @@ public class character {
 
     public void init(){
         try {
-            for (int i=0;i<7;i++){
+            for (int i=0;i<totalImageOfCharacter;i++){
                 b[i]=ImageIO.read(getClass().getResourceAsStream("../assets/walk_"+i+".png"));
             }
         } catch (Exception e) {
@@ -91,10 +93,10 @@ public class character {
         }
 
         counterStep++;
-        if (counterStep >10){
+        if (counterStep > animation){
             step++;
             counterStep=0;
-            if (step >=7){
+            if (step >= totalImageOfCharacter ){
                 step=0;
             }
             else step++;

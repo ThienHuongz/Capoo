@@ -6,26 +6,37 @@ import java.awt.*;
 public class GamePanel extends JPanel implements Runnable{
     
     private boolean IsRun=true;
-    private int FPS = 60; 
+    private static int FPS = 60;  // Frame per second
     private Thread thread;
+    private background bg= new background();
+    KeyHandle key=new KeyHandle();
     private character c;
-    public GamePanel(KeyHandle key) {
+
+    public GamePanel() {
         super();
-        c= new character(key);
+
+        // respond to keyboard events of game panel
+        this.setFocusable(true);
+
+        this.addKeyListener(key);
+
+        c = new character(key);        
 
         thread=new Thread(this);
+        // call run method
         thread.start();
     }
 
     public void run(){
 
-        double drawInterval = 1000000000/FPS; // 1 giây/60 
+        double drawInterval = 1000000000/FPS; // 1 giây/ 60 
         double nextDrawTime = System.nanoTime()+drawInterval;
         long timer =0;
         int count=0;
+        
         while(IsRun){
-
             update();
+            // call paintcomponent
             repaint();
             try{
                 double remainingTime = nextDrawTime - System.nanoTime();
@@ -37,11 +48,14 @@ public class GamePanel extends JPanel implements Runnable{
                 if (remainingTime<0){
                     remainingTime=0;
                 }
+
                 Thread.sleep((long)remainingTime);
+
                 nextDrawTime+=drawInterval;
+
                 count++;
                 if (timer >= 1000000000){
-                    // System.out.println("FPS: "+count);
+                    System.out.println("FPS: "+count);
                     timer=0;
                     count=0;
                 }
@@ -50,21 +64,27 @@ public class GamePanel extends JPanel implements Runnable{
                 e.printStackTrace();
             }
         }
+
     }
+    
 
     private void update(){
+        // if(key.isKeyEsc() == true) {
+        //     IsRun=false;
+        // }
         c.update();
 
     }
 
     public void paintComponent( Graphics g){
+        //to ensure that any necessary pre-painting operations are performed
         super.paintComponent(g);
+        bg.draw(g);
         c.draw((Graphics2D) g);
 
-        
     }
 
-
-    
-
+    public static int getFPS(){
+        return FPS;
+    }
 }  
