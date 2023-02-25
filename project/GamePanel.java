@@ -68,7 +68,7 @@ public class GamePanel extends JPanel implements Runnable{
     }
     
 
-    private void update(){
+    public void update(){
         // if(key.isKeyEsc() == true) {
         //     IsRun=false;
         // }

@@ -2,8 +2,8 @@ package project;
 
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
-import java.awt.Graphics2D;
-public class character {
+import java.awt.Graphics;
+public class character implements object{
     private int x,y, speed,step=0,counterStep=0, d=0;
     private KeyHandle key;
     private BufferedImage b[] = new BufferedImage[7];
@@ -53,7 +53,7 @@ public class character {
         }
     }
 
-    public void draw(Graphics2D g){
+    public void draw(Graphics g){
         if (isRight == true){
             // reverse image
             g.drawImage(b[step], x+b[step].getWidth(), y,-b[step].getWidth(),b[step].getHeight() ,null);
