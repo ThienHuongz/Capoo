@@ -8,15 +8,17 @@ public class character implements object{
     private KeyHandle key;
     private BufferedImage b[] = new BufferedImage[7];
     private boolean isRight=true,isJump=false;
+    private Map map;
 
     private static final int totalImageOfCharacter=7;
     private static final int animation = (int)(GamePanel.getFPS()/ totalImageOfCharacter);
 
-    public character(KeyHandle key){
+    public character(KeyHandle key, Map map){
         x=100;
         y=100;
         speed=3;
         this.key=key;
+        this.map=map;
         init();
     }
     public int getX() {
@@ -64,7 +66,7 @@ public class character implements object{
 
     }
     public void update(){
-        if (key.isKeyA() == true){
+        if (key.isKeyA() == true && map.isWalkable(x, y)){
             isRight=false;
             x-=speed;
         }
