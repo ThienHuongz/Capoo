@@ -8,7 +8,7 @@ public class GamePanel extends JPanel implements Runnable{
     private boolean IsRun=true;
     private static int FPS = 60;  // Frame per second
     private Thread thread;
-    private background bg= new background();
+    private Map map=new Map();
     KeyHandle key=new KeyHandle();
     private character c;
 
@@ -20,7 +20,7 @@ public class GamePanel extends JPanel implements Runnable{
 
         this.addKeyListener(key);
 
-        c = new character(key);        
+        c = new character(key,map);        
 
         thread=new Thread(this);
         // call run method
@@ -55,7 +55,7 @@ public class GamePanel extends JPanel implements Runnable{
 
                 count++;
                 if (timer >= 1000000000){
-                    System.out.println("FPS: "+count);
+                    // System.out.println("FPS: "+count);
                     timer=0;
                     count=0;
                 }
@@ -68,7 +68,7 @@ public class GamePanel extends JPanel implements Runnable{
     }
     
 
-    private void update(){
+    public void update(){
         // if(key.isKeyEsc() == true) {
         //     IsRun=false;
         // }
@@ -79,7 +79,7 @@ public class GamePanel extends JPanel implements Runnable{
     public void paintComponent( Graphics g){
         //to ensure that any necessary pre-painting operations are performed
         super.paintComponent(g);
-        bg.draw(g);
+        map.draw(g);
         c.draw((Graphics2D) g);
 
     }

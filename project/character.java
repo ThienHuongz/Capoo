@@ -2,21 +2,23 @@ package project;
 
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
-import java.awt.Graphics2D;
-public class character {
+import java.awt.Graphics;
+public class character implements object{
     private int x,y, speed,step=0,counterStep=0, d=0;
     private KeyHandle key;
     private BufferedImage b[] = new BufferedImage[7];
     private boolean isRight=true,isJump=false;
+    private Map map;
 
     private static final int totalImageOfCharacter=7;
     private static final int animation = (int)(GamePanel.getFPS()/ totalImageOfCharacter);
 
-    public character(KeyHandle key){
+    public character(KeyHandle key, Map map){
         x=100;
         y=100;
         speed=3;
         this.key=key;
+        this.map=map;
         init();
     }
     public int getX() {
@@ -53,7 +55,7 @@ public class character {
         }
     }
 
-    public void draw(Graphics2D g){
+    public void draw(Graphics g){
         if (isRight == true){
             // reverse image
             g.drawImage(b[step], x+b[step].getWidth(), y,-b[step].getWidth(),b[step].getHeight() ,null);
@@ -64,7 +66,7 @@ public class character {
 
     }
     public void update(){
-        if (key.isKeyA() == true){
+        if (key.isKeyA() == true && map.isWalkable(x, y)){
             isRight=false;
             x-=speed;
         }
