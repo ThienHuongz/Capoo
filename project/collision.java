@@ -3,7 +3,6 @@ package project;
 import java.awt.image.BufferedImage;
 
 public class collision {
-    // public static boolean Right=false,Top=false,Left=false,Bottom=false;
     public static boolean isCollision(BufferedImage image1, int x1, int y1, BufferedImage image2, int x2, int y2) {
         // Calculate the bounds of the images
     //TOP LEFT X
@@ -81,10 +80,10 @@ public class collision {
 
     public static boolean isCharacterCollisionA(BufferedImage image1, int x1, int y1, BufferedImage image2) {
 
-        int intersectionX =  x1;
+        int intersectionX =  x1+10;
         int intersectionY = y1;
 
-        int intersectionHeight = image1.getHeight()-20 ;
+        int intersectionHeight = image1.getHeight()-10 ;
 
             for (int y = intersectionY; y < intersectionY + intersectionHeight; y++) {
                     int pixel2 = image2.getRGB(intersectionX, y);
@@ -101,7 +100,7 @@ public class collision {
 
         int intersectionY = y1;
         int intersectionWidth = image1.getWidth()-10;
-        int intersectionHeight = image1.getHeight()-20 ;
+        int intersectionHeight = image1.getHeight()-10 ;
 
             for (int y = intersectionY; y < intersectionY + intersectionHeight; y++) {
                     int pixel2 = image2.getRGB(x1 + intersectionWidth, y);
@@ -113,11 +112,11 @@ public class collision {
     }
     public static boolean isCharacterCollisionJump(BufferedImage image1, int x1, int y1, BufferedImage image2) {
 
-        int intersectionX =  x1;
-        int intersectionWidth = image1.getWidth()-10;
+        int intersectionX =  x1+10;
+        int intersectionWidth = image1.getWidth()-20;
 
             for (int x = intersectionX; x < intersectionX + intersectionWidth; x++) {
-                    int pixel2 = image2.getRGB(x, y1);
+                    int pixel2 = image2.getRGB(x, y1+20);
 
                     if ( ((pixel2 >> 24) & 0xff) != 0)  {
                         return true;
