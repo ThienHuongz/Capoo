@@ -13,7 +13,7 @@ public class game {
         // if close window -> stop the program
         panel.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        panel.setSize(1200,800);
+        panel.setSize(1015,739);
 
         // show the window on screen
         panel.setVisible(true);
