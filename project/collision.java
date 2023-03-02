@@ -78,29 +78,13 @@ public class collision {
     
         return false;
     }
-    public static boolean isCharacterCollision(BufferedImage image1, int x1, int y1, BufferedImage image2) {
-        int intersectionX =  x1;
-        int intersectionY = y1;
-        int intersectionWidth = image1.getWidth()-10;
-        int intersectionHeight = image1.getHeight()-5 ;
-            for (int y = intersectionY; y < intersectionY + intersectionHeight; y++) {
-                for (int x = intersectionX; x < intersectionX + intersectionWidth; x++) {
-                    int pixel2 = image2.getRGB(x, y);
-                    if (((pixel2 >> 24) & 0xff) != 0) {
-                        return true;
-                    }
-                }
-            }
-        
-    
-        return false;
-    }
+
     public static boolean isCharacterCollisionA(BufferedImage image1, int x1, int y1, BufferedImage image2) {
 
         int intersectionX =  x1;
         int intersectionY = y1;
 
-        int intersectionHeight = image1.getHeight()-5 ;
+        int intersectionHeight = image1.getHeight()-20 ;
 
             for (int y = intersectionY; y < intersectionY + intersectionHeight; y++) {
                     int pixel2 = image2.getRGB(intersectionX, y);
@@ -117,7 +101,7 @@ public class collision {
 
         int intersectionY = y1;
         int intersectionWidth = image1.getWidth()-10;
-        int intersectionHeight = image1.getHeight()-5 ;
+        int intersectionHeight = image1.getHeight()-20 ;
 
             for (int y = intersectionY; y < intersectionY + intersectionHeight; y++) {
                     int pixel2 = image2.getRGB(x1 + intersectionWidth, y);
@@ -148,8 +132,7 @@ public class collision {
         int intersectionHeight = image1.getHeight()-5 ;
 
             for (int x = intersectionX; x < intersectionX + intersectionWidth; x++) {
-                    int pixel1 = image2.getRGB(x, intersectionHeight);
-
+                    int pixel1 = image2.getRGB(x, y1 + intersectionHeight);
                     if (((pixel1 >> 24) & 0xff) != 0 )  {
                         return true;
                     }

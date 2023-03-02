@@ -95,9 +95,7 @@ public class character implements object{
                     y+=speed;
                 // }
             }
-            // if (!collision.isCharacterCollision(walk[0],x,y,map.bg[1])){
-            //     y+=speed;
-            // }
+
             if (key.isKeyD() == true ){
                 if (!(collision.isCharacterCollisionD(walk[0],x+speed,y,map.bg[1]))){
                     isRight=true;
@@ -114,19 +112,26 @@ public class character implements object{
                 }
             }
             else if (isJump && d<60 && checkJump){
-                d++;
-                y+=speed;
+                if (!(collision.isCharacterCollisionDown(walk[0],x,y,map.bg[1]))){
+                    d++;
+                    y+=speed;
+                }
+                else {
+                    d=0;
+                    isJump=false;
+                }
             }
-            else if (d>=50){
+            else if (d>=60){
                 isJump=false;
                 d=0;
             }
             if (checkJump == false && d>0){
-                if (!(collision.isCharacterCollisionDown(walk[0],x,y+speed,map.bg[1]))){
+                if (!(collision.isCharacterCollisionDown(walk[0],x,y,map.bg[1]))){
                     d--;
                     y+=speed;
                 }
                 else{
+                    System.out.println("asd");
                     d=0;
                 }
             }
