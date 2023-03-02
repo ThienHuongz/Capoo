@@ -19,24 +19,6 @@ public class collision {
         int image2Width = x2 + image2.getWidth();
         int image2Height = y2 + image2.getHeight();
 
-        // // Adjust the bounds based on image size
-        // if (image1.getWidth() != image2.getWidth()) {
-        //     if (image1.getWidth() < image2.getWidth()) {
-        //         // adjust the width of image1 equal to height of image2
-        //         image1Width = x1 + image1.getWidth() * (image2.getHeight() - y2) / image1.getHeight();
-        //     } else {
-        //         image2Width = x2 + image2.getWidth() * (image1.getHeight() - y1) / image2.getHeight();
-        //     }
-        // }
-        // if (image1.getHeight() != image2.getHeight()) {
-        //     if (image1.getHeight() < image2.getHeight()) {
-        //         // adjust the height of image1 equal to width of image2
-        //         image1Height = y1 + image1.getHeight() * (image2.getWidth() - x2) / image1.getWidth();
-        //     } else {
-        //         image2Height = y2 + image2.getHeight() * (image1.getWidth() - x1) / image2.getWidth();
-        //     }
-        // }
-
         // Check for intersection between the bounds
         if (image1X < image2Width &&
                 image1Width > image2X &&
@@ -79,10 +61,8 @@ public class collision {
     }
 
     public static boolean isCharacterCollisionA(BufferedImage image1, int x1, int y1, BufferedImage image2) {
-
         int intersectionX =  x1+10;
         int intersectionY = y1;
-
         int intersectionHeight = image1.getHeight()-10 ;
 
             for (int y = intersectionY; y < intersectionY + intersectionHeight; y++) {
@@ -91,9 +71,7 @@ public class collision {
                         return true;
                     
                 }
-            }
-        
-    
+            }   
         return false;
     }
     public static boolean isCharacterCollisionD(BufferedImage image1, int x1, int y1, BufferedImage image2) {
@@ -126,7 +104,7 @@ public class collision {
     }
     public static boolean isCharacterCollisionDown(BufferedImage image1, int x1, int y1, BufferedImage image2) {
 
-        int intersectionX =  x1;
+        int intersectionX =  x1+10;
         int intersectionWidth = image1.getWidth()-10;
         int intersectionHeight = image1.getHeight()-5 ;
 

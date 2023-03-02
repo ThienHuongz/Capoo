@@ -84,10 +84,9 @@ public class character implements object{
                     isRight=false;
                     x-=speed;
                 }
-                
             }
             if ((key.isKeyW() == true || key.isKeySpace() == true ) ){
-                if (isJump == false && ((collision.isCharacterCollisionDown(walk[0],x+10,y,map.bg[1])))) isJump=true;
+                if (isJump == false && ((collision.isCharacterCollisionDown(walk[0],x,y,map.bg[1])))) isJump=true;
             }
             // if (key.isKeyS() == true){
             //     // if (!collision.isCharacterCollision(walk[0],x,y+speed,map.bg[1])){
@@ -151,7 +150,7 @@ public class character implements object{
             else counterStep++;
         }
         if (!isJump){
-            if (!(collision.isCharacterCollisionDown(walk[0],x+10,y,map.bg[1]))){
+            if (!(collision.isCharacterCollisionDown(walk[0],x,y,map.bg[1]))){
                 y+=gravity;   
             }
         }
