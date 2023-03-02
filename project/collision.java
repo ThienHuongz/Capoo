@@ -74,7 +74,7 @@ public class collision {
             }   
         return false;
     }
-    public static boolean isCharacterCollisionD(BufferedImage image1, int x1, int y1, BufferedImage image2) {
+        public static boolean isCharacterCollisionD(BufferedImage image1, int x1, int y1, BufferedImage image2) {
 
         int intersectionY = y1;
         int intersectionWidth = image1.getWidth()-10;
@@ -91,7 +91,7 @@ public class collision {
     public static boolean isCharacterCollisionJump(BufferedImage image1, int x1, int y1, BufferedImage image2) {
 
         int intersectionX =  x1+10;
-        int intersectionWidth = image1.getWidth()-20;
+        int intersectionWidth = image1.getWidth()-30;
 
             for (int x = intersectionX; x < intersectionX + intersectionWidth; x++) {
                     int pixel2 = image2.getRGB(x, y1+20);
@@ -105,7 +105,7 @@ public class collision {
     public static boolean isCharacterCollisionDown(BufferedImage image1, int x1, int y1, BufferedImage image2) {
 
         int intersectionX =  x1+10;
-        int intersectionWidth = image1.getWidth()-10;
+        int intersectionWidth = image1.getWidth()-20;
         int intersectionHeight = image1.getHeight()-5 ;
 
             for (int x = intersectionX; x < intersectionX + intersectionWidth; x++) {
