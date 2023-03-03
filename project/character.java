@@ -14,6 +14,8 @@ public class character implements object{
     private static final int totalImageOfCharacter=7;
     private static final int animation = (int)(GamePanel.getFPS()/(int) (totalImageOfCharacter-3));
     private static final int gravity = 3;
+    private static final int heightOfJump = 30; // 30*speed = 30 * 3 = 90
+    
     public character(){
         init();
     }
@@ -99,7 +101,6 @@ public class character implements object{
                 }
             }
             if ((key.isKeyW() == true || key.isKeySpace() == true ) ){
-
                 if (isJump == false && ((collision.isCharacterCollisionDown(x,y,map.bg[1])))) {
                     isJump=true;
                     sound.SetClip(0);
@@ -123,7 +124,7 @@ public class character implements object{
                     setY(y-speed);
                 }
             }
-            if (isJump && d<30 && checkJump){
+            if (isJump && d<heightOfJump && checkJump){
                 if (!(collision.isCharacterCollisionJump(x,y-speed,map.bg[1]))){
                     d++;
                     setY(y-speed);
@@ -132,7 +133,7 @@ public class character implements object{
                     checkJump=false;
                 }
             }
-            else if (isJump && d<60 && checkJump){
+            else if (isJump && d<(heightOfJump*2) && checkJump){
                 if (!(collision.isCharacterCollisionDown(x,y,map.bg[1]))){
                     d++;
                     setY(y+speed);
@@ -142,7 +143,7 @@ public class character implements object{
                     isJump=false;
                 }
             }
-            else if (d>=60){
+            else if (d>=(heightOfJump*2)){
                 isJump=false;
                 d=0;
             }
