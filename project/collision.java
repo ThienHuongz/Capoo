@@ -61,9 +61,9 @@ public class collision {
     
         return false;
     }
-
+    
     public static boolean isCharacterCollisionA(int x1, int y1, BufferedImage image2) {
-        int intersectionX =  x1+10;
+        int intersectionX =  x1;
         int intersectionY = y1;
         int intersectionHeight = character.getHeight()-10 ;
 

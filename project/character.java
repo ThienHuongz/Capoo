@@ -9,6 +9,7 @@ public class character implements object{
     private BufferedImage walk[] = new BufferedImage[7],jump[] = new BufferedImage[7];
     private boolean isRight=true,isJump=false,checkJump=true;
     private Map map;
+    private SoundEffect sound = new SoundEffect();
 
     private static final int totalImageOfCharacter=7;
     private static final int animation = (int)(GamePanel.getFPS()/(int) (totalImageOfCharacter-3));
@@ -85,7 +86,6 @@ public class character implements object{
 
     }
     public void update(){
-        
         if (key.isKeyA() == true || key.isKeyW() == true || key.isKeyS() == true || key.isKeyD() == true || key.isKeySpace() == true || isJump){
             if (key.isKeyA() == true ){
                 if (!(collision.isCharacterCollisionA(x-speed,y,map.bg[1]))){
@@ -99,7 +99,12 @@ public class character implements object{
                 }
             }
             if ((key.isKeyW() == true || key.isKeySpace() == true ) ){
-                if (isJump == false && ((collision.isCharacterCollisionDown(x,y,map.bg[1])))) isJump=true;
+
+                if (isJump == false && ((collision.isCharacterCollisionDown(x,y,map.bg[1])))) {
+                    isJump=true;
+                    sound.SetClip(0);
+                    sound.play();
+                }
             }
             // if (key.isKeyS() == true){
             //     // if (!collision.isCharacterCollision(x,y+speed,map.bg[1])){
