@@ -13,6 +13,9 @@ public class character implements object{
     private static final int totalImageOfCharacter=7;
     private static final int animation = (int)(GamePanel.getFPS()/(int) (totalImageOfCharacter-3));
     private static final int gravity = 3;
+    public character(){
+        init();
+    }
     public character(KeyHandle key, Map map){
         x=100;
         y=500;
@@ -26,7 +29,9 @@ public class character implements object{
     }
 
     public void setX(int x) {
-        this.x = x;
+        if (x < map.bg[1].getWidth()){
+            this.x = x;
+        }
     }
 
     public int getY() {
@@ -34,7 +39,9 @@ public class character implements object{
     }
 
     public void setY(int y) {
-        this.y = y;
+        if (y < map.bg[1].getHeight()){
+            this.y = y;
+        }
     }
     public int getSpeed() {
         return this.speed;
@@ -43,8 +50,9 @@ public class character implements object{
     public void setSpeed(int speed) {
         this.speed = speed;
     }
-
-
+    public BufferedImage getImageCharacter(){
+        return walk[0];
+    }
     public void init(){
         try {
             for (int i=0;i<totalImageOfCharacter;i++){
@@ -80,53 +88,63 @@ public class character implements object{
         
         if (key.isKeyA() == true || key.isKeyW() == true || key.isKeyS() == true || key.isKeyD() == true || key.isKeySpace() == true || isJump){
             if (key.isKeyA() == true ){
-                if (!(collision.isCharacterCollisionA(walk[0],x-speed,y,map.bg[1]))){
+                if (!(collision.isCharacterCollisionA(x-speed,y,map.bg[1]))){
                     isRight=false;
-                    x-=speed;
+                    setX(x-speed);
+                }
+                else if (!(collision.isCharacterCollisionAW(x,y,map.bg[1]))){
+                    isRight=false;
+                    setX(x-speed);
+                    setY(y-speed);
                 }
             }
             if ((key.isKeyW() == true || key.isKeySpace() == true ) ){
-                if (isJump == false && ((collision.isCharacterCollisionDown(walk[0],x,y,map.bg[1])))) isJump=true;
+                if (isJump == false && ((collision.isCharacterCollisionDown(x,y,map.bg[1])))) isJump=true;
             }
             // if (key.isKeyS() == true){
-            //     // if (!collision.isCharacterCollision(walk[0],x,y+speed,map.bg[1])){
+            //     // if (!collision.isCharacterCollision(x,y+speed,map.bg[1])){
             //         y+=speed;
             //     // }
             // }
 
             if (key.isKeyD() == true ){ 
-                if (!(collision.isCharacterCollisionD(walk[0],x+speed,y,map.bg[1]))){
+                if (!(collision.isCharacterCollisionD(x+speed,y,map.bg[1]))){
                     isRight=true;
-                    x+=speed;
+                    setX(x+speed);
+                }
+                else if (!(collision.isCharacterCollisionDW(x,y,map.bg[1]))){
+                    isRight=true;
+                    setX(x+speed);
+                    setY(y-speed);
                 }
             }
-            if (isJump && d<32 && checkJump){
-                if (!(collision.isCharacterCollisionJump(walk[0],x,y-speed,map.bg[1]))){
+            if (isJump && d<30 && checkJump){
+                if (!(collision.isCharacterCollisionJump(x,y-speed,map.bg[1]))){
                     d++;
-                    y-=speed;
+                    setY(y-speed);
                 }
                 else{
                     checkJump=false;
                 }
             }
-            else if (isJump && d<64 && checkJump){
-                if (!(collision.isCharacterCollisionDown(walk[0],x,y,map.bg[1]))){
+            else if (isJump && d<60 && checkJump){
+                if (!(collision.isCharacterCollisionDown(x,y,map.bg[1]))){
                     d++;
-                    y+=speed;
+                    setY(y+speed);
                 }
                 else {
                     d=0;
                     isJump=false;
                 }
             }
-            else if (d>=64){
+            else if (d>=60){
                 isJump=false;
                 d=0;
             }
             if (checkJump == false && d>0){
-                if (!(collision.isCharacterCollisionDown(walk[0],x,y+speed,map.bg[1]))){
+                if (!(collision.isCharacterCollisionDown(x,y+speed,map.bg[1]))){
                     d--;
-                    y+=speed;
+                    setY(y+speed);
                 }
                 else{
                     d=0;
@@ -150,8 +168,9 @@ public class character implements object{
             else counterStep++;
         }
         if (!isJump){
-            if (!(collision.isCharacterCollisionDown(walk[0],x,y,map.bg[1]))){
-                y+=gravity;   
+            if (!(collision.isCharacterCollisionDown(x,y,map.bg[1]))){
+                setY(y+gravity);
+   
             }
         }
     }
