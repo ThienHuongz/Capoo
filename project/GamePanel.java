@@ -11,7 +11,7 @@ public class GamePanel extends JPanel implements Runnable{
     private Map map=new Map();
     KeyHandle key=new KeyHandle();
     private character c;
-
+    private SoundEffect sound = new SoundEffect();
     public GamePanel() {
         super();
 
@@ -25,6 +25,7 @@ public class GamePanel extends JPanel implements Runnable{
         thread=new Thread(this);
         // call run method
         thread.start();
+        playBGM();
     }
 
     public void run(){
@@ -86,5 +87,10 @@ public class GamePanel extends JPanel implements Runnable{
 
     public static int getFPS(){
         return FPS;
+    }
+    public void playBGM(){
+        sound.SetClip(1);
+        sound.play();
+        sound.loop();
     }
 }  
