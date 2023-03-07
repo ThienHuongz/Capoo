@@ -1,12 +1,9 @@
 package project;
 
-
 import java.net.URL;
-
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
-
 
 public class SoundEffect {
     private Clip clip;
@@ -26,6 +23,7 @@ public class SoundEffect {
 
         }
     }
+    
     public void play(){
         clip.start();
     }

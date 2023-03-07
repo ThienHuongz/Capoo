@@ -23,6 +23,8 @@ public class Map {
             System.err.println("Error loading map from file: " + e.getMessage());
         }
     }
-
+    public BufferedImage getBackground(){
+        return bg[1];
+    } 
 
 }
