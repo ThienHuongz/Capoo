@@ -16,13 +16,15 @@ public class Map {
     }
     public void init(){
         try {
-            bg[0]=ImageIO.read(getClass().getResourceAsStream("../assets/background.png"));
-            bg[1]=ImageIO.read(getClass().getResourceAsStream("../assets/Background OOP.png"));
+            bg[0]=ImageIO.read(getClass().getResourceAsStream("/assets/background.png"));
+            bg[1]=ImageIO.read(getClass().getResourceAsStream("/assets/Background OOP.png"));
 
         } catch (IOException e) {
             System.err.println("Error loading map from file: " + e.getMessage());
         }
     }
-
+    public BufferedImage getBackground(){
+        return bg[1];
+    } 
 
 }

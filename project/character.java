@@ -9,10 +9,16 @@ public class character implements object{
     private BufferedImage walk[] = new BufferedImage[7],jump[] = new BufferedImage[7];
     private boolean isRight=true,isJump=false,checkJump=true;
     private Map map;
+    private SoundEffect sound = new SoundEffect();
 
     private static final int totalImageOfCharacter=7;
     private static final int animation = (int)(GamePanel.getFPS()/(int) (totalImageOfCharacter-3));
     private static final int gravity = 3;
+    private static final int heightOfJump = 35; // 30*speed = 30 * 3 = 90
+    
+    public character(){
+        init();
+    }
     public character(KeyHandle key, Map map){
         x=100;
         y=500;
@@ -26,7 +32,9 @@ public class character implements object{
     }
 
     public void setX(int x) {
-        this.x = x;
+        if (x < map.bg[1].getWidth()){
+            this.x = x;
+        }
     }
 
     public int getY() {
@@ -34,7 +42,9 @@ public class character implements object{
     }
 
     public void setY(int y) {
-        this.y = y;
+        if (y < map.bg[1].getHeight()){
+            this.y = y;
+        }
     }
     public int getSpeed() {
         return this.speed;
@@ -43,8 +53,9 @@ public class character implements object{
     public void setSpeed(int speed) {
         this.speed = speed;
     }
-
-
+    public BufferedImage getImageCharacter(){
+        return walk[0];
+    }
     public void init(){
         try {
             for (int i=0;i<totalImageOfCharacter;i++){
@@ -77,57 +88,63 @@ public class character implements object{
 
     }
     public void update(){
-        
         if (key.isKeyA() == true || key.isKeyW() == true || key.isKeyS() == true || key.isKeyD() == true || key.isKeySpace() == true || isJump){
             if (key.isKeyA() == true ){
-                if (!(collision.isCharacterCollisionA(walk[0],x-speed,y,map.bg[1]))){
+                if (!(collision.isCharacterCollision(x-speed,y,"left"))){
                     isRight=false;
-                    x-=speed;
+                    setX(x-speed);
                 }
-                
+                else if (!(collision.isCharacterCollision(x,y,"left-up")) && (collision.isCharacterCollision(x,y,"down"))){
+                    isRight=false;
+                    setX(x-speed);
+                    setY(y-speed);
+                }
             }
             if ((key.isKeyW() == true || key.isKeySpace() == true ) ){
-                if (isJump == false && ((collision.isCharacterCollisionDown(walk[0],x+10,y,map.bg[1])))) isJump=true;
-            }
-            // if (key.isKeyS() == true){
-            //     // if (!collision.isCharacterCollision(walk[0],x,y+speed,map.bg[1])){
-            //         y+=speed;
-            //     // }
-            // }
-
-            if (key.isKeyD() == true ){ 
-                if (!(collision.isCharacterCollisionD(walk[0],x+speed,y,map.bg[1]))){
-                    isRight=true;
-                    x+=speed;
+                if (isJump == false && (collision.isCharacterCollision(x,y,"down"))) {
+                    isJump=true;
+                    sound.SetClip(0);
+                    sound.play();
                 }
             }
-            if (isJump && d<32 && checkJump){
-                if (!(collision.isCharacterCollisionJump(walk[0],x,y-speed,map.bg[1]))){
+            if (key.isKeyD() == true ){ 
+                if (!(collision.isCharacterCollision(x+speed,y,"right"))){
+                    isRight=true;
+                    setX(x+speed);
+                }
+                else if (!(collision.isCharacterCollision(x,y,"right-up")) &&  (collision.isCharacterCollision(x,y,"down"))){
+                    isRight=true;
+                    setX(x+speed);
+                    setY(y-speed);
+                }
+            }
+            if (isJump && d<heightOfJump && checkJump){
+                if (!(collision.isCharacterCollision(x,y-speed,"jump"))){
                     d++;
-                    y-=speed;
+                    setY(y-speed);
                 }
                 else{
                     checkJump=false;
                 }
             }
-            else if (isJump && d<64 && checkJump){
-                if (!(collision.isCharacterCollisionDown(walk[0],x,y,map.bg[1]))){
+            else if (isJump && d<(heightOfJump*2) && checkJump){
+                if (!(collision.isCharacterCollision(x,y,"down"))){
                     d++;
-                    y+=speed;
+                    setY(y+speed);
                 }
                 else {
                     d=0;
                     isJump=false;
                 }
             }
-            else if (d>=64){
+            else if (d>=(heightOfJump*2)){
                 isJump=false;
                 d=0;
             }
             if (checkJump == false && d>0){
-                if (!(collision.isCharacterCollisionDown(walk[0],x,y+speed,map.bg[1]))){
+                if (!(collision.isCharacterCollision(x,y+speed,"down"))){
                     d--;
-                    y+=speed;
+                    setY(y+speed);
                 }
                 else{
                     d=0;
@@ -150,9 +167,11 @@ public class character implements object{
             }
             else counterStep++;
         }
+
         if (!isJump){
-            if (!(collision.isCharacterCollisionDown(walk[0],x+10,y,map.bg[1]))){
-                y+=gravity;   
+            if (!(collision.isCharacterCollision(x,y,"down"))){
+                setY(y+gravity);
+   
             }
         }
     }
