@@ -12,7 +12,10 @@ public class GamePanel extends JPanel implements Runnable{
     KeyHandle key=new KeyHandle();
     private character c;
     private Timer time;
+    private ObjectTimeManager objectTime = new ObjectTimeManager();
     private SoundEffect sound = new SoundEffect();
+    
+    
     public GamePanel() {
         super();
 
@@ -86,6 +89,7 @@ public class GamePanel extends JPanel implements Runnable{
         //to ensure that any necessary pre-painting operations are performed
         super.paintComponent(g);
         map.draw(g);
+        objectTime.draw((Graphics2D)g);
         c.draw((Graphics2D) g);
         time.draw((Graphics2D)g);
         
