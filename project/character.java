@@ -91,14 +91,13 @@ public class character implements object{
         if (key.isKeyA() == true || key.isKeyW() == true || key.isKeyS() == true || key.isKeyD() == true || key.isKeySpace() == true || isJump){
             if (key.isKeyA() == true ){
                 if (!(collision.isCharacterCollision(x-speed,y,"left"))){
-                    isRight=false;
                     setX(x-speed);
                 }
                 else if (!(collision.isCharacterCollision(x,y,"left-up")) && (collision.isCharacterCollision(x,y,"down"))){
-                    isRight=false;
                     setX(x-speed);
                     setY(y-speed);
                 }
+                isRight=false;
             }
             if ((key.isKeyW() == true || key.isKeySpace() == true ) ){
                 if (isJump == false && (collision.isCharacterCollision(x,y,"down"))) {
@@ -109,14 +108,13 @@ public class character implements object{
             }
             if (key.isKeyD() == true ){ 
                 if (!(collision.isCharacterCollision(x+speed,y,"right"))){
-                    isRight=true;
                     setX(x+speed);
                 }
                 else if (!(collision.isCharacterCollision(x,y,"right-up")) &&  (collision.isCharacterCollision(x,y,"down"))){
-                    isRight=true;
                     setX(x+speed);
                     setY(y-speed);
                 }
+                isRight=true;
             }
             if (isJump && d<heightOfJump && checkJump){
                 if (!(collision.isCharacterCollision(x,y-speed,"jump"))){
@@ -155,7 +153,7 @@ public class character implements object{
                 checkJump=true;
             }
 
-
+        // CHARACTER IMG
             counterStep++;
             if (counterStep > animation){
                 step++;
@@ -168,6 +166,7 @@ public class character implements object{
             else counterStep++;
         }
 
+        // GRAVITY
         if (!isJump){
             if (!(collision.isCharacterCollision(x,y,"down"))){
                 setY(y+gravity);
