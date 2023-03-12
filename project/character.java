@@ -3,7 +3,8 @@ package project;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 import java.awt.Graphics;
-public class character implements object{
+
+public class character {
     private int x,y, speed,step=0,counterStep=0, d=0;
     private KeyHandle key;
     private BufferedImage walk[] = new BufferedImage[7],jump[] = new BufferedImage[7];
@@ -21,7 +22,7 @@ public class character implements object{
     }
     public character(KeyHandle key, Map map){
         x=100;
-        y=500;
+        y=530;
         speed=3;
         this.key=key;
         this.map=map;
@@ -32,7 +33,7 @@ public class character implements object{
     }
 
     public void setX(int x) {
-        if (x < map.bg[1].getWidth()){
+        if (x < map.getMapWidth()){
             this.x = x;
         }
     }
@@ -42,7 +43,7 @@ public class character implements object{
     }
 
     public void setY(int y) {
-        if (y < map.bg[1].getHeight()){
+        if (y < map.getMapHeight()){
             this.y = y;
         }
     }
@@ -172,6 +173,10 @@ public class character implements object{
                 setY(y+gravity);
    
             }
+        }
+        if (map.isCollision(x,y)){
+            sound.SetClip(2);
+            sound.play();
         }
     }
 }

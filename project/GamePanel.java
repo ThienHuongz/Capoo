@@ -74,7 +74,7 @@ public class GamePanel extends JPanel implements Runnable{
         //     IsRun=false;
         // }
         c.update();
-
+        map.update();
     }
 
     public void paintComponent( Graphics g){
