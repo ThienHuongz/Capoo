@@ -3,6 +3,7 @@ package project;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 import java.awt.Graphics;
+
 public class character implements object{
     private int x,y, speed,step=0,counterStep=0, d=0;
     private KeyHandle key;

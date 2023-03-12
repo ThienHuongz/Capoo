@@ -9,6 +9,7 @@ public class GamePanel extends JPanel implements Runnable{
     private static int FPS = 60;  // Frame per second
     private Thread thread;
     private Map map=new Map();
+    private Lava lava= new Lava();
     KeyHandle key=new KeyHandle();
     private character c;
     private SoundEffect sound = new SoundEffect();
@@ -81,6 +82,7 @@ public class GamePanel extends JPanel implements Runnable{
         //to ensure that any necessary pre-painting operations are performed
         super.paintComponent(g);
         map.draw(g);
+        lava.draw(g);
         c.draw((Graphics2D) g);
 
     }
