@@ -2,25 +2,32 @@ package project;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.Color;
 
 public class GamePanel extends JPanel implements Runnable{
     
     private boolean IsRun=true;
     private static int FPS = 60;  // Frame per second
     private Thread thread;
-    private Map map=new Map();
-    KeyHandle key=new KeyHandle();
-    private character c;
+    
     private SoundEffect sound = new SoundEffect();
+    private MouseHandle mouseKey ;
+
+    public MenuState mn;
+    public GamePlay gamePlay;
+    public KeyHandle key=new KeyHandle();
+    
     public GamePanel() {
         super();
 
         // respond to keyboard events of game panel
         this.setFocusable(true);
+        mouseKey = new MouseHandle(this);
 
+        mn = new MenuState(this);
+        this.addMouseListener(mouseKey);
+        this.addMouseMotionListener(mouseKey);
         this.addKeyListener(key);
-
-        c = new character(key,map);        
 
         thread=new Thread(this);
         // call run method
@@ -73,15 +80,19 @@ public class GamePanel extends JPanel implements Runnable{
         // if(key.isKeyEsc() == true) {
         //     IsRun=false;
         // }
-        c.update();
+
+        if (gamePlay!=null) gamePlay.update();
+
 
     }
 
     public void paintComponent( Graphics g){
         //to ensure that any necessary pre-painting operations are performed
         super.paintComponent(g);
-        map.draw(g);
-        c.draw((Graphics2D) g);
+
+        if (mn!=null) mn.draw(g);
+        if (gamePlay!=null) gamePlay.draw(g);
+
 
     }
 
