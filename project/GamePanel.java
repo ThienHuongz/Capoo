@@ -11,7 +11,11 @@ public class GamePanel extends JPanel implements Runnable{
     private Map map=new Map();
     KeyHandle key=new KeyHandle();
     private character c;
+    private Timer time;
+    private ObjectTimeManager objectTime = new ObjectTimeManager();
     private SoundEffect sound = new SoundEffect();
+    
+    
     public GamePanel() {
         super();
 
@@ -22,6 +26,8 @@ public class GamePanel extends JPanel implements Runnable{
 
         c = new character(key,map);        
 
+        time = new Timer(this);
+        
         thread=new Thread(this);
         // call run method
         thread.start();
@@ -76,13 +82,18 @@ public class GamePanel extends JPanel implements Runnable{
         c.update();
         map.update();
     }
+        
+
+    
 
     public void paintComponent( Graphics g){
         //to ensure that any necessary pre-painting operations are performed
         super.paintComponent(g);
         map.draw(g);
+        objectTime.draw((Graphics2D)g);
         c.draw((Graphics2D) g);
-
+        time.draw((Graphics2D)g);
+        
     }
 
     public static int getFPS(){
