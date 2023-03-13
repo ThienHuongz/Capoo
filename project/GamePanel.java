@@ -80,11 +80,14 @@ public class GamePanel extends JPanel implements Runnable{
         //     IsRun=false;
         // }
         c.update();
+
         map.update();
-    }
+
+        time.update();
         
 
-    
+
+    }
 
     public void paintComponent( Graphics g){
         //to ensure that any necessary pre-painting operations are performed

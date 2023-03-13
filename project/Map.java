@@ -10,6 +10,10 @@ public class Map {
     private BufferedImage bg[] = new BufferedImage[2];
     private ArrayList<Lava> lava= new ArrayList<Lava>();
     private ArrayList<Fish> fish= new ArrayList<Fish>();
+
+    private ArrayList<ObjectTimeManager> time= new ArrayList<ObjectTimeManager>();
+
+
     private int score=0;
 
     public Map() {
@@ -25,6 +29,10 @@ public class Map {
             fish.get(i).draw(g);
         }
 
+        for (int i=0;i<time.size();i++){
+            time.get(i).draw(g);
+        }
+
     }
     public void update (){
         for (int i=0;i<lava.size();i++){
@@ -32,6 +40,10 @@ public class Map {
         }
         for (int i=0;i<fish.size();i++){
             fish.get(i).update();
+        }
+
+        for (int i=0;i<time.size();i++){
+            time.get(i).update();
         }
 
     }
@@ -45,6 +57,9 @@ public class Map {
 
             fish.add(new Fish(500,480));
             fish.add(new Fish(450,80));
+
+            time.add(new ObjectTimeManager(250,630));
+            
 
 
         } catch (IOException e) {
@@ -68,6 +83,15 @@ public class Map {
                 return true;
             }
         }
+
+        for (int i=0;i<time.size();i++){
+            if (collision.isCharacterCollisionObject(x,y,time.get(i).getImage(),time.get(i).getX(),time.get(i).getY())){
+                score++;
+                time.remove(i);
+                return true;
+            }
+        }
+
         return false;
     }
     public int getMapWidth(){
