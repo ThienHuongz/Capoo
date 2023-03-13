@@ -10,21 +10,30 @@ public class Map {
     private BufferedImage bg[] = new BufferedImage[2];
     private ArrayList<Lava> lava= new ArrayList<Lava>();
     private ArrayList<Fish> fish= new ArrayList<Fish>();
+    private ArrayList<Box> boxes = new ArrayList<Box>(); 
     private int score=0;
 
     public Map() {
         init();
     }
+    
     public void draw(Graphics g){
+    	
         g.drawImage(bg[0],0,0, null);
         for (int i=0;i<lava.size();i++){
             lava.get(i).draw(g);
         }
+        
         g.drawImage(bg[1],0,0, null);
         for (int i=0;i<fish.size();i++){
             fish.get(i).draw(g);
         }
 
+        g.drawImage(bg[1],0,0, null);
+        for (int i=0;i<boxes.size();i++){
+            boxes.get(i).draw(g);
+        }
+        
     }
     public void update (){
         for (int i=0;i<lava.size();i++){
@@ -46,7 +55,10 @@ public class Map {
             fish.add(new Fish(500,480));
             fish.add(new Fish(450,80));
 
-
+            boxes.add(new Box(200, 215));
+            boxes.add(new Box(609, 625));
+            boxes.add(new Box(700, 335));
+            
         } catch (IOException e) {
             System.err.println("Error loading map from file: " + e.getMessage());
         }
@@ -60,11 +72,16 @@ public class Map {
                 System.out.println("true"); 
                 return true;
             }
+            for (int j=0;j<fish.size();j++){
+                if (collision.isCharacterCollisionObject(x,y,fish.get(j).getImage(),fish.get(j).getX(),fish.get(j).getY())){
+                    score++;
+                    fish.remove(j);
+                    return true;
+                }
+            }
         }
-        for (int i=0;i<fish.size();i++){
-            if (collision.isCharacterCollisionObject(x,y,fish.get(i).getImage(),fish.get(i).getX(),fish.get(i).getY())){
-                score++;
-                fish.remove(i);
+        for (int i=0;i<boxes.size();i++){
+            if (collision.isCharacterCollisionObject(x,y, boxes.get(i).getImage(),boxes.get(i).getX(), boxes.get(i).getY())){
                 return true;
             }
         }
