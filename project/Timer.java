@@ -13,11 +13,12 @@ public class Timer{
 	
 	GamePanel gp;
 	
-	private int countdownTime = 120*60;
+	private int countdownTime = 90*60;
 	private int miliseconds;
 	private int seconds;
 	private int minutes;
 	
+	final int tileTimeSize = 10;
 	
 
 	public Timer(GamePanel gp)
@@ -41,12 +42,26 @@ public class Timer{
 	{
 		Font font1 = new Font("Arial", Font.PLAIN, 50);
 		miliseconds = countdownTime%60;
-		seconds = countdownTime/120;
+		seconds = countdownTime/60;
+		
 		minutes = countdownTime/3600;
 		g2.setFont(font1);
 		g2.setColor(Color.white);
 		
-		String label = String.format("%02d:%02d:%02d", minutes,seconds, miliseconds);
+		String label;
+		
+		if( seconds > 60)
+		{
+			label = String.format("%02d:%02d", minutes,seconds-60);
+		}
+		else if(seconds == 60)
+		{
+			label = String.format("%02d:%02d", minutes-1,seconds-1);
+		}
+		else
+		{
+			label = String.format("%02d:%02d", minutes,seconds);
+		}
 		
 		int labelWidth = g2.getFontMetrics().stringWidth(label);
 		int x = (gp.getWidth() - labelWidth)/2;
@@ -54,6 +69,7 @@ public class Timer{
 		
 		if(countdownTime == 0 || countdownTime > 0)
 		{
+			g2.drawRect(x-20, 0, labelWidth*3/2-20, labelWidth/2);
 			g2.drawString(label,x,y);
 		}
 	}
