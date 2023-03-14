@@ -5,10 +5,14 @@ import javax.imageio.ImageIO;
 import java.io.IOException;
 public class MenuState {
     private BufferedImage mn[] = new BufferedImage[10];
+    private SoundEffect sound=new SoundEffect();
+    private SoundEffect soundBGM=new SoundEffect();
+
     private boolean startButton=false, exitButton=false;
     GamePanel gamepanel;
 
     public MenuState(GamePanel gamepanel){
+        playBGM(4);
         this.gamepanel=gamepanel;
         init();
     }
@@ -52,25 +56,44 @@ public class MenuState {
     }
     public void mouse_move(int mx, int my){
         if (!(new Rectangle(370, 350, getButtonWidth(), getButtonHeight()).contains(mx, my))){
+
             startButton=true;
+
         }
         else {
+            if (startButton){
+                sound.SetClip(2);
+                sound.play();
+            }
             startButton=false;
         }
         if (!(new Rectangle(370, 490, getButtonWidth(), getButtonHeight()).contains(mx, my))){
             exitButton=true;
         }
         else {
+            if (exitButton){
+                sound.SetClip(2);
+                sound.play();
+            }
             exitButton=false;
         }
     }
     public void mouse_click(int mx,int my){
         if (new Rectangle(370, 350, getButtonWidth(), getButtonHeight()).contains(mx, my)){
+            sound.SetClip(3);
+            sound.play();
+            soundBGM.pause();
+            playBGM(1);
             gamepanel.mn=null;
             gamepanel.gamePlay=new GamePlay(gamepanel);
         }
         if (new Rectangle(370, 490, getButtonWidth(), getButtonHeight()).contains(mx, my)){
             System.exit(0);
         }
+    }
+    public void playBGM(int i){
+        soundBGM.SetClip(i);
+        soundBGM.play();
+        soundBGM.loop();
     }
 }

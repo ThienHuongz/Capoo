@@ -32,7 +32,6 @@ public class GamePanel extends JPanel implements Runnable{
         thread=new Thread(this);
         // call run method
         thread.start();
-        playBGM();
     }
 
     public void run(){
@@ -99,9 +98,5 @@ public class GamePanel extends JPanel implements Runnable{
     public static int getFPS(){
         return FPS;
     }
-    public void playBGM(){
-        sound.SetClip(1);
-        sound.play();
-        sound.loop();
-    }
+
 }  

@@ -12,7 +12,9 @@ public class SoundEffect {
     public SoundEffect(){
         soundURL[0]=getClass().getResource("../assets/sound/mario_jumping-mike_koenig-989896458.wav");   
         soundURL[1]=getClass().getResource("../assets/sound/birdsong-140428.wav");    
-
+        soundURL[2]=getClass().getResource("../assets/sound/sound_hover2.wav"); 
+        soundURL[3]=getClass().getResource("../assets/sound/clickStartGame.wav");    
+        soundURL[4]=getClass().getResource("../assets/sound/MenuBGM.wav");    
     }
     public void SetClip(int i){
         try {
@@ -31,8 +33,8 @@ public class SoundEffect {
         clip.loop(clip.LOOP_CONTINUOUSLY);
     }
     public void pause(){
-        if (clip != null && clip.isRunning()) {
+        // if (clip != null && clip.isRunning()) {
             clip.stop();
-        }
+        // }
     }
 }
