@@ -13,7 +13,6 @@ public class Map {
     public void draw(Graphics g){
         g.drawImage(bg[0],0,0, null);
         g.drawImage(bg[1],0,0, null);
-
     }
     public void init(){
         try {
