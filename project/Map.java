@@ -25,6 +25,7 @@ public class Map {
             lava.get(i).draw(g);
         }
         g.drawImage(bg[1],0,0, null);
+
         for (int i=0;i<fish.size();i++){
             fish.get(i).draw(g);
         }

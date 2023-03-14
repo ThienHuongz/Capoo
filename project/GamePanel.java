@@ -8,29 +8,27 @@ public class GamePanel extends JPanel implements Runnable{
     private boolean IsRun=true;
     private static int FPS = 60;  // Frame per second
     private Thread thread;
-    private Map map=new Map();
-    KeyHandle key=new KeyHandle();
-    private character c;
-    private Timer time;
-    private SoundEffect sound = new SoundEffect();
-    
-    
+    private KeyHandle key=new KeyHandle();
+    private MouseHandle mouseKey ;
+
+    public MenuState mn;
+    public GamePlay gamePlay;
+
     public GamePanel() {
         super();
 
         // respond to keyboard events of game panel
         this.setFocusable(true);
+        mouseKey = new MouseHandle(this);
 
+        mn = new MenuState(this);
+        this.addMouseListener(mouseKey);
+        this.addMouseMotionListener(mouseKey);
         this.addKeyListener(key);
 
-        c = new character(key,map);        
-
-        time = new Timer(this);
-        
         thread=new Thread(this);
         // call run method
         thread.start();
-        playBGM();
     }
 
     public void run(){
@@ -76,27 +74,20 @@ public class GamePanel extends JPanel implements Runnable{
         // if(key.isKeyEsc() == true) {
         //     IsRun=false;
         // }
-        c.update();
-
-        map.update();
-
-        time.update();
+        if (gamePlay!=null) gamePlay.update();
     }
 
     public void paintComponent( Graphics g){
         //to ensure that any necessary pre-painting operations are performed
         super.paintComponent(g);
-        map.draw(g);
-        c.draw(g);
-        time.draw(g);    
+        if (mn!=null) mn.draw(g);
+        if (gamePlay!=null) gamePlay.draw(g);
     }
-
+    public KeyHandle getKey(){
+        return key;
+    }
     public static int getFPS(){
         return FPS;
     }
-    public void playBGM(){
-        sound.SetClip(1);
-        sound.play();
-        sound.loop();
-    }
+
 }  
