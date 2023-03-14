@@ -15,9 +15,9 @@ public class Timer{
 	final int tileTimeSize = 10;
 	
 
-	public Timer(GamePanel gp)
+	public Timer(GamePlay gamePlay)
 	{
-		this.gp = gp;
+		this.gp = gamePlay;
 	}
 	
 	public void update()
