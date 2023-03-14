@@ -7,6 +7,7 @@ import project.entity.Fish;
 import project.entity.Lava;
 import project.entity.ObjectTimeManager;
 import project.entity.Timer;
+import project.entity.character;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -82,7 +83,7 @@ public class Map {
     public boolean isCollision(int x, int y){
         for (int i=0;i<lava.size();i++){
             if (collision.isCharacterCollisionObject(x,y,lava.get(i).getImage(),lava.get(i).getX(),lava.get(i).getY())){
-                System.out.println("true"); 
+                character.isDie=true;
                 return true;
             }
         }

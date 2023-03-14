@@ -15,10 +15,11 @@ import project.EventListener.KeyHandle;
 public class character {
     private int x,y, speed,step=0,counterStep=0, d=0;
     private KeyHandle key;
-    private BufferedImage walk[] = new BufferedImage[7],jump[] = new BufferedImage[7];
+    private BufferedImage walk[] = new BufferedImage[7],jump[] = new BufferedImage[7],die[] = new BufferedImage[7];
     private boolean isRight=true,isJump=false;
     private Map map;
     private SoundEffect sound = new SoundEffect();
+    public static boolean isDie=false;
 
     private static final int totalImageOfCharacter=7;
     private static final int animation = (int)(GamePanel.getFPS()/(totalImageOfCharacter-3));
@@ -70,6 +71,8 @@ public class character {
             for (int i=0;i<totalImageOfCharacter;i++){
                 walk[i]=ImageIO.read(getClass().getResourceAsStream("../../assets/walk_"+i+".png"));
                 jump[i]=ImageIO.read(getClass().getResourceAsStream("../../assets/jump"+i+".png"));
+                die[i]=ImageIO.read(getClass().getResourceAsStream("../../assets/die"+i+".png"));
+
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -78,8 +81,11 @@ public class character {
 
     public void draw(Graphics g){
         if (isRight == true){
+            if (isDie){
+                g.drawImage(die[step], x+die[step].getWidth(), y,-die[step].getWidth(),die[step].getHeight() ,null);
+            }
             // reverse image
-            if (isJump){
+            else if (isJump){
                 g.drawImage(jump[step], x+jump[step].getWidth(), y,-jump[step].getWidth(),jump[step].getHeight() ,null);
             }
             else{
@@ -87,7 +93,10 @@ public class character {
             }
         }
         else{
-            if (isJump){
+            if (isDie){
+                g.drawImage(die[step], x, y, null);
+            }
+            else if (isJump){
                 g.drawImage(jump[step], x, y, null);
             }
             else{
