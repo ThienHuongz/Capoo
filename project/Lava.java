@@ -14,8 +14,6 @@ public class Lava extends object{
     public Lava(int x,int y){
         super(x,y);
         init();
-
-
     }
     public void init(){
         try {

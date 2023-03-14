@@ -5,7 +5,12 @@ import javax.imageio.ImageIO;
 import java.awt.Graphics;
 
 public class character {
-    private int x,y, speed,step=0,counterStep=0, d=0;
+    private static int x;
+	private static int y;
+	private int speed;
+	private int step=0;
+	private int counterStep=0;
+	private int d=0;
     private KeyHandle key;
     private BufferedImage walk[] = new BufferedImage[7],jump[] = new BufferedImage[7];
     private boolean isRight=true,isJump=false,checkJump=true;
@@ -28,8 +33,8 @@ public class character {
         this.map=map;
         init();
     }
-    public int getX() {
-        return this.x;
+    public static int getX() {
+        return x;
     }
 
     public void setX(int x) {
@@ -38,8 +43,8 @@ public class character {
         }
     }
 
-    public int getY() {
-        return this.y;
+    public static int getY() {
+        return y;
     }
 
     public void setY(int y) {
@@ -89,6 +94,7 @@ public class character {
 
     }
     public void update(){
+    	
         if (key.isKeyA() == true || key.isKeyW() == true || key.isKeyS() == true || key.isKeyD() == true || key.isKeySpace() == true || isJump){
             if (key.isKeyA() == true ){
                 if (!(collision.isCharacterCollision(x-speed,y,"left"))){
@@ -171,12 +177,12 @@ public class character {
         if (!isJump){
             if (!(collision.isCharacterCollision(x,y,"down"))){
                 setY(y+gravity);
-   
             }
         }
         if (map.isCollision(x,y)){
             sound.SetClip(2);
             sound.play();
         }
+        
     }
 }
