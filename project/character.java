@@ -155,7 +155,7 @@ public class character {
         
         // Check Collision of Object
         if (map.isCollision(x,y)){
-            sound.SetClip(2);
+            sound.SetClip(5);
             sound.play();
         }
     }

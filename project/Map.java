@@ -12,6 +12,7 @@ public class Map {
     private ArrayList<Fish> fish= new ArrayList<Fish>();
 
     private ArrayList<ObjectTimeManager> time= new ArrayList<ObjectTimeManager>();
+    private Timer timeCount;
 
 
     private int score=0;
@@ -33,6 +34,7 @@ public class Map {
         for (int i=0;i<time.size();i++){
             time.get(i).draw(g);
         }
+        timeCount.draw(g);    
 
     }
     public void update (){
@@ -46,6 +48,7 @@ public class Map {
         for (int i=0;i<time.size();i++){
             time.get(i).update();
         }
+        timeCount.update();
 
     }
     public void init(){
@@ -61,7 +64,7 @@ public class Map {
 
             time.add(new ObjectTimeManager(250,630));
             
-
+            timeCount = new Timer();
 
         } catch (IOException e) {
             System.err.println("Error loading map from file: " + e.getMessage());

@@ -7,7 +7,6 @@ import java.awt.Graphics;
 
 public class Timer{
 	
-	GamePanel gp;
 	private int countdownTime = 90*60;
 	private int seconds;
 	private int minutes;
@@ -15,9 +14,8 @@ public class Timer{
 	final int tileTimeSize = 10;
 	
 
-	public Timer(GamePlay gamePlay)
+	public Timer()
 	{
-		this.gp = gamePlay;
 	}
 	
 	public void update()
@@ -56,7 +54,7 @@ public class Timer{
 		}
 		
 		int labelWidth = g2.getFontMetrics().stringWidth(label);
-		int x = (gp.getWidth() - labelWidth)/2;
+		int x = (game.getScreenWidth() - labelWidth)/2;
 		int y = 50;
 		
 		if(countdownTime == 0 || countdownTime > 0)
