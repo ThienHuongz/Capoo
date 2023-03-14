@@ -70,6 +70,12 @@ public class Map {
             fish.add(new Fish(450,80));
 
             time.add(new ObjectTimeManager(250,630));
+            time.add(new ObjectTimeManager(700,600));
+            time.add(new ObjectTimeManager(200,400));
+            time.add(new ObjectTimeManager(600,300));
+            time.add(new ObjectTimeManager(250,630));
+            time.add(new ObjectTimeManager(200,200));
+
             
             timeCount = new Timer();
 
@@ -98,6 +104,7 @@ public class Map {
         for (int i=0;i<time.size();i++){
             if (collision.isCharacterCollisionObject(x,y,time.get(i).getImage(),time.get(i).getX(),time.get(i).getY())){
                 score++;
+                timeCount.countdownTime = timeCount.countdownTime + timeCount.plusSecond;
                 time.remove(i);
                 return true;
             }

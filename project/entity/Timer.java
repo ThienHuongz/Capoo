@@ -9,10 +9,10 @@ import project.game;
 
 public class Timer{
 	
-	private int countdownTime = 90*60;
+	public int countdownTime = 60*60;
 	private int seconds;
 	private int minutes;
-	
+	public int plusSecond = 10*60;
 	final int tileTimeSize = 10;
 	
 
@@ -26,10 +26,7 @@ public class Timer{
 		{
 			countdownTime = countdownTime-1;
 		}
-		else
-		{
-			
-		}
+
 	}
 	
 	public void draw(Graphics g2)
