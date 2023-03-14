@@ -20,7 +20,7 @@ public class MenuState {
             mn[2]=ImageIO.read(getClass().getResourceAsStream("../assets/exit1.png"));
             mn[3]=ImageIO.read(getClass().getResourceAsStream("../assets/exit2.png"));
             mn[4]=ImageIO.read(getClass().getResourceAsStream("../assets/Layer 1.png"));
-            mn[5]=ImageIO.read(getClass().getResourceAsStream("../assets/name.png"));
+            mn[5]=ImageIO.read(getClass().getResourceAsStream("../assets/name1.png"));
 
 
         } catch (IOException e) {
