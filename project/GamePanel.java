@@ -2,21 +2,18 @@ package project;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.Color;
 
 public class GamePanel extends JPanel implements Runnable{
     
     private boolean IsRun=true;
     private static int FPS = 60;  // Frame per second
     private Thread thread;
-    
-    private SoundEffect sound = new SoundEffect();
+    private KeyHandle key=new KeyHandle();
     private MouseHandle mouseKey ;
 
     public MenuState mn;
     public GamePlay gamePlay;
-    public KeyHandle key=new KeyHandle();
-    
+
     public GamePanel() {
         super();
 
@@ -79,22 +76,18 @@ public class GamePanel extends JPanel implements Runnable{
         // if(key.isKeyEsc() == true) {
         //     IsRun=false;
         // }
-
         if (gamePlay!=null) gamePlay.update();
-
-
     }
 
     public void paintComponent( Graphics g){
         //to ensure that any necessary pre-painting operations are performed
         super.paintComponent(g);
-
         if (mn!=null) mn.draw(g);
         if (gamePlay!=null) gamePlay.draw(g);
-
-
     }
-
+    public KeyHandle getKey(){
+        return key;
+    }
     public static int getFPS(){
         return FPS;
     }

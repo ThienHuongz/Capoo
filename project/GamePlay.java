@@ -9,7 +9,7 @@ public class GamePlay {
 
     public GamePlay(GamePanel gamepanel){
         this.gamepanel=gamepanel;
-        c = new character(gamepanel.key,map);        
+        c = new character(gamepanel.getKey(),map);        
 
     }
     public void update(){
