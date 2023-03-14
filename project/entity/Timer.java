@@ -3,12 +3,16 @@ package project.entity;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+
+import javax.imageio.ImageIO;
 
 import project.game;
 
 
 public class Timer{
 	
+	private BufferedImage timePanel[] = new BufferedImage[2];
 	public int countdownTime = 60*60;
 	private int seconds;
 	private int minutes;
@@ -18,7 +22,17 @@ public class Timer{
 
 	public Timer()
 	{
+		init();
 	}
+	
+	 public void init(){
+	        try {
+	        	 timePanel[0]=ImageIO.read(getClass().getResourceAsStream("../../assets/gameTimePanel2.png"));
+	        	 timePanel[1]=ImageIO.read(getClass().getResourceAsStream("../../assets/framButton1.png"));
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	    }
 	
 	public void update()
 	{
@@ -35,7 +49,7 @@ public class Timer{
 		seconds = countdownTime/60;
 		minutes = countdownTime/3600;
 		g2.setFont(font1);
-		g2.setColor(Color.white);
+		g2.setColor(Color.WHITE);
 		
 		String label;
 		
@@ -58,7 +72,8 @@ public class Timer{
 		
 		if(countdownTime == 0 || countdownTime > 0)
 		{
-			g2.drawRect(x-20, 0, labelWidth*3/2-20, labelWidth/2);
+//			g2.drawRect(x-20, 0, labelWidth*3/2-20, labelWidth/2);
+			g2.drawImage(timePanel[0],x-25,-30, null);
 			g2.drawString(label,x,y);
 		}
 	}
