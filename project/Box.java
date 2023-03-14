@@ -1,7 +1,6 @@
 package project;
 
 import java.awt.Graphics;
-import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -10,12 +9,9 @@ import javax.imageio.ImageIO;
 
 public class Box extends object {
     private BufferedImage image;
-    private boolean isPushed;
     private String direction;
-    
     public Box(int x, int y) {
         super(x, y);
-        this.isPushed = false;
         init();
     }
 
@@ -31,14 +27,6 @@ public class Box extends object {
         g.drawImage(image, super.getX(), super.getY(), null);
     }
 
-    public Rectangle getBoundingBox() {
-    	int width = image.getWidth();
-        int height = image.getHeight();
-    	
-    	Rectangle solidArea = new Rectangle(super.getX() + 5, super.getY() + height - 10, width - 10, 10);
-        
-        return solidArea;
-    }
     
     public BufferedImage getImage(){
         return image;
@@ -52,13 +40,6 @@ public class Box extends object {
         this.setY(newY);
     }
     
-    public boolean isPushed() {
-        return isPushed;
-    }
-
-    public void setPushed(boolean pushed) {
-        isPushed = pushed;
-    }
     
     public String getDirection() {
     	return direction;
@@ -71,10 +52,12 @@ public class Box extends object {
     public void update(){
     	//THE DIRECTION AND MOVE THE BOX 
     	if (direction == "right") {
+            direction="";
     		move(3, 0);
     	}
     	
     	if (direction == "left") {
+            direction="";
     		move(-3, 0);
     	}
     	

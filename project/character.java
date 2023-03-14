@@ -5,8 +5,8 @@ import javax.imageio.ImageIO;
 import java.awt.Graphics;
 
 public class character {
-    private static int x;
-	private static int y;
+    private int x;
+	private int y;
 	private int speed;
 	private int step=0;
 	private int counterStep=0;
@@ -33,7 +33,7 @@ public class character {
         this.map=map;
         init();
     }
-    public static int getX() {
+    public int getX() {
         return x;
     }
 
@@ -43,7 +43,7 @@ public class character {
         }
     }
 
-    public static int getY() {
+    public int getY() {
         return y;
     }
 
@@ -104,6 +104,7 @@ public class character {
                     setX(x-speed);
                     setY(y-speed);
                 }
+                map.checkCollisionBox(x, y, "left");
                 isRight=false;
             }
             if ((key.isKeyW() == true || key.isKeySpace() == true ) ){
@@ -121,6 +122,7 @@ public class character {
                     setX(x+speed);
                     setY(y-speed);
                 }
+                map.checkCollisionBox(x, y, "right");
                 isRight=true;
             }
             if (isJump && d<heightOfJump && checkJump){

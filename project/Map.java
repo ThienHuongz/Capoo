@@ -68,9 +68,7 @@ public class Map {
     public BufferedImage getBackground(){
         return bg[1];
     } 
-    public boolean isCollision(int x, int y){
-    	String direct = null;
-    	
+    public boolean isCollision(int x, int y){    	
         for (int i=0;i<lava.size();i++){
             if (collision.isCharacterCollisionObject(x,y,lava.get(i).getImage(),lava.get(i).getX(),lava.get(i).getY())){
                 System.out.println("true"); 
@@ -85,42 +83,19 @@ public class Map {
                 }
             }
         }
-        for (int i=0;i<box.size();i++){
-        	if (collision.isCharacterCollisionObjectBox(x,y, box.get(i).getImage(),box.get(i).getX(), box.get(i).getY())){
-        		 int boxCenterX = box.get(i).getX() + box.get(i).getImage().getWidth() / 2;
-        		    int charCenterX = x + box.get(i).getImage().getWidth() / 2; // Use box width
-        		    int boxCenterY = box.get(i).getY() + box.get(i).getImage().getHeight() / 2;
-        		    int charCenterY = y + box.get(i).getImage().getHeight() / 2; // Use box height
-
-        		    int deltaX = boxCenterX - charCenterX;
-        		    int deltaY = boxCenterY - charCenterY;
-
-        		    if (Math.abs(deltaX) > Math.abs(deltaY)) {
-        		        if (deltaX > 0) {
-        		        	box.get(i).setDirection("right");
-        		            System.out.println("right");
-        		            return true;
-        		        } else {
-        		        	box.get(i).setDirection("left");
-        		            System.out.println("left");
-        		            return true;
-        		        }
-        		    } else {
-        		        if (deltaY > 0) {
-        		        	box.get(i).setDirection("down");
-        		            System.out.println("down");
-        		            return true;
-        		        } else {
-        		        	box.get(i).setDirection("up");
-        		            System.out.println("up");
-        		            return true;
-        		        }
-        		    }
-        	}
-        }
+        
 		return false;
     }
-    
+    public boolean checkCollisionBox(int x, int y, String direct){
+        for (int i=0;i<box.size();i++){
+        	if (collision.isCharacterCollisionObjectBox(x,y, box.get(i).getImage(),box.get(i).getX(), box.get(i).getY())){
+        		box.get(i).setDirection(direct);
+                return true;
+        	}
+        }
+        return false;
+
+    }
     public int getMapWidth(){
         return bg[1].getWidth();
     }
