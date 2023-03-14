@@ -2,19 +2,13 @@ package project;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Graphics2D;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.text.DecimalFormat;
+import java.awt.Graphics;
 
-import javax.swing.JLabel;
 
 public class Timer{
 	
 	GamePanel gp;
-	
 	private int countdownTime = 90*60;
-	private int miliseconds;
 	private int seconds;
 	private int minutes;
 	
@@ -38,12 +32,10 @@ public class Timer{
 		}
 	}
 	
-	public void draw(Graphics2D g2)
+	public void draw(Graphics g2)
 	{
 		Font font1 = new Font("Arial", Font.PLAIN, 50);
-		miliseconds = countdownTime%60;
 		seconds = countdownTime/60;
-		
 		minutes = countdownTime/3600;
 		g2.setFont(font1);
 		g2.setColor(Color.white);

@@ -8,12 +8,12 @@ public class character {
     private int x,y, speed,step=0,counterStep=0, d=0;
     private KeyHandle key;
     private BufferedImage walk[] = new BufferedImage[7],jump[] = new BufferedImage[7];
-    private boolean isRight=true,isJump=false,checkJump=true;
+    private boolean isRight=true,isJump=false;
     private Map map;
     private SoundEffect sound = new SoundEffect();
 
     private static final int totalImageOfCharacter=7;
-    private static final int animation = (int)(GamePanel.getFPS()/(int) (totalImageOfCharacter-3));
+    private static final int animation = (int)(GamePanel.getFPS()/(totalImageOfCharacter-3));
     private static final int gravity = 3;
     private static final int heightOfJump = 35; // 30*speed = 30 * 3 = 90
     
@@ -90,16 +90,19 @@ public class character {
     }
     public void update(){
         if (key.isKeyA() == true || key.isKeyW() == true || key.isKeyS() == true || key.isKeyD() == true || key.isKeySpace() == true || isJump){
+            //MOVE LEFT
             if (key.isKeyA() == true ){
                 if (!(collision.isCharacterCollision(x-speed,y,"left"))){
                     setX(x-speed);
                 }
+                // MOVE LEFT UP
                 else if (!(collision.isCharacterCollision(x,y,"left-up")) && (collision.isCharacterCollision(x,y,"down"))){
                     setX(x-speed);
                     setY(y-speed);
                 }
                 isRight=false;
             }
+            //SET JUMP
             if ((key.isKeyW() == true || key.isKeySpace() == true ) ){
                 if (isJump == false && (collision.isCharacterCollision(x,y,"down"))) {
                     isJump=true;
@@ -107,54 +110,30 @@ public class character {
                     sound.play();
                 }
             }
+            // MOVE RIGHT
             if (key.isKeyD() == true ){ 
                 if (!(collision.isCharacterCollision(x+speed,y,"right"))){
                     setX(x+speed);
                 }
+                // MOVE RIGHT UP
                 else if (!(collision.isCharacterCollision(x,y,"right-up")) &&  (collision.isCharacterCollision(x,y,"down"))){
                     setX(x+speed);
                     setY(y-speed);
                 }
                 isRight=true;
             }
-            if (isJump && d<heightOfJump && checkJump){
-                if (!(collision.isCharacterCollision(x,y-speed,"jump"))){
+            // JUMP UP
+            if (isJump && d<heightOfJump && (!(collision.isCharacterCollision(x,y-speed,"jump")))){
                     d++;
-                    setY(y-speed);
-                }
-                else{
-                    checkJump=false;
-                }
+                    setY(y-speed);            
             }
-            else if (isJump && d<(heightOfJump*2) && checkJump){
-                if (!(collision.isCharacterCollision(x,y,"down"))){
-                    d++;
-                    setY(y+speed);
-                }
-                else {
-                    d=0;
-                    isJump=false;
-                }
-            }
-            else if (d>=(heightOfJump*2)){
-                isJump=false;
+            else {
                 d=0;
-            }
-            if (checkJump == false && d>0){
-                if (!(collision.isCharacterCollision(x,y+speed,"down"))){
-                    d--;
-                    setY(y+speed);
-                }
-                else{
-                    d=0;
-                }
-            }
-            else if (checkJump == false && d==0){
                 isJump=false;
-                checkJump=true;
             }
 
-        // CHARACTER IMG
+
+        // CHARACTER ANIMATION
             counterStep++;
             if (counterStep > animation){
                 step++;
@@ -171,9 +150,10 @@ public class character {
         if (!isJump){
             if (!(collision.isCharacterCollision(x,y,"down"))){
                 setY(y+gravity);
-   
             }
         }
+        
+        // Check Collision of Object
         if (map.isCollision(x,y)){
             sound.SetClip(2);
             sound.play();
