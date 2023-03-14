@@ -1,4 +1,4 @@
-package project;
+package project.entity;
 
 class object {
     private int x,y;

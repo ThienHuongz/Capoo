@@ -1,8 +1,10 @@
-package project;
+package project.entity;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
+
+import project.gameState.GamePanel;
 
 public class Fish extends object {
 
@@ -21,7 +23,7 @@ public class Fish extends object {
     public void init(){
         try {
             for (int i=0;i<totalImageOfFish;i++){
-                fish[i]=ImageIO.read(getClass().getResourceAsStream("../assets/Fish/fish_"+(i+1)+".png"));
+                fish[i]=ImageIO.read(getClass().getResourceAsStream("../../assets/Fish/fish_"+(i+1)+".png"));
             }
 
         } catch (Exception e) {

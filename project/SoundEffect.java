@@ -34,7 +34,7 @@ public class SoundEffect {
         clip.start();
     }
     public void loop(){
-        clip.loop(clip.LOOP_CONTINUOUSLY);
+        clip.loop(Clip.LOOP_CONTINUOUSLY);
     }
     public void pause(){
         // if (clip != null && clip.isRunning()) {

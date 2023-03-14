@@ -1,6 +1,10 @@
-package project;
+package project.gameState;
 
 import javax.swing.*;
+
+import project.EventListener.KeyHandle;
+import project.EventListener.MouseHandle;
+
 import java.awt.*;
 
 public class GamePanel extends JPanel implements Runnable{

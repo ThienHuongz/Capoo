@@ -1,8 +1,10 @@
-package project;
+package project.entity;
 
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+
+import project.game;
 
 
 public class Timer{

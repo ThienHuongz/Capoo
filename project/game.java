@@ -2,6 +2,8 @@ package project;
 
 import javax.swing.*;
 import javax.swing.JFrame;
+
+import project.gameState.GamePanel;
 public class game {
     
     private static final int ScreenWidth=1015, ScreenHeight=739;

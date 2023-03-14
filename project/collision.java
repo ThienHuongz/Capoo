@@ -1,6 +1,7 @@
 package project;
 
 import java.awt.image.BufferedImage;
+import project.entity.character;
 
 public class collision {
 

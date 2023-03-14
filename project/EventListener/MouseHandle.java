@@ -1,5 +1,8 @@
-package project;
+package project.EventListener;
 import java.awt.event.*;
+
+import project.gameState.GamePanel;
+
 
 
 public class MouseHandle extends MouseAdapter{

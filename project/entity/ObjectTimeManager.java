@@ -1,10 +1,12 @@
-package project;
+package project.entity;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+
+import project.gameState.GamePanel;
 
 
 
@@ -28,7 +30,7 @@ public class ObjectTimeManager extends object{
 			// for (int i=0;i<totalImageOfTime;i++){
 			// 	time[i] = ImageIO.read(getClass().getResourceAsStream("/assets/time/time_"+(i+1)+".png"));
 			// }
-				time[0] = ImageIO.read(getClass().getResourceAsStream("/assets/time/time_1.png"));
+				time[0] = ImageIO.read(getClass().getResourceAsStream("../../assets/time/time_1.png"));
 			
 		}catch(IOException e) {
 			e.printStackTrace();
@@ -36,11 +38,6 @@ public class ObjectTimeManager extends object{
 	}
 	
 	public void draw(Graphics g) {
-//		g.drawImage(time[0], 40,70,null); 
-//		g.drawImage(time[0], 700,600,null); 
-//		g.drawImage(time[0], 200,400,null);
-//		g.drawImage(time[0], 600,300,null);
-//		g.drawImage(time[0], 200,200,null);
 		g.drawImage(time[0], super.getX(), super.getY(), null);
 	}
 	

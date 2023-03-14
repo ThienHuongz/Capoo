@@ -1,8 +1,10 @@
-package project;
+package project.entity;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
+
+import project.gameState.GamePanel;
 
 public class Lava extends object{
     private BufferedImage lava[] = new BufferedImage[20];
@@ -20,7 +22,7 @@ public class Lava extends object{
     public void init(){
         try {
             for (int i=0;i<totalImageOfLava;i++){
-                lava[i]=ImageIO.read(getClass().getResourceAsStream("../assets/lava/lava_"+(i+1)+".png"));
+                lava[i]=ImageIO.read(getClass().getResourceAsStream("../../assets/lava/lava_"+(i+1)+".png"));
             }
 
         } catch (Exception e) {

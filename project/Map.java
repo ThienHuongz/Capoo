@@ -2,6 +2,12 @@ package project;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
+
+import project.entity.Fish;
+import project.entity.Lava;
+import project.entity.ObjectTimeManager;
+import project.entity.Timer;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
