@@ -8,6 +8,7 @@ import project.entity.Lava;
 import project.entity.ObjectTimeManager;
 import project.entity.Timer;
 import project.entity.character;
+import project.entity.Thorn;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ public class Map {
     private BufferedImage bg[] = new BufferedImage[2];
     private ArrayList<Lava> lava= new ArrayList<Lava>();
     private ArrayList<Fish> fish= new ArrayList<Fish>();
+    private ArrayList<Thorn> thorn= new ArrayList<Thorn>();
 
     private ArrayList<ObjectTimeManager> time= new ArrayList<ObjectTimeManager>();
     private Timer timeCount;
@@ -41,6 +43,9 @@ public class Map {
         for (int i=0;i<time.size();i++){
             time.get(i).draw(g);
         }
+        for (int i=0;i<thorn.size();i++){
+            thorn.get(i).draw(g);
+        }
         timeCount.draw(g);    
 
     }
@@ -54,6 +59,9 @@ public class Map {
 
         for (int i=0;i<time.size();i++){
             time.get(i).update();
+        }
+        for (int i=0;i<thorn.size();i++){
+            thorn.get(i).update();
         }
         timeCount.update();
 
@@ -71,10 +79,13 @@ public class Map {
 
             time.add(new ObjectTimeManager(250,630));
             time.add(new ObjectTimeManager(700,600));
-            time.add(new ObjectTimeManager(200,400));
-            time.add(new ObjectTimeManager(600,300));
-            time.add(new ObjectTimeManager(250,630));
-            time.add(new ObjectTimeManager(200,200));
+            // time.add(new ObjectTimeManager(200,400));
+            // time.add(new ObjectTimeManager(600,300));
+            // time.add(new ObjectTimeManager(250,630));
+            // time.add(new ObjectTimeManager(200,200));
+            
+            thorn.add(new Thorn(500,645,1));
+            thorn.add(new Thorn(35,143,2));
 
             
             timeCount = new Timer();
