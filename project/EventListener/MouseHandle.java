@@ -1,57 +1,63 @@
 package project.EventListener;
+
 import java.awt.event.*;
 
 import project.gameState.GamePanel;
 
+public class MouseHandle extends MouseAdapter {
+    GamePanel gamepanel;
 
+    private int mx, my;
 
-public class MouseHandle extends MouseAdapter{
-        GamePanel gamepanel;
+    public MouseHandle(GamePanel gamepanel) {
+        this.gamepanel = gamepanel;
+    }
 
-        private int mx,my;
+    public void mousePress() {
 
-        public MouseHandle(GamePanel gamepanel){
-            this.gamepanel=gamepanel;
-        }
-        
-        public void mousePress(){
+    }
 
-        }
-        public void mouseRelease(){
+    public void mouseRelease() {
 
-        }
-        public void mouseMove(){
-            if (gamepanel.mn != null) { gamepanel.mn.mouse_move(mx,my);}
+    }
 
-        }
-        public void mouseClick(){
-            if (gamepanel.mn != null) { gamepanel.mn.mouse_click(mx,my);}
-
+    public void mouseMove() {
+        if (gamepanel.mn != null) {
+            gamepanel.mn.mouse_move(mx, my);
         }
 
-        public void mousePressed(MouseEvent e) {
-            mx = e.getX();
-            my = e.getY();
-            mousePress();
+    }
+
+    public void mouseClick() {
+        if (gamepanel.mn != null) {
+            gamepanel.mn.mouse_click(mx, my);
         }
 
-        public void mouseReleased(MouseEvent e) {
-            mx = e.getX();
-            my = e.getY();
-            mouseRelease();
+    }
 
-        }
+    public void mousePressed(MouseEvent e) {
+        mx = e.getX();
+        my = e.getY();
+        mousePress();
+    }
 
-        public void mouseMoved(MouseEvent e) {
-            mx = e.getX();
-            my = e.getY();
-            mouseMove();
-        }
+    public void mouseReleased(MouseEvent e) {
+        mx = e.getX();
+        my = e.getY();
+        mouseRelease();
 
-        public void mouseClicked(MouseEvent e) { 
-            mx = e.getX();
-            my = e.getY();
-            mouseClick();
-        }
-    
+    }
+
+    public void mouseMoved(MouseEvent e) {
+        mx = e.getX();
+        my = e.getY();
+        mouseMove();
+    }
+
+    public void mouseClicked(MouseEvent e) {
+        mx = e.getX();
+        my = e.getY();
+        mouseClick();
+    }
+
 }
