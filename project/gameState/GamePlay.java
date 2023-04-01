@@ -4,15 +4,17 @@ import java.awt.Graphics;
 
 import project.Map;
 import project.entity.character;
+import project.Base;
 
-public class GamePlay {
+public class GamePlay implements Base{
     private character c;
-    private Map map = new Map();
+    private Map map;
 
     public GamePlay(GamePanel gamepanel) {
-        c = new character(gamepanel.getKey(), map);
+        this.map = new Map();
+        this.c = new character(gamepanel.getKey(), map);
     }
-
+    public void init(){}
     public void update() {
         map.update();
         c.update();

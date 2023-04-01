@@ -6,19 +6,20 @@ import javax.imageio.ImageIO;
 import java.awt.Graphics;
 
 import project.gameState.GamePanel;
+import project.Base;
 import project.Map;
 import project.SoundEffect;
 import project.collision;
 import project.EventListener.KeyHandle;
 
-public class character {
+public class character implements Base{
     private int x, y, speed, step = 0, counterStep = 0, d = 0;
     private KeyHandle key;
-    private BufferedImage walk[] = new BufferedImage[7], jump[] = new BufferedImage[7], die[] = new BufferedImage[7];
+    private BufferedImage walk[] = new BufferedImage[7], jump[] = new BufferedImage[7], die[] = new BufferedImage[7], stun;
     private boolean isRight = true, isJump = false;
     private Map map;
     private SoundEffect sound = new SoundEffect();
-    public static boolean isDie = false;
+    public static boolean isDie = false, isStun = false;
 
     private static final int totalImageOfCharacter = 7;
     private static final int animation = (int) (GamePanel.getFPS() / (totalImageOfCharacter - 3));
@@ -32,24 +33,16 @@ public class character {
     public character(KeyHandle key, Map map) {
         x = 100;
         y = 530;
-        speed = 3;
+        speed = 4;
         this.key = key;
         this.map = map;
         init();
-    }
-
-    public int getX() {
-        return this.x;
     }
 
     public void setX(int x) {
         if (x < map.getMapWidth()) {
             this.x = x;
         }
-    }
-
-    public int getY() {
-        return this.y;
     }
 
     public void setY(int y) {
@@ -78,6 +71,7 @@ public class character {
                 die[i] = ImageIO.read(getClass().getResourceAsStream("../../assets/die" + i + ".png"));
 
             }
+            stun = ImageIO.read(getClass().getResourceAsStream("../../assets/stun.png"));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -86,6 +80,7 @@ public class character {
     public void draw(Graphics g) {
         if (isRight == true) {
             if (isDie) {
+                g.drawImage(stun, x+10, y-45, null);
                 g.drawImage(die[step], x + die[step].getWidth(), y, -die[step].getWidth(), die[step].getHeight(), null);
             }
             // reverse image
@@ -98,6 +93,8 @@ public class character {
             }
         } else {
             if (isDie) {
+                g.drawImage(stun, x+10, y-45, null);
+
                 g.drawImage(die[step], x, y, null);
             } else if (isJump) {
                 g.drawImage(jump[step], x, y, null);
@@ -173,11 +170,25 @@ public class character {
                 setY(y + gravity);
             }
         }
-
         // Check Collision of Object
-        if (map.isCollision(x, y)) {
-            sound.SetClip(5);
-            sound.play();
+
+        switch (map.isCollision(x, y)){
+            case 1:
+                sound.SetClip(5);
+                sound.play();
+                break;
+            case 2:
+                sound.SetClip(6);
+                sound.play();
+                break;
+            case 3:
+                sound.SetClip(7);
+                sound.play();
+                break;
+            default:
+                break;
+
         }
+
     }
 }

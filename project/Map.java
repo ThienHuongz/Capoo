@@ -1,6 +1,6 @@
 package project;
 
-import java.awt.*;
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 
@@ -16,7 +16,7 @@ import project.entity.Gate;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class Map {
+public class Map implements Base{
 
     private BufferedImage bg[] = new BufferedImage[2];
     private ArrayList<Lava> lava = new ArrayList<Lava>();
@@ -90,7 +90,7 @@ public class Map {
             // time.add(new ObjectTime(200,200));
 
             thorn.add(new Thorn(500, 655));
-            thorn.add(new Thorn(35, 153));
+            thorn.add(new Thorn(35, 150,1));
 
             gate = new Gate(860, 65);
             timeCount = new Timer();
@@ -116,26 +116,34 @@ public class Map {
         return false;
     }
 
-    public boolean isCollision(int x, int y) {
+    public int isCollision(int x, int y) {
         if (forLoopCollision(lava, x, y, 0) || forLoopCollision(thorn, x, y, 0)) {
             character.isDie = true;
-            return true;
+            return 1;
         }
         if (forLoopCollision(fish, x, y, 1)) {
             score++;
-            return true;
+            return 1;
         }
         if (forLoopCollision(time, x, y, 1)) {
             timeCount.countdownTime = timeCount.countdownTime + timeCount.plusSecond;
-            return true;
+            return 1;
         }
         if (collision.isCharacterCollisionObject(x, y, gate.getImage(), gate.getX(),
-                gate.getY())) {
-            gate.setStep(1);
-        } else {
-            gate.setStep(0);
-        }
-        return false;
+                gate.getY()) ) {
+            if (!gate.checkTouch){
+                gate.setStep(1);
+                gate.checkTouch = true;
+                return 2;
+            }
+        }else{
+            if (gate.checkTouch){
+                gate.setStep(0);
+                gate.checkTouch = false;
+                return 3;
+            }
+        } 
+        return 0;
     }
 
     public int getMapWidth() {
@@ -149,5 +157,7 @@ public class Map {
     public BufferedImage getBackground() {
         return bg[1];
     }
+
+
 
 }

@@ -17,6 +17,8 @@ public class SoundEffect {
         soundURL[4] = getClass().getResource("../assets/sound/MenuBGM.wav");
 
         soundURL[5] = getClass().getResource("../assets/sound/fish_collect.wav");
+        soundURL[6] = getClass().getResource("../assets/sound/door-open.wav");
+        soundURL[7] = getClass().getResource("../assets/sound/door-close.wav");
 
     }
 

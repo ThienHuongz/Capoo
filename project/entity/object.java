@@ -6,16 +6,37 @@ import javax.imageio.ImageIO;
 
 import static project.gameState.GamePanel.getFPS;
 
-public abstract class object {
+import project.Base;
+public abstract class object implements Base{
     private BufferedImage obj[] = new BufferedImage[30];
-    private String objName;
+    private String objName, folderName;
     private int x, y, totalImage, animation;
     private int counterStep = 0, step = 0;
 
+    public object(){
+        
+    }
+    public object(int x, int y){
+        this.x = x;
+        this.y = y;
+    }
     public object(int x, int y, int totalImage, String objName) {
         this.x = x;
         this.y = y;
         this.objName = objName;
+        this.folderName = objName;
+        this.totalImage = totalImage;
+        this.animation = (int) (getFPS() / totalImage) + 10;
+        init();
+
+    }
+
+    // Overloading
+    public object(int x, int y, int totalImage, String objName, String folderName) {
+        this.x = x;
+        this.y = y;
+        this.objName = objName;
+        this.folderName = folderName;
         this.totalImage = totalImage;
         this.animation = (int) (getFPS() / totalImage) + 10;
         init();
@@ -26,7 +47,7 @@ public abstract class object {
         try {
             for (int i = 0; i < totalImage; i++) {
                 obj[i] = ImageIO.read(getClass()
-                        .getResourceAsStream("../../assets/" + objName + "/" + objName + "_" + (i + 1) + ".png"));
+                        .getResourceAsStream("../../assets/" + folderName + "/" + objName + "_" + (i + 1) + ".png"));
             }
 
         } catch (Exception e) {

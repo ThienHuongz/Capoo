@@ -6,5 +6,8 @@ public class Thorn extends object {
     public Thorn(int x, int y) {
         super(x, y,totalImageOfThorn,"thorn");
     }
+    public Thorn(int x, int y,int type) {
+        super(x, y,totalImageOfThorn,"thorn2","thorn");
+    }
 
 }

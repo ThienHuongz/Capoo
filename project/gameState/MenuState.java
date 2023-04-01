@@ -6,10 +6,10 @@ import javax.imageio.ImageIO;
 
 import project.SoundEffect;
 import project.game;
-
+import project.Base;
 import java.io.IOException;
 
-public class MenuState {
+public class MenuState implements Base{
     private BufferedImage mn[] = new BufferedImage[10];
     private SoundEffect sound = new SoundEffect();
     private SoundEffect soundBGM = new SoundEffect();
@@ -103,4 +103,6 @@ public class MenuState {
         soundBGM.play();
         soundBGM.loop();
     }
+
+    public void update(){}
 }
