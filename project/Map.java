@@ -6,7 +6,7 @@ import javax.imageio.ImageIO;
 
 import project.entity.Fish;
 import project.entity.Lava;
-import project.entity.ObjectTimeManager;
+import project.entity.ObjectTime;
 import project.entity.Timer;
 import project.entity.character;
 import project.entity.Thorn;
@@ -20,8 +20,9 @@ public class Map {
     private ArrayList<Lava> lava = new ArrayList<Lava>();
     private ArrayList<Fish> fish = new ArrayList<Fish>();
     private ArrayList<Thorn> thorn = new ArrayList<Thorn>();
+    private ArrayList<ObjectTime> time = new ArrayList<ObjectTime>();
 
-    private ArrayList<ObjectTimeManager> time = new ArrayList<ObjectTimeManager>();
+
     private Timer timeCount;
 
     private int score = 0;
@@ -32,6 +33,7 @@ public class Map {
 
     public void draw(Graphics g) {
         g.drawImage(bg[0], 0, 0, null);
+
         for (int i = 0; i < lava.size(); i++) {
             lava.get(i).draw(g);
         }
@@ -52,6 +54,7 @@ public class Map {
     }
 
     public void update() {
+
         for (int i = 0; i < lava.size(); i++) {
             lava.get(i).update();
         }
@@ -59,12 +62,7 @@ public class Map {
             fish.get(i).update();
         }
 
-        for (int i = 0; i < time.size(); i++) {
-            time.get(i).update();
-        }
-        for (int i = 0; i < thorn.size(); i++) {
-            thorn.get(i).update();
-        }
+
         timeCount.update();
 
     }
@@ -80,15 +78,15 @@ public class Map {
             fish.add(new Fish(500, 480));
             fish.add(new Fish(450, 80));
 
-            time.add(new ObjectTimeManager(250, 630));
-            time.add(new ObjectTimeManager(700, 600));
-            // time.add(new ObjectTimeManager(200,400));
-            // time.add(new ObjectTimeManager(600,300));
-            // time.add(new ObjectTimeManager(250,630));
-            // time.add(new ObjectTimeManager(200,200));
+            time.add(new ObjectTime(250, 630));
+            time.add(new ObjectTime(700, 600));
+            // time.add(new ObjectTime(200,400));
+            // time.add(new ObjectTime(600,300));
+            // time.add(new ObjectTime(250,630));
+            // time.add(new ObjectTime(200,200));
 
-            thorn.add(new Thorn(500, 645, 1));
-            thorn.add(new Thorn(35, 143, 2));
+            thorn.add(new Thorn(500, 645));
+            thorn.add(new Thorn(35, 143));
 
             timeCount = new Timer();
 
@@ -97,10 +95,7 @@ public class Map {
         }
     }
 
-    public BufferedImage getBackground() {
-        return bg[1];
-    }
-
+ 
     public boolean isCollision(int x, int y) {
         for (int i = 0; i < lava.size(); i++) {
             if (collision.isCharacterCollisionObject(x, y, lava.get(i).getImage(), lava.get(i).getX(),
@@ -138,4 +133,8 @@ public class Map {
     public int getMapHeight() {
         return bg[1].getHeight();
     }
+    public BufferedImage getBackground() {
+        return bg[1];
+    }
+
 }
