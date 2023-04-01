@@ -4,19 +4,9 @@ import javax.swing.*;
 import javax.swing.JFrame;
 
 import project.gameState.GamePanel;
-
 public class game {
 
     private static final int ScreenWidth = 1015, ScreenHeight = 739;
-
-    public static int getScreenWidth() {
-        return ScreenWidth;
-    }
-
-    public static int getScreenHeight() {
-        return ScreenHeight;
-    }
-
     public static void main(String[] args) {
         JFrame panel = new JFrame("Capoo Game");
 
@@ -41,4 +31,12 @@ public class game {
         panel.setIconImage(new ImageIcon("assets/logo.png").getImage());
 
     }
+    public static int getScreenWidth() {
+        return ScreenWidth;
+    }
+
+    public static int getScreenHeight() {
+        return ScreenHeight;
+    }
+
 }

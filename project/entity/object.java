@@ -68,4 +68,7 @@ public class object {
     public void setY(int y) {
         this.y = y;
     }
+    public void setStep(int step){
+        this.step=step;
+    }
 }

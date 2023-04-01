@@ -10,6 +10,8 @@ import project.entity.ObjectTime;
 import project.entity.Timer;
 import project.entity.character;
 import project.entity.Thorn;
+import project.entity.Gate;
+
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -22,7 +24,7 @@ public class Map {
     private ArrayList<Thorn> thorn = new ArrayList<Thorn>();
     private ArrayList<ObjectTime> time = new ArrayList<ObjectTime>();
 
-
+    private Gate gate;
     private Timer timeCount;
 
     private int score = 0;
@@ -37,7 +39,6 @@ public class Map {
         for (int i = 0; i < lava.size(); i++) {
             lava.get(i).draw(g);
         }
-        g.drawImage(bg[1], 0, 0, null);
 
         for (int i = 0; i < fish.size(); i++) {
             fish.get(i).draw(g);
@@ -49,6 +50,10 @@ public class Map {
         for (int i = 0; i < thorn.size(); i++) {
             thorn.get(i).draw(g);
         }
+
+        gate.draw(g);
+
+        g.drawImage(bg[1], 0, 0, null);
         timeCount.draw(g);
 
     }
@@ -61,7 +66,6 @@ public class Map {
         for (int i = 0; i < fish.size(); i++) {
             fish.get(i).update();
         }
-
 
         timeCount.update();
 
@@ -85,9 +89,10 @@ public class Map {
             // time.add(new ObjectTime(250,630));
             // time.add(new ObjectTime(200,200));
 
-            thorn.add(new Thorn(500, 645));
-            thorn.add(new Thorn(35, 143));
+            thorn.add(new Thorn(500, 655));
+            thorn.add(new Thorn(35, 153));
 
+            gate= new Gate(860, 65);
             timeCount = new Timer();
 
         } catch (IOException e) {
@@ -100,6 +105,13 @@ public class Map {
         for (int i = 0; i < lava.size(); i++) {
             if (collision.isCharacterCollisionObject(x, y, lava.get(i).getImage(), lava.get(i).getX(),
                     lava.get(i).getY())) {
+                character.isDie = true;
+                return true;
+            }
+        }
+        for (int i = 0; i < thorn.size(); i++) {
+            if (collision.isCharacterCollisionObject(x, y, thorn.get(i).getImage(), thorn.get(i).getX(),
+                    thorn.get(i).getY())) {
                 character.isDie = true;
                 return true;
             }
@@ -122,7 +134,13 @@ public class Map {
                 return true;
             }
         }
-
+        if (collision.isCharacterCollisionObject(x, y, gate.getImage(), gate.getX(),
+                gate.getY())) {
+                    gate.setStep(1);
+        }
+        else {
+            gate.setStep(0);
+        }
         return false;
     }
 
