@@ -9,9 +9,9 @@ import project.entity.Lava;
 import project.entity.ObjectTime;
 import project.entity.Timer;
 import project.entity.character;
+import project.entity.object;
 import project.entity.Thorn;
 import project.entity.Gate;
-
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -92,7 +92,7 @@ public class Map {
             thorn.add(new Thorn(500, 655));
             thorn.add(new Thorn(35, 153));
 
-            gate= new Gate(860, 65);
+            gate = new Gate(860, 65);
             timeCount = new Timer();
 
         } catch (IOException e) {
@@ -100,45 +100,39 @@ public class Map {
         }
     }
 
- 
-    public boolean isCollision(int x, int y) {
-        for (int i = 0; i < lava.size(); i++) {
-            if (collision.isCharacterCollisionObject(x, y, lava.get(i).getImage(), lava.get(i).getX(),
-                    lava.get(i).getY())) {
-                character.isDie = true;
+    // Bounded Type Parameters
+    // a method that operates on "object" might only want to accept instances of
+    // "object" or its subclasses
+    public <T extends object> boolean forLoopCollision(ArrayList<T> obj, int x, int y, int type) {
+        for (int i = 0; i < obj.size(); i++) {
+            if (collision.isCharacterCollisionObject(x, y, obj.get(i).getImage(), obj.get(i).getX(),
+                    obj.get(i).getY())) {
+                if (type == 1) {
+                    obj.remove(i);
+                }
                 return true;
             }
         }
-        for (int i = 0; i < thorn.size(); i++) {
-            if (collision.isCharacterCollisionObject(x, y, thorn.get(i).getImage(), thorn.get(i).getX(),
-                    thorn.get(i).getY())) {
-                character.isDie = true;
-                return true;
-            }
-        }
-        for (int i = 0; i < fish.size(); i++) {
-            if (collision.isCharacterCollisionObject(x, y, fish.get(i).getImage(), fish.get(i).getX(),
-                    fish.get(i).getY())) {
-                score++;
-                fish.remove(i);
-                return true;
-            }
-        }
+        return false;
+    }
 
-        for (int i = 0; i < time.size(); i++) {
-            if (collision.isCharacterCollisionObject(x, y, time.get(i).getImage(), time.get(i).getX(),
-                    time.get(i).getY())) {
-                score++;
-                timeCount.countdownTime = timeCount.countdownTime + timeCount.plusSecond;
-                time.remove(i);
-                return true;
-            }
+    public boolean isCollision(int x, int y) {
+        if (forLoopCollision(lava, x, y, 0) || forLoopCollision(thorn, x, y, 0)) {
+            character.isDie = true;
+            return true;
+        }
+        if (forLoopCollision(fish, x, y, 1)) {
+            score++;
+            return true;
+        }
+        if (forLoopCollision(time, x, y, 1)) {
+            timeCount.countdownTime = timeCount.countdownTime + timeCount.plusSecond;
+            return true;
         }
         if (collision.isCharacterCollisionObject(x, y, gate.getImage(), gate.getX(),
                 gate.getY())) {
-                    gate.setStep(1);
-        }
-        else {
+            gate.setStep(1);
+        } else {
             gate.setStep(0);
         }
         return false;
@@ -151,6 +145,7 @@ public class Map {
     public int getMapHeight() {
         return bg[1].getHeight();
     }
+
     public BufferedImage getBackground() {
         return bg[1];
     }

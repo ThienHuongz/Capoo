@@ -1,30 +1,32 @@
 package project.entity;
+
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 
-import project.gameState.GamePanel;
-public class object {
-    private int x, y;
+import static project.gameState.GamePanel.getFPS;
+
+public abstract class object {
     private BufferedImage obj[] = new BufferedImage[30];
     private String objName;
-    private int totalImage;
-    private int animation ;
+    private int x, y, totalImage, animation;
     private int counterStep = 0, step = 0;
 
-    public object(int x, int y,int totalImage, String objName) {
+    public object(int x, int y, int totalImage, String objName) {
         this.x = x;
         this.y = y;
-        this.objName=objName;
-        this.totalImage=totalImage;
-        this.animation= (int) (GamePanel.getFPS() / totalImage) + 10;
+        this.objName = objName;
+        this.totalImage = totalImage;
+        this.animation = (int) (getFPS() / totalImage) + 10;
         init();
 
     }
+
     public void init() {
         try {
             for (int i = 0; i < totalImage; i++) {
-                obj[i] = ImageIO.read(getClass().getResourceAsStream("../../assets/"+objName+"/"+objName +"_"+ (i + 1) + ".png"));
+                obj[i] = ImageIO.read(getClass()
+                        .getResourceAsStream("../../assets/" + objName + "/" + objName + "_" + (i + 1) + ".png"));
             }
 
         } catch (Exception e) {
@@ -32,6 +34,7 @@ public class object {
             e.printStackTrace();
         }
     }
+
     public void update() {
         counterStep++;
         if (counterStep > animation) {
@@ -52,7 +55,7 @@ public class object {
     public BufferedImage getImage() {
         return obj[step];
     }
-    
+
     public int getX() {
         return this.x;
     }
@@ -68,7 +71,8 @@ public class object {
     public void setY(int y) {
         this.y = y;
     }
-    public void setStep(int step){
-        this.step=step;
+
+    public void setStep(int step) {
+        this.step = step;
     }
 }

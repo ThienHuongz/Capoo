@@ -5,7 +5,7 @@ import project.entity.character;
 
 public class collision {
 
-    private static BufferedImage character = new character().getImageCharacter();
+    private static BufferedImage character = new character().getImage();
     private static BufferedImage bg = new Map().getBackground();
 
     public static boolean isCollision(BufferedImage image1, int x1, int y1, BufferedImage image2, int x2, int y2) {

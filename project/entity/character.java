@@ -66,7 +66,7 @@ public class character {
         this.speed = speed;
     }
 
-    public BufferedImage getImageCharacter() {
+    public BufferedImage getImage() {
         return walk[0];
     }
 
