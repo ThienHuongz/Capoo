@@ -12,13 +12,12 @@ import java.io.IOException;
 public class MenuState implements Base{
     private BufferedImage mn[] = new BufferedImage[10];
     private SoundEffect sound = new SoundEffect();
-    private SoundEffect soundBGM = new SoundEffect();
 
     private boolean startButton = false, exitButton = false;
     GamePanel gamepanel;
 
     public MenuState(GamePanel gamepanel) {
-        playBGM(4);
+        SoundEffect.playBGM(4);
         this.gamepanel = gamepanel;
         init();
     }
@@ -88,21 +87,16 @@ public class MenuState implements Base{
         if (new Rectangle(370, 350, getButtonWidth(), getButtonHeight()).contains(mx, my)) {
             sound.SetClip(3);
             sound.play();
-            soundBGM.pause();
-            playBGM(1);
+
             gamepanel.mn = null;
-            gamepanel.gamePlay = new GamePlay(gamepanel);
+            gamepanel.levelState = new LevelState(gamepanel);
         }
         if (new Rectangle(370, 490, getButtonWidth(), getButtonHeight()).contains(mx, my)) {
             System.exit(0);
         }
     }
 
-    public void playBGM(int i) {
-        soundBGM.SetClip(i);
-        soundBGM.play();
-        soundBGM.loop();
-    }
+
 
     public void update(){}
 }

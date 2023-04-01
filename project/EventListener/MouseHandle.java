@@ -25,6 +25,9 @@ public class MouseHandle extends MouseAdapter {
         if (gamepanel.mn != null) {
             gamepanel.mn.mouse_move(mx, my);
         }
+        if (gamepanel.levelState != null) {
+            gamepanel.levelState.mouse_move(mx, my);
+        }
 
     }
 
@@ -32,7 +35,9 @@ public class MouseHandle extends MouseAdapter {
         if (gamepanel.mn != null) {
             gamepanel.mn.mouse_click(mx, my);
         }
-
+        if (gamepanel.levelState != null) {
+            gamepanel.levelState.mouse_click(mx, my);
+        }
     }
 
     public void mousePressed(MouseEvent e) {

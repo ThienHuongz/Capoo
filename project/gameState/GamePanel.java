@@ -2,10 +2,10 @@ package project.gameState;
 
 import javax.swing.*;
 
-import project.Base;
+
 import project.EventListener.KeyHandle;
 import project.EventListener.MouseHandle;
-import project.Base;
+
 
 import java.awt.*;
 
@@ -19,6 +19,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     public MenuState mn;
     public GamePlay gamePlay;
+    public LevelState levelState;
 
     public GamePanel() {
         super();
@@ -87,10 +88,9 @@ public class GamePanel extends JPanel implements Runnable {
     public void paintComponent(Graphics g) {
         // to ensure that any necessary pre-painting operations are performed
         super.paintComponent(g);
-        if (mn != null)
-            mn.draw(g);
-        if (gamePlay != null)
-            gamePlay.draw(g);
+        if (mn != null)         mn.draw(g);
+        if (gamePlay != null)   gamePlay.draw(g);
+        if (levelState != null)   levelState.draw(g);
     }
 
     public KeyHandle getKey() {
