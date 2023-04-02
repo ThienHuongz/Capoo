@@ -6,15 +6,19 @@ import project.Map;
 import project.entity.character;
 import project.Base;
 
-public class GamePlay implements Base{
+public class GamePlay implements Base {
     private character c;
     private Map map;
+    public static int currentLevel = 1;
 
     public GamePlay(GamePanel gamepanel) {
         this.map = new Map();
         this.c = new character(gamepanel.getKey(), map);
     }
-    public void init(){}
+
+    public void init() {
+    }
+
     public void update() {
         map.update();
         c.update();

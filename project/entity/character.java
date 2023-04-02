@@ -12,13 +12,13 @@ import project.SoundEffect;
 import project.collision;
 import project.EventListener.KeyHandle;
 
-public class character implements Base{
+public class character implements Base {
     private int x, y, speed, step = 0, counterStep = 0, d = 0;
     private KeyHandle key;
-    private BufferedImage walk[] = new BufferedImage[7], jump[] = new BufferedImage[7], die[] = new BufferedImage[7], stun;
+    private BufferedImage walk[] = new BufferedImage[7], jump[] = new BufferedImage[7], die[] = new BufferedImage[7],
+            stun;
     private boolean isRight = true, isJump = false;
     private Map map;
-    private SoundEffect sound = new SoundEffect();
     public static boolean isDie = false, isStun = false;
 
     private static final int totalImageOfCharacter = 7;
@@ -80,7 +80,7 @@ public class character implements Base{
     public void draw(Graphics g) {
         if (isRight == true) {
             if (isDie) {
-                g.drawImage(stun, x+10, y-45, null);
+                g.drawImage(stun, x + 10, y - 45, null);
                 g.drawImage(die[step], x + die[step].getWidth(), y, -die[step].getWidth(), die[step].getHeight(), null);
             }
             // reverse image
@@ -93,7 +93,7 @@ public class character implements Base{
             }
         } else {
             if (isDie) {
-                g.drawImage(stun, x+10, y-45, null);
+                g.drawImage(stun, x + 10, y - 45, null);
 
                 g.drawImage(die[step], x, y, null);
             } else if (isJump) {
@@ -125,8 +125,7 @@ public class character implements Base{
             if ((key.isKeyW() == true || key.isKeySpace() == true)) {
                 if (isJump == false && (collision.isCharacterCollision(x, y, "down"))) {
                     isJump = true;
-                    sound.SetClip(0);
-                    sound.play();
+                    SoundEffect.play(0);
                 }
             }
             // MOVE RIGHT
@@ -172,18 +171,15 @@ public class character implements Base{
         }
         // Check Collision of Object
 
-        switch (map.isCollision(x, y)){
+        switch (map.isCollision(x, y)) {
             case 1:
-                sound.SetClip(5);
-                sound.play();
+                SoundEffect.play(5);
                 break;
             case 2:
-                sound.SetClip(6);
-                sound.play();
+                SoundEffect.play(6);
                 break;
             case 3:
-                sound.SetClip(7);
-                sound.play();
+                SoundEffect.play(7);
                 break;
             default:
                 break;

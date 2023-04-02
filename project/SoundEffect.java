@@ -6,10 +6,12 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
 public class SoundEffect {
-    private Clip clip;
-    private static Clip clipBGM;
+    private static Clip clipBGM, clip;
     private static URL soundURL[] = new URL[10];
-    private static SoundEffect soundBGM = new SoundEffect();
+    static {
+        new SoundEffect();
+    }
+
     public SoundEffect() {
         soundURL[0] = getClass().getResource("../assets/sound/mario_jumping-mike_koenig-989896458.wav");
         soundURL[1] = getClass().getResource("../assets/sound/birdsong-140428.wav");
@@ -20,8 +22,10 @@ public class SoundEffect {
         soundURL[5] = getClass().getResource("../assets/sound/fish_collect.wav");
         soundURL[6] = getClass().getResource("../assets/sound/door-open.wav");
         soundURL[7] = getClass().getResource("../assets/sound/door-close.wav");
+        soundURL[8] = getClass().getResource("../assets/sound/level_lock.wav");
     }
-    public void SetClip(int i) {
+
+    public static void SetClip(int i) {
         try {
             AudioInputStream audioStream = AudioSystem.getAudioInputStream(soundURL[i]);
             clip = AudioSystem.getClip();
@@ -31,24 +35,14 @@ public class SoundEffect {
         }
     }
 
-    public void play() {
-        clip.start();
+    public static void play(int i) {
+        SetClip(i);
+        if (clip != null) {
+            clip.start();
+        }
+
     }
 
-    public void loop() {
-        clip.loop(Clip.LOOP_CONTINUOUSLY);
-    }
-
-    public static void StopBGM() {
-        // if (clip != null && clip.isRunning()) {
-            clipBGM.stop();
-        // }
-    }
-    public static void playBGM(int i) {
-        SoundEffect.SetClipBGM(i);
-        clipBGM.start();
-        clipBGM.loop(Clip.LOOP_CONTINUOUSLY);
-    }
     public static void SetClipBGM(int i) {
         try {
             AudioInputStream audioStream = AudioSystem.getAudioInputStream(soundURL[i]);
@@ -58,4 +52,19 @@ public class SoundEffect {
 
         }
     }
+
+    public static void StopBGM() {
+        if (clipBGM != null) {
+            clipBGM.stop();
+        }
+    }
+
+    public static void playBGM(int i) {
+        SetClipBGM(i);
+        if (clipBGM != null) {
+            clipBGM.start();
+            clipBGM.loop(Clip.LOOP_CONTINUOUSLY);
+        }
+    }
+
 }

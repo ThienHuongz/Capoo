@@ -9,9 +9,8 @@ import project.game;
 import project.Base;
 import java.io.IOException;
 
-public class MenuState implements Base{
+public class MenuState implements Base {
     private BufferedImage mn[] = new BufferedImage[10];
-    private SoundEffect sound = new SoundEffect();
 
     private boolean startButton = false, exitButton = false;
     GamePanel gamepanel;
@@ -67,8 +66,7 @@ public class MenuState implements Base{
 
         } else {
             if (startButton) {
-                sound.SetClip(2);
-                sound.play();
+                SoundEffect.play(2);
             }
             startButton = false;
         }
@@ -76,8 +74,7 @@ public class MenuState implements Base{
             exitButton = true;
         } else {
             if (exitButton) {
-                sound.SetClip(2);
-                sound.play();
+                SoundEffect.play(2);
             }
             exitButton = false;
         }
@@ -85,8 +82,7 @@ public class MenuState implements Base{
 
     public void mouse_click(int mx, int my) {
         if (new Rectangle(370, 350, getButtonWidth(), getButtonHeight()).contains(mx, my)) {
-            sound.SetClip(3);
-            sound.play();
+            SoundEffect.play(3);
 
             gamepanel.mn = null;
             gamepanel.levelState = new LevelState(gamepanel);
@@ -96,7 +92,6 @@ public class MenuState implements Base{
         }
     }
 
-
-
-    public void update(){}
+    public void update() {
+    }
 }
