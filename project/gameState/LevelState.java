@@ -2,6 +2,8 @@ package project.gameState;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.awt.image.RescaleOp;
+
 import javax.imageio.ImageIO;
 
 import project.SoundEffect;
@@ -13,7 +15,7 @@ public class LevelState implements Base{
     private BufferedImage ls[] = new BufferedImage[10];
     private SoundEffect sound = new SoundEffect();
 
-    private boolean levelButton[] = new boolean[3];
+    private boolean levelButton[] = new boolean[7];
     GamePanel gamepanel;
 
     public LevelState(GamePanel gamepanel) {
@@ -30,6 +32,7 @@ public class LevelState implements Base{
             ls[4] = ImageIO.read(getClass().getResourceAsStream("../../assets/level/unstar.png"));
             ls[5] = ImageIO.read(getClass().getResourceAsStream("../../assets/background.png"));
             ls[6] = ImageIO.read(getClass().getResourceAsStream("../../assets/Background OOP1.png"));
+            ls[7] = ImageIO.read(getClass().getResourceAsStream("../../assets/level/choose.png"));
 
 
         } catch (IOException e) {
@@ -44,6 +47,12 @@ public class LevelState implements Base{
         for (int i=1;i<3;i++){
             g.drawImage(ls[3], 292+(90*i), 165, null);
         }
+        for (int i=0;i<5;i++){
+            if (levelButton[i]) {
+                g.drawImage(ls[7], 292+(90*i)-20, 145, null);
+            }
+            
+        }
 
 
     }
@@ -57,15 +66,15 @@ public class LevelState implements Base{
     }
 
     public void mouse_move(int mx, int my) {
-        for (int i=0;i<3;i++){
+        for (int i=0;i<5;i++){
             if (!(new Rectangle(292+(90*i), 165, getButtonWidth(), getButtonHeight()).contains(mx, my))) {
-                levelButton[i] = true;
+                levelButton[i] = false;
             } else {
-                if (levelButton[i]) {
+                if (!levelButton[i]) {
                     sound.SetClip(2);
                     sound.play();
                 }
-                levelButton[i] = false;
+                levelButton[i] = true;
             }
         }
 

@@ -16,17 +16,18 @@ import project.entity.Gate;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class Map implements Base{
+public class Map implements Base {
 
     private BufferedImage bg[] = new BufferedImage[2];
     private ArrayList<Lava> lava = new ArrayList<Lava>();
     private ArrayList<Fish> fish = new ArrayList<Fish>();
     private ArrayList<Thorn> thorn = new ArrayList<Thorn>();
     private ArrayList<ObjectTime> time = new ArrayList<ObjectTime>();
+    private BufferedImage progressBar[] = new BufferedImage[2];
 
     private Gate gate;
     private Timer timeCount;
-
+    private boolean Star[] = new boolean[7];
     private int score = 0;
 
     public Map() {
@@ -56,6 +57,11 @@ public class Map implements Base{
         g.drawImage(bg[1], 0, 0, null);
         timeCount.draw(g);
 
+        g.drawImage(progressBar[0], 15, 15, null);
+        for (int i = 0 + score; i < 4; i++) {
+            g.drawImage(progressBar[1], 24 + (33 * i), 22, null);
+
+        }
     }
 
     public void update() {
@@ -75,12 +81,15 @@ public class Map implements Base{
         try {
             bg[0] = ImageIO.read(getClass().getResourceAsStream("../assets/background.png"));
             bg[1] = ImageIO.read(getClass().getResourceAsStream("../assets/Background OOP1.png"));
-
+            progressBar[0] = ImageIO.read(getClass().getResourceAsStream("../assets/level/ProgressBar.png"));
+            progressBar[1] = ImageIO.read(getClass().getResourceAsStream("../assets/level/unstar.png"));
             lava.add(new Lava(609, 522));
             lava.add(new Lava(500, 134));
 
             fish.add(new Fish(500, 480));
             fish.add(new Fish(450, 80));
+            fish.add(new Fish(900, 190));
+            fish.add(new Fish(350, 320));
 
             time.add(new ObjectTime(250, 630));
             time.add(new ObjectTime(700, 600));
@@ -90,7 +99,7 @@ public class Map implements Base{
             // time.add(new ObjectTime(200,200));
 
             thorn.add(new Thorn(500, 655));
-            thorn.add(new Thorn(35, 150,1));
+            thorn.add(new Thorn(35, 150, 1));
 
             gate = new Gate(860, 65);
             timeCount = new Timer();
@@ -130,19 +139,19 @@ public class Map implements Base{
             return 1;
         }
         if (collision.isCharacterCollisionObject(x, y, gate.getImage(), gate.getX(),
-                gate.getY()) ) {
-            if (!gate.checkTouch){
+                gate.getY())) {
+            if (!gate.checkTouch) {
                 gate.setStep(1);
                 gate.checkTouch = true;
                 return 2;
             }
-        }else{
-            if (gate.checkTouch){
+        } else {
+            if (gate.checkTouch) {
                 gate.setStep(0);
                 gate.checkTouch = false;
                 return 3;
             }
-        } 
+        }
         return 0;
     }
 
@@ -157,7 +166,5 @@ public class Map implements Base{
     public BufferedImage getBackground() {
         return bg[1];
     }
-
-
 
 }
