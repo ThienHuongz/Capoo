@@ -25,45 +25,33 @@ public class SoundEffect {
         soundURL[8] = getClass().getResource("../assets/sound/level_lock.wav");
     }
 
-    public static void SetClip(int i) {
+    public static void play(int i) {
         try {
             AudioInputStream audioStream = AudioSystem.getAudioInputStream(soundURL[i]);
             clip = AudioSystem.getClip();
             clip.open(audioStream);
-        } catch (Exception e) {
-
-        }
-    }
-
-    public static void play(int i) {
-        SetClip(i);
-        if (clip != null) {
             clip.start();
-        }
 
-    }
-
-    public static void SetClipBGM(int i) {
-        try {
-            AudioInputStream audioStream = AudioSystem.getAudioInputStream(soundURL[i]);
-            clipBGM = AudioSystem.getClip();
-            clipBGM.open(audioStream);
         } catch (Exception e) {
 
-        }
-    }
-
-    public static void StopBGM() {
-        if (clipBGM != null) {
-            clipBGM.stop();
         }
     }
 
     public static void playBGM(int i) {
-        SetClipBGM(i);
-        if (clipBGM != null) {
+        try {
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(soundURL[i]);
+            clipBGM = AudioSystem.getClip();
+            clipBGM.open(audioStream);
             clipBGM.start();
             clipBGM.loop(Clip.LOOP_CONTINUOUSLY);
+        } catch (Exception e) {
+
+        } 
+    }
+    
+    public static void StopBGM() {
+        if (clipBGM != null) {
+            clipBGM.stop();
         }
     }
 
