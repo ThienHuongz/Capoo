@@ -38,7 +38,12 @@ public class character implements Base {
         this.map = map;
         init();
     }
-
+    public int getY(){
+        return y;
+    }
+    public int getX(){
+        return x;
+    }
     public void setX(int x) {
         if (x < map.getMapWidth()) {
             this.x = x;
@@ -169,22 +174,8 @@ public class character implements Base {
                 setY(y + gravity);
             }
         }
-        // Check Collision of Object
 
-        switch (map.isCollision(x, y)) {
-            case 1:
-                SoundEffect.play(5);
-                break;
-            case 2:
-                SoundEffect.play(6);
-                break;
-            case 3:
-                SoundEffect.play(7);
-                break;
-            default:
-                break;
 
-        }
 
     }
 }

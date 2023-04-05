@@ -8,8 +8,6 @@ import project.entity.Fish;
 import project.entity.Lava;
 import project.entity.ObjectTime;
 import project.entity.Timer;
-import project.entity.character;
-import project.entity.object;
 import project.entity.Thorn;
 import project.entity.Gate;
 
@@ -27,7 +25,6 @@ public class Map implements Base {
 
     private Gate gate;
     private Timer timeCount;
-    private boolean Star[] = new boolean[7];
     private int score = 0;
 
     public Map() {
@@ -93,10 +90,7 @@ public class Map implements Base {
 
             time.add(new ObjectTime(250, 630));
             time.add(new ObjectTime(700, 600));
-            // time.add(new ObjectTime(200,400));
-            // time.add(new ObjectTime(600,300));
-            // time.add(new ObjectTime(250,630));
-            // time.add(new ObjectTime(200,200));
+
 
             thorn.add(new Thorn(500, 655));
             thorn.add(new Thorn(35, 150, 1));
@@ -109,51 +103,6 @@ public class Map implements Base {
         }
     }
 
-    // Bounded Type Parameters
-    // a method that operates on "object" might only want to accept instances of
-    // "object" or its subclasses
-    public <T extends object> boolean forLoopCollision(ArrayList<T> obj, int x, int y, int type) {
-        for (int i = 0; i < obj.size(); i++) {
-            if (collision.isCharacterCollisionObject(x, y, obj.get(i).getImage(), obj.get(i).getX(),
-                    obj.get(i).getY())) {
-                if (type == 1) {
-                    obj.remove(i);
-                }
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public int isCollision(int x, int y) {
-        if (forLoopCollision(lava, x, y, 0) || forLoopCollision(thorn, x, y, 0)) {
-            character.isDie = true;
-            return 1;
-        }
-        if (forLoopCollision(fish, x, y, 1)) {
-            score++;
-            return 1;
-        }
-        if (forLoopCollision(time, x, y, 1)) {
-            timeCount.countdownTime = timeCount.countdownTime + timeCount.plusSecond;
-            return 1;
-        }
-        if (collision.isCharacterCollisionObject(x, y, gate.getImage(), gate.getX(),
-                gate.getY())) {
-            if (!gate.checkTouch) {
-                gate.setStep(1);
-                gate.checkTouch = true;
-                return 2;
-            }
-        } else {
-            if (gate.checkTouch) {
-                gate.setStep(0);
-                gate.checkTouch = false;
-                return 3;
-            }
-        }
-        return 0;
-    }
 
     public int getMapWidth() {
         return bg[1].getWidth();
@@ -166,5 +115,28 @@ public class Map implements Base {
     public BufferedImage getBackground() {
         return bg[1];
     }
-
+    public ArrayList<ObjectTime> getTime(){
+        return time;
+    }
+    public ArrayList<Thorn> getThorn(){
+        return thorn;
+    }
+    public ArrayList<Fish> getFish(){
+        return fish;
+    }
+    public ArrayList<Lava> getLava(){
+        return lava;
+    }
+    public Gate getGate(){
+        return gate;
+    }
+    public Timer getTimeCount(){
+        return timeCount;
+    }
+    public void setScore(int score){
+        this.score=score;
+    }
+    public int getScore(){
+        return score;
+    }
 }
