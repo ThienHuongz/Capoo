@@ -13,16 +13,16 @@ public class SoundEffect {
     }
 
     public SoundEffect() {
-        soundURL[0] = getClass().getResource("../assets/sound/mario_jumping-mike_koenig-989896458.wav");
-        soundURL[1] = getClass().getResource("../assets/sound/birdsong-140428.wav");
-        soundURL[2] = getClass().getResource("../assets/sound/sound_hover2.wav");
-        soundURL[3] = getClass().getResource("../assets/sound/clickStartGame.wav");
-        soundURL[4] = getClass().getResource("../assets/sound/MenuBGM.wav");
+        soundURL[0] = getClass().getResource("/assets/sound/mario_jumping-mike_koenig-989896458.wav");
+        soundURL[1] = getClass().getResource("/assets/sound/birdsong-140428.wav");
+        soundURL[2] = getClass().getResource("/assets/sound/sound_hover2.wav");
+        soundURL[3] = getClass().getResource("/assets/sound/clickStartGame.wav");
+        soundURL[4] = getClass().getResource("/assets/sound/MenuBGM.wav");
 
-        soundURL[5] = getClass().getResource("../assets/sound/fish_collect.wav");
-        soundURL[6] = getClass().getResource("../assets/sound/door-open.wav");
-        soundURL[7] = getClass().getResource("../assets/sound/door-close.wav");
-        soundURL[8] = getClass().getResource("../assets/sound/level_lock.wav");
+        soundURL[5] = getClass().getResource("/assets/sound/fish_collect.wav");
+        soundURL[6] = getClass().getResource("/assets/sound/door-open.wav");
+        soundURL[7] = getClass().getResource("/assets/sound/door-close.wav");
+        soundURL[8] = getClass().getResource("/assets/sound/level_lock.wav");
     }
 
     public static void play(int i) {

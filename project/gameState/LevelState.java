@@ -24,16 +24,16 @@ public class LevelState implements Base {
 
     public void init() {
         try {
-            ls[0] = ImageIO.read(getClass().getResourceAsStream("../../assets/level/level_menu1.png"));
+            ls[0] = ImageIO.read(getClass().getResourceAsStream("/assets/level/level_menu1.png"));
             // ls[1] =
             // ImageIO.read(getClass().getResourceAsStream("../../assets/level/setting_menu.png"));
             // ls[2] =
             // ImageIO.read(getClass().getResourceAsStream("../../assets/level/stars.png"));
-            ls[3] = ImageIO.read(getClass().getResourceAsStream("../../assets/level/unlock_level1.png"));
-            ls[4] = ImageIO.read(getClass().getResourceAsStream("../../assets/level/unstar.png"));
-            ls[5] = ImageIO.read(getClass().getResourceAsStream("../../assets/background.png"));
-            ls[6] = ImageIO.read(getClass().getResourceAsStream("../../assets/Background OOP1.png"));
-            ls[7] = ImageIO.read(getClass().getResourceAsStream("../../assets/level/choose.png"));
+            ls[3] = ImageIO.read(getClass().getResourceAsStream("/assets/level/unlock_level1.png"));
+            ls[4] = ImageIO.read(getClass().getResourceAsStream("/assets/level/unstar.png"));
+            ls[5] = ImageIO.read(getClass().getResourceAsStream("/assets/background.png"));
+            ls[6] = ImageIO.read(getClass().getResourceAsStream("/assets/Background OOP1.png"));
+            ls[7] = ImageIO.read(getClass().getResourceAsStream("/assets/level/choose.png"));
 
         } catch (IOException e) {
             System.err.println("Error loading map from file: " + e.getMessage());

@@ -23,12 +23,12 @@ public class MenuState implements Base {
 
     public void init() {
         try {
-            mn[0] = ImageIO.read(getClass().getResourceAsStream("../../assets/start1.png"));
-            mn[1] = ImageIO.read(getClass().getResourceAsStream("../../assets/start2.png"));
-            mn[2] = ImageIO.read(getClass().getResourceAsStream("../../assets/exit1.png"));
-            mn[3] = ImageIO.read(getClass().getResourceAsStream("../../assets/exit2.png"));
-            mn[4] = ImageIO.read(getClass().getResourceAsStream("../../assets/Layer 1.png"));
-            mn[5] = ImageIO.read(getClass().getResourceAsStream("../../assets/name1.png"));
+            mn[0] = ImageIO.read(getClass().getResourceAsStream("/assets/start1.png"));
+            mn[1] = ImageIO.read(getClass().getResourceAsStream("/assets/start2.png"));
+            mn[2] = ImageIO.read(getClass().getResourceAsStream("/assets/exit1.png"));
+            mn[3] = ImageIO.read(getClass().getResourceAsStream("/assets/exit2.png"));
+            mn[4] = ImageIO.read(getClass().getResourceAsStream("/assets/Layer 1.png"));
+            mn[5] = ImageIO.read(getClass().getResourceAsStream("/assets/name1.png"));
 
         } catch (IOException e) {
             System.err.println("Error loading map from file: " + e.getMessage());

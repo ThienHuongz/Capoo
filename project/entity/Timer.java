@@ -24,8 +24,8 @@ public class Timer {
 
 	public void init() {
 		try {
-			timePanel[0] = ImageIO.read(getClass().getResourceAsStream("../../assets/gameTimePanel2.png"));
-			timePanel[1] = ImageIO.read(getClass().getResourceAsStream("../../assets/framButton1.png"));
+			timePanel[0] = ImageIO.read(getClass().getResourceAsStream("/assets/gameTimePanel2.png"));
+			timePanel[1] = ImageIO.read(getClass().getResourceAsStream("/assets/framButton1.png"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

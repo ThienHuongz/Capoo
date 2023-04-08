@@ -47,7 +47,7 @@ public abstract class object implements Base{
         try {
             for (int i = 0; i < totalImage; i++) {
                 obj[i] = ImageIO.read(getClass()
-                        .getResourceAsStream("../../assets/" + folderName + "/" + objName + "_" + (i + 1) + ".png"));
+                        .getResourceAsStream("/assets/" + folderName + "/" + objName + "_" + (i + 1) + ".png"));
             }
 
         } catch (Exception e) {
