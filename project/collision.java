@@ -2,9 +2,9 @@ package project;
 
 import java.awt.image.BufferedImage;
 import project.entity.character;
+import project.gameState.GamePanel;
 
 public class collision {
-
     private static BufferedImage character = new character().getImageCharacter();
     private static BufferedImage bg = new Map().getBackground();
     

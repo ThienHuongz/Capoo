@@ -9,22 +9,25 @@ import project.game;
 import project.entity.character;
 
 import java.io.IOException;
-public class MenuState {
+public class GameOverState {
     private BufferedImage mn[] = new BufferedImage[10];
     private SoundEffect sound=new SoundEffect();
     private SoundEffect soundBGM=new SoundEffect();
     
     private boolean startButton=false, exitButton=false;
     GamePanel gamepanel;
+    
+    
 
-    public MenuState(GamePanel gamepanel){
-        playBGM(4);
+    public GameOverState(GamePanel gamepanel){
         this.gamepanel=gamepanel;
         init();
     }
-    public MenuState(){
+    
+    public GameOverState(){
     	
     }
+
 
     public void init(){
         try {
@@ -41,7 +44,7 @@ public class MenuState {
         }
     }
     public void draw(Graphics g){
-//    	super.paintComponents(g);
+
         g.drawImage(mn[4],0,0, null);
         if  (startButton) {
             g.drawImage(mn[0],370,350, null);
@@ -57,10 +60,9 @@ public class MenuState {
             g.drawImage(mn[3],370,490, null);
         }
         g.drawImage(mn[5],(game.getScreenWidth()-mn[5].getWidth())/2,140, null);
-        
-
 
     }
+
     public int getButtonWidth(){
         return mn[0].getWidth();
     }
@@ -80,6 +82,8 @@ public class MenuState {
             }
             startButton=false;
         }
+        
+        
         if (!(new Rectangle(370, 490, getButtonWidth(), getButtonHeight()).contains(mx, my))){
             exitButton=true;
         }
@@ -91,24 +95,25 @@ public class MenuState {
             exitButton=false;
         }
     }
+    
+    
     public void mouse_click(int mx,int my){
         if (new Rectangle(370, 350, getButtonWidth(), getButtonHeight()).contains(mx, my)){
-            sound.SetClip(3);
-            sound.play();
-            soundBGM.pause();
-            playBGM(1);
-            gamepanel.mn=null;
-            gamepanel.gamePlay=new GamePlay(gamepanel);
+//            sound.SetClip(3);
+//            sound.play();
+//            soundBGM.pause();
+//            playBGM(1);
+            gamepanel.overState = null;
+            gamepanel.gamePlay = new GamePlay(gamepanel);
         }
         if (new Rectangle(370, 490, getButtonWidth(), getButtonHeight()).contains(mx, my)){
             System.exit(0);
         }
     }
-    public void playBGM(int i){
-        soundBGM.SetClip(i);
-        soundBGM.play();
-        soundBGM.loop();
-    }
+    
+
+    
+
     
 
 }

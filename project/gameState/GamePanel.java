@@ -4,32 +4,36 @@ import javax.swing.*;
 
 import project.EventListener.KeyHandle;
 import project.EventListener.MouseHandle;
+import project.entity.Lava;
+import project.entity.character;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public class GamePanel extends JPanel implements Runnable{
     
     private boolean IsRun=true;
+    public static int gameOverNumber = 1;
     private static int FPS = 60;  // Frame per second
     private Thread thread;
     private KeyHandle key=new KeyHandle();
     private MouseHandle mouseKey ;
-
     public MenuState mn;
     public GamePlay gamePlay;
+    public GamePlay rePlay;
+//    private ArrayList<GamePlay> gamePlay= new ArrayList<GamePlay>();
+    public GameOverState overState;
 
     public GamePanel() {
+    	
         super();
-
         // respond to keyboard events of game panel
         this.setFocusable(true);
         mouseKey = new MouseHandle(this);
-
         mn = new MenuState(this);
         this.addMouseListener(mouseKey);
         this.addMouseMotionListener(mouseKey);
         this.addKeyListener(key);
-
         thread=new Thread(this);
         // call run method
         thread.start();
@@ -78,7 +82,9 @@ public class GamePanel extends JPanel implements Runnable{
         // if(key.isKeyEsc() == true) {
         //     IsRun=false;
         // }
-        if (gamePlay!=null) gamePlay.update();
+    		if (gamePlay!=null) gamePlay.update();
+
+
     }
 
     public void paintComponent( Graphics g){
@@ -86,6 +92,19 @@ public class GamePanel extends JPanel implements Runnable{
         super.paintComponent(g);
         if (mn!=null) mn.draw(g);
         if (gamePlay!=null) gamePlay.draw(g);
+
+        
+        if(character.isDie == true && overState == null)
+        {
+            gamePlay = null;
+            overState = new GameOverState(this);
+            character.isDie = false;
+        }
+        if(overState != null)
+        {
+        	overState.draw(g);	
+        }
+
     }
     public KeyHandle getKey(){
         return key;
@@ -93,5 +112,6 @@ public class GamePanel extends JPanel implements Runnable{
     public static int getFPS(){
         return FPS;
     }
+    
 
 }  

@@ -1,6 +1,7 @@
 package project.EventListener;
 import java.awt.event.*;
 
+import project.entity.character;
 import project.gameState.GamePanel;
 
 
@@ -22,11 +23,18 @@ public class MouseHandle extends MouseAdapter{
         }
         public void mouseMove(){
             if (gamepanel.mn != null) { gamepanel.mn.mouse_move(mx,my);}
+            
+            if(gamepanel.overState != null) {
+            	gamepanel.overState.mouse_move(mx,my);
+            }
 
         }
         public void mouseClick(){
             if (gamepanel.mn != null) { gamepanel.mn.mouse_click(mx,my);}
-
+            
+            if(gamepanel.overState != null) {
+            	gamepanel.overState.mouse_click(mx,my);
+            }
         }
 
         public void mousePressed(MouseEvent e) {

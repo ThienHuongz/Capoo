@@ -5,7 +5,10 @@ import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 import java.awt.Graphics;
 
+import project.gameState.GameOverState;
 import project.gameState.GamePanel;
+import project.gameState.MenuState;
+import project.gameState.GameOverState;
 import project.Map;
 import project.SoundEffect;
 import project.collision;
@@ -17,14 +20,17 @@ public class character {
     private KeyHandle key;
     private BufferedImage walk[] = new BufferedImage[7],jump[] = new BufferedImage[7],die[] = new BufferedImage[7];
     private boolean isRight=true,isJump=false;
+    
+    private GamePanel gp;
     private Map map;
     private SoundEffect sound = new SoundEffect();
     public static boolean isDie=false;
-
+    
     private static final int totalImageOfCharacter=7;
     private static final int animation = (int)(GamePanel.getFPS()/(totalImageOfCharacter-3));
     private static final int gravity = 3;
     private static final int heightOfJump = 35; // 30*speed = 30 * 3 = 90
+    
     
     public character(){
         init();
@@ -80,32 +86,43 @@ public class character {
     }
 
     public void draw(Graphics g){
-        if (isRight == true){
+    	
+    	
+        if (isRight == true ){
             if (isDie){
                 g.drawImage(die[step], x+die[step].getWidth(), y,-die[step].getWidth(),die[step].getHeight() ,null);
             }
             // reverse image
-            else if (isJump){
+            if (isJump){
                 g.drawImage(jump[step], x+jump[step].getWidth(), y,-jump[step].getWidth(),jump[step].getHeight() ,null);
             }
             else{
                 g.drawImage(walk[step], x+walk[step].getWidth(), y,-walk[step].getWidth(),walk[step].getHeight() ,null);
             }
         }
-        else{
+        else {
             if (isDie){
                 g.drawImage(die[step], x, y, null);
+//                overState.draw(g);
             }
-            else if (isJump){
+            if (isJump){
                 g.drawImage(jump[step], x, y, null);
             }
             else{
                 g.drawImage(walk[step], x, y, null);
             }
         }
+        
+//        if(isDie) {
+//    		overState = new GameOverState(gp);
+//    		
+//    		overState.draw(g);
+//    	}
 
     }
     public void update(){
+    	
+//    	if(isDie == false) {
         if (key.isKeyA() == true || key.isKeyW() == true || key.isKeyS() == true || key.isKeyD() == true || key.isKeySpace() == true || isJump){
             //MOVE LEFT
             if (key.isKeyA() == true ){

@@ -8,6 +8,10 @@ import project.entity.Lava;
 import project.entity.ObjectTimeManager;
 import project.entity.Timer;
 import project.entity.character;
+import project.gameState.GamePanel;
+import project.gameState.GamePlay;
+import project.gameState.MenuState;
+import project.gameState.GameOverState;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,8 +24,6 @@ public class Map {
 
     private ArrayList<ObjectTimeManager> time= new ArrayList<ObjectTimeManager>();
     private Timer timeCount;
-
-
     private int score=0;
 
     public Map() {
@@ -41,7 +43,8 @@ public class Map {
         for (int i=0;i<time.size();i++){
             time.get(i).draw(g);
         }
-        timeCount.draw(g);    
+        timeCount.draw(g);
+        
 
     }
     public void update (){
@@ -69,7 +72,6 @@ public class Map {
             fish.add(new Fish(500,480));
             fish.add(new Fish(450,80));
 
-            time.add(new ObjectTimeManager(250,630));
             time.add(new ObjectTimeManager(700,600));
             time.add(new ObjectTimeManager(200,400));
             time.add(new ObjectTimeManager(600,300));

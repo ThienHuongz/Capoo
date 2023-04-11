@@ -30,12 +30,14 @@ public class Fish extends object {
             e.printStackTrace();
         }
     }
+    
     public void draw(Graphics g){
         // g.drawImage(fish[step], 500, 480, null);
         // g.drawImage(fish[step], 450, 80, null);
         g.drawImage(fish[step],super.getX(), super.getY(), null);
 
     }
+    
     public void update(){
         counterStep++;
         if (counterStep > animation){

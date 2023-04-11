@@ -15,9 +15,7 @@ public class SoundEffect {
         soundURL[2]=getClass().getResource("../assets/sound/sound_hover2.wav"); 
         soundURL[3]=getClass().getResource("../assets/sound/clickStartGame.wav");    
         soundURL[4]=getClass().getResource("../assets/sound/MenuBGM.wav");    
-
         soundURL[5]=getClass().getResource("../assets/sound/fish_collect.wav");    
-
 
     }
     public void SetClip(int i){
@@ -38,7 +36,7 @@ public class SoundEffect {
     }
     public void pause(){
         // if (clip != null && clip.isRunning()) {
-            clip.stop();
+        clip.stop();
         // }
     }
 }
