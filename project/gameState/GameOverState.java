@@ -77,8 +77,7 @@ public class GameOverState {
         }
         else {
             if (startButton){
-                sound.SetClip(2);
-                sound.play();
+                sound.play(2);
             }
             startButton=false;
         }
@@ -89,8 +88,7 @@ public class GameOverState {
         }
         else {
             if (exitButton){
-                sound.SetClip(2);
-                sound.play();
+                sound.play(2);
             }
             exitButton=false;
         }

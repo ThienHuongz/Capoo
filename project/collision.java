@@ -5,9 +5,12 @@ import project.entity.character;
 import project.gameState.GamePanel;
 
 public class collision {
-    private static BufferedImage character = new character().getImageCharacter();
-    private static BufferedImage bg = new Map().getBackground();
-    
+
+
+    public static BufferedImage character = new character().getImage();
+    public static BufferedImage bg = new Map().getBackground();
+
+
     public static boolean isCollision(BufferedImage image1, int x1, int y1, BufferedImage image2, int x2, int y2) {
         // Calculate the bounds of the images
         // TOP LEFT X
@@ -97,7 +100,7 @@ public class collision {
                 }
                 break;
             case "right-up":
-                pixel = bg.getRGB(intersectionX + character.getWidth()+ 5, y1);
+                pixel = bg.getRGB(intersectionX + character.getWidth() + 5, y1);
                 if (((pixel >> 24) & 0xff) != 0) {
                     return true;
                 }
@@ -105,7 +108,7 @@ public class collision {
             case "jump":
                 intersectionX = x1 + 10;
                 intersectionWidth = character.getWidth() - 30;
-    
+
                 for (int x = intersectionX; x < intersectionX + intersectionWidth; x++) {
                     pixel = bg.getRGB(x, y1 + 20);
                     if (((pixel >> 24) & 0xff) != 0) {
@@ -117,27 +120,28 @@ public class collision {
                 intersectionX = x1 + 10;
                 intersectionWidth = character.getWidth() - 20;
                 intersectionHeight = character.getHeight() - 5;
-    
+
                 for (int x = intersectionX; x < intersectionX + intersectionWidth; x++) {
                     pixel = bg.getRGB(x, y1 + intersectionHeight);
                     if (((pixel >> 24) & 0xff) != 0) {
                         return true;
                     }
                 }
-                break; 
+                break;
         }
         return false;
     }
-    public static boolean isCharacterCollisionObject(int x1, int y1,BufferedImage image2, int x2, int y2) {
-        int image1X = x1+20;
+
+    public static boolean isCharacterCollisionObject(int x1, int y1, BufferedImage image2, int x2, int y2) {
+        int image1X = x1 + 20;
         int image1Y = y1;
-        int image1Width = x1 + character.getWidth()-20;
+        int image1Width = x1 + character.getWidth() - 20;
         int image1Height = y1 + character.getHeight();
 
         int image2X = x2;
         int image2Y = y2;
         int image2Width = x2 + image2.getWidth();
-        int image2Height = y2 + image2.getHeight()-22;
+        int image2Height = y2 + image2.getHeight() - 22;
 
         if (image1X < image2Width &&
                 image1Width > image2X &&

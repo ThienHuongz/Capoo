@@ -4,7 +4,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class KeyHandle implements KeyListener {
-    private boolean keyW, keyA, keyS, keyD, keySpace,keyEsc;
+    private boolean keyW, keyA, keyS, keyD, keySpace, keyEsc;
 
     public boolean isKeyEsc() {
         return this.keyEsc;
@@ -76,7 +76,7 @@ public class KeyHandle implements KeyListener {
             keySpace = true;
         }
         if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-            keyEsc=true;
+            keyEsc = true;
         }
     }
 
