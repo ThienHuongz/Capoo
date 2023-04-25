@@ -6,15 +6,14 @@ import javax.swing.JFrame;
 import project.gameState.GamePanel;
 
 public class game {
-	
-		private static final int ScreenWidth=1015, ScreenHeight=739;
 
+    private static final int ScreenWidth = 1015, ScreenHeight = 739;
 
-	public static void main(String[] args) {   
-			
-        JFrame panel=new JFrame("Capoo Game");
-        
-        //set a custom Container object as the content pane of the JFrame.
+    public static void main(String[] args) {
+
+        JFrame panel = new JFrame("Capoo Game");
+
+        // set a custom Container object as the content pane of the JFrame.
         panel.setContentPane(new GamePanel());
 
         // if close window -> stop the program
@@ -35,7 +34,6 @@ public class game {
         panel.setIconImage(new ImageIcon("assets/logo.png").getImage());
     }
 
-
     public static int getScreenWidth() {
         return ScreenWidth;
     }
@@ -43,4 +41,4 @@ public class game {
     public static int getScreenHeight() {
         return ScreenHeight;
     }
-    }
+}

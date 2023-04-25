@@ -7,19 +7,14 @@ import javax.imageio.ImageIO;
 import project.SoundEffect;
 import project.game;
 
-import project.entity.character;
-
-
 import project.Base;
 
 import java.io.IOException;
 
 public class MenuState implements Base {
     private BufferedImage mn[] = new BufferedImage[10];
-    private SoundEffect sound=new SoundEffect();
-    private SoundEffect soundBGM=new SoundEffect();
-    
-    private boolean startButton=false, exitButton=false;
+
+    private boolean startButton = false, exitButton = false;
 
     GamePanel gamepanel;
 
@@ -28,8 +23,9 @@ public class MenuState implements Base {
         this.gamepanel = gamepanel;
         init();
     }
-    public MenuState(){
-    	
+
+    public MenuState() {
+
     }
 
     public void init() {
@@ -46,24 +42,23 @@ public class MenuState implements Base {
         }
     }
 
-
     public void draw(Graphics g) {
         g.drawImage(mn[4], 0, 0, null);
-        
+
         if (startButton) {
             g.drawImage(mn[0], 370, 350, null);
         } else {
             g.drawImage(mn[1], 370, 350, null);
         }
-        
+
         if (exitButton) {
             g.drawImage(mn[2], 370, 490, null);
         } else {
             g.drawImage(mn[3], 370, 490, null);
         }
-        
-        g.drawImage(mn[5],(game.getScreenWidth()-mn[5].getWidth())/2,140, null);
-        
+
+        g.drawImage(mn[5], (game.getScreenWidth() - mn[5].getWidth()) / 2, 140, null);
+
     }
 
     public int getButtonWidth() {
@@ -109,6 +104,5 @@ public class MenuState implements Base {
 
     public void update() {
     }
-    
 
 }

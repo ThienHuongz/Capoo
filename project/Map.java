@@ -9,14 +9,8 @@ import project.entity.Lava;
 import project.entity.ObjectTime;
 import project.entity.Timer;
 
-import project.entity.character;
-import project.gameState.GamePanel;
-import project.gameState.GamePlay;
-import project.gameState.MenuState;
-import project.gameState.GameOverState;
 import project.entity.Thorn;
 import project.entity.Gate;
-
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -33,7 +27,6 @@ public class Map implements Base {
     private Gate gate;
     private Timer timeCount;
     private int score = 0;
-
 
     public Map() {
         init();
@@ -61,7 +54,6 @@ public class Map implements Base {
 
         g.drawImage(bg[1], 0, 0, null);
         timeCount.draw(g);
-
 
         g.drawImage(progressBar[0], 15, 15, null);
         for (int i = 0 + score; i < 4; i++) {
@@ -97,13 +89,8 @@ public class Map implements Base {
             fish.add(new Fish(900, 190));
             fish.add(new Fish(350, 320));
 
-
-            time.add(new ObjectTime(700,600));
-            time.add(new ObjectTime(200,400));
-            time.add(new ObjectTime(600,300));
-            time.add(new ObjectTime(250,630));
-            time.add(new ObjectTime(200,200));
-
+            time.add(new ObjectTime(200, 400));
+            time.add(new ObjectTime(250, 630));
 
             thorn.add(new Thorn(500, 655));
             thorn.add(new Thorn(35, 150, 1));
@@ -116,7 +103,6 @@ public class Map implements Base {
         }
     }
 
-
     public int getMapWidth() {
         return bg[1].getWidth();
     }
@@ -128,28 +114,36 @@ public class Map implements Base {
     public BufferedImage getBackground() {
         return bg[1];
     }
-    public ArrayList<ObjectTime> getTime(){
+
+    public ArrayList<ObjectTime> getTime() {
         return time;
     }
-    public ArrayList<Thorn> getThorn(){
+
+    public ArrayList<Thorn> getThorn() {
         return thorn;
     }
-    public ArrayList<Fish> getFish(){
+
+    public ArrayList<Fish> getFish() {
         return fish;
     }
-    public ArrayList<Lava> getLava(){
+
+    public ArrayList<Lava> getLava() {
         return lava;
     }
-    public Gate getGate(){
+
+    public Gate getGate() {
         return gate;
     }
-    public Timer getTimeCount(){
+
+    public Timer getTimeCount() {
         return timeCount;
     }
-    public void setScore(int score){
-        this.score=score;
+
+    public void setScore(int score) {
+        this.score = score;
     }
-    public int getScore(){
+
+    public int getScore() {
         return score;
     }
 }

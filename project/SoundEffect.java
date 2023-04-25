@@ -48,15 +48,15 @@ public class SoundEffect {
             clipBGM.loop(Clip.LOOP_CONTINUOUSLY);
         } catch (Exception e) {
 
-        } 
+        }
     }
 
-    public void pause(){
+    public void pause() {
         // if (clip != null && clip.isRunning()) {
         clip.stop();
         // }
     }
-    
+
     public static void StopBGM() {
         if (clipBGM != null) {
             clipBGM.stop();

@@ -2,14 +2,11 @@ package project;
 
 import java.awt.image.BufferedImage;
 import project.entity.character;
-import project.gameState.GamePanel;
 
 public class collision {
 
-
     public static BufferedImage character = new character().getImage();
     public static BufferedImage bg = new Map().getBackground();
-
 
     public static boolean isCollision(BufferedImage image1, int x1, int y1, BufferedImage image2, int x2, int y2) {
         // Calculate the bounds of the images

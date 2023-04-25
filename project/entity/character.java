@@ -5,10 +5,7 @@ import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 import java.awt.Graphics;
 
-import project.gameState.GameOverState;
 import project.gameState.GamePanel;
-
-import project.gameState.MenuState;
 
 import project.Base;
 import project.Map;
@@ -19,21 +16,21 @@ import project.EventListener.KeyHandle;
 public class character implements Base {
     private int x, y, speed, step = 0, counterStep = 0, d = 0;
     private KeyHandle key;
-    private BufferedImage walk[] = new BufferedImage[7],jump[] = new BufferedImage[7],die[] = new BufferedImage[7],stun;
-    private boolean isRight=true,isJump=false;
-    
+    private BufferedImage walk[] = new BufferedImage[7], jump[] = new BufferedImage[7], die[] = new BufferedImage[7],
+            stun;
+    private boolean isRight = true, isJump = false;
+
     private GamePanel gp;
     private Map map;
     private SoundEffect sound = new SoundEffect();
-    public static boolean isDie=false, isStun = false;
-    
-    private static final int totalImageOfCharacter=7;
-    private static final int animation = (int)(GamePanel.getFPS()/(totalImageOfCharacter-3));
+    public static boolean isDie = false, isStun = false;
+
+    private static final int totalImageOfCharacter = 7;
+    private static final int animation = (int) (GamePanel.getFPS() / (totalImageOfCharacter - 3));
     private static final int gravity = 3;
     private static final int heightOfJump = 35; // 30*speed = 30 * 3 = 90
-    
-    
-    public character(){
+
+    public character() {
 
         init();
     }
@@ -46,12 +43,15 @@ public class character implements Base {
         this.map = map;
         init();
     }
-    public int getY(){
+
+    public int getY() {
         return y;
     }
-    public int getX(){
+
+    public int getX() {
         return x;
     }
+
     public void setX(int x) {
         if (x < map.getMapWidth()) {
             this.x = x;
@@ -90,7 +90,6 @@ public class character implements Base {
         }
     }
 
-
     public void draw(Graphics g) {
         if (isRight == true) {
             if (isDie) {
@@ -116,12 +115,12 @@ public class character implements Base {
                 g.drawImage(walk[step], x, y, null);
             }
         }
-        
-//        if(isDie) {
-//    		overState = new GameOverState(gp);
-//    		
-//    		overState.draw(g);
-//    	}
+
+        // if(isDie) {
+        // overState = new GameOverState(gp);
+        //
+        // overState.draw(g);
+        // }
 
     }
 
@@ -189,7 +188,6 @@ public class character implements Base {
                 setY(y + gravity);
             }
         }
-
 
     }
 }

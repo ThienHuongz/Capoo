@@ -2,34 +2,28 @@ package project.gameState;
 
 import javax.swing.*;
 
-
 import project.EventListener.KeyHandle;
 import project.EventListener.MouseHandle;
-import project.entity.Lava;
 import project.entity.character;
 
-
 import java.awt.*;
-import java.util.ArrayList;
 
+public class GamePanel extends JPanel implements Runnable {
 
-public class GamePanel extends JPanel implements Runnable{
-    
-    private boolean IsRun=true;
+    private boolean IsRun = true;
     public static int gameOverNumber = 1;
-    private static int FPS = 60;  // Frame per second
+    private static int FPS = 60; // Frame per second
     private Thread thread;
-    private KeyHandle key=new KeyHandle();
-    private MouseHandle mouseKey ;
+    private KeyHandle key = new KeyHandle();
+    private MouseHandle mouseKey;
     public MenuState mn;
     public GamePlay gamePlay;
-//    private ArrayList<GamePlay> gamePlay= new ArrayList<GamePlay>();
+    // private ArrayList<GamePlay> gamePlay= new ArrayList<GamePlay>();
     public GameOverState overState;
     public LevelState levelState;
-    
 
     public GamePanel() {
-    	
+
         super();
         // respond to keyboard events of game panel
         this.setFocusable(true);
@@ -98,22 +92,21 @@ public class GamePanel extends JPanel implements Runnable{
         // to ensure that any necessary pre-painting operations are performed
         super.paintComponent(g);
 
-        if (mn!=null) mn.draw(g);
-        if (gamePlay!=null) gamePlay.draw(g);
+        if (mn != null)
+            mn.draw(g);
+        if (gamePlay != null)
+            gamePlay.draw(g);
 
-        
-        if(character.isDie == true && overState == null)
-        {
+        if (character.isDie == true && overState == null) {
             gamePlay = null;
             overState = new GameOverState(this);
             character.isDie = false;
         }
-        if(overState != null)
-        {
-        	overState.draw(g);	
+        if (overState != null) {
+            overState.draw(g);
         }
-        if (levelState != null)   levelState.draw(g);
-
+        if (levelState != null)
+            levelState.draw(g);
 
     }
 
@@ -124,6 +117,5 @@ public class GamePanel extends JPanel implements Runnable{
     public static int getFPS() {
         return FPS;
     }
-    
 
 }
