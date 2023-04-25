@@ -44,6 +44,9 @@ public class MouseHandle extends MouseAdapter {
         if (gamepanel.levelState != null) {
             gamepanel.levelState.mouse_click(mx, my);
         }
+        if (!gamepanel.IsRun){
+            gamepanel.mouse_click(mx,my);
+        }
 
     }
 

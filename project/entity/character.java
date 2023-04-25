@@ -11,6 +11,7 @@ import project.Base;
 import project.Map;
 import project.SoundEffect;
 import project.collision;
+import project.game;
 import project.EventListener.KeyHandle;
 
 public class character implements Base {
@@ -20,9 +21,6 @@ public class character implements Base {
             stun;
     private boolean isRight = true, isJump = false;
 
-    private GamePanel gp;
-    private Map map;
-    private SoundEffect sound = new SoundEffect();
     public static boolean isDie = false, isStun = false;
 
     private static final int totalImageOfCharacter = 7;
@@ -35,12 +33,11 @@ public class character implements Base {
         init();
     }
 
-    public character(KeyHandle key, Map map) {
+    public character(KeyHandle key) {
         x = 100;
         y = 530;
         speed = 4;
         this.key = key;
-        this.map = map;
         init();
     }
 
@@ -53,13 +50,13 @@ public class character implements Base {
     }
 
     public void setX(int x) {
-        if (x < map.getMapWidth()) {
+        if (x < game.getScreenWidth()) {
             this.x = x;
         }
     }
 
     public void setY(int y) {
-        if (y < map.getMapHeight()) {
+        if (y < game.getScreenHeight()) {
             this.y = y;
         }
     }

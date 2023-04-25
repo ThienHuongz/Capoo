@@ -1,6 +1,7 @@
 package project.gameState;
 
 import java.awt.Graphics;
+import java.io.File;
 
 import project.Map;
 import project.SoundEffect;
@@ -16,10 +17,14 @@ public class GamePlay implements Base {
     private Map map;
     public static int currentLevel = 1;
 
-
     public GamePlay(GamePanel gamepanel) {
-        this.map = new Map();
-        this.c = new character(gamepanel.getKey(), map);
+        this.c = new character(gamepanel.getKey());
+        this.map = new Map(c);
+
+        File myObj = new File("assets/UserSavedGame/User1.map");
+        if (myObj.isFile()) {
+            map.loadUserSavedGame("../assets/UserSavedGame/User1.map");
+        }
     }
 
     public void init() {
@@ -35,7 +40,7 @@ public class GamePlay implements Base {
     public void draw(Graphics g) {
         map.draw(g);
         c.draw(g);
-           
+
     }
 
     // Bounded Type Parameters
@@ -60,15 +65,15 @@ public class GamePlay implements Base {
             SoundEffect.play(5);
         }
         if (forLoopCollision(map.getFish(), x, y, 1)) {
-            map.setScore(map.getScore()+1);
+            map.setScore(map.getScore() + 1);
             SoundEffect.play(5);
         }
         if (forLoopCollision(map.getTime(), x, y, 1)) {
-            map.getTimeCount().countdownTime =  map.getTimeCount().countdownTime +  map.getTimeCount().plusSecond;
+            map.getTimeCount().countdownTime = map.getTimeCount().countdownTime + map.getTimeCount().plusSecond;
             SoundEffect.play(5);
         }
         if (collision.isCharacterCollisionObject(x, y, map.getGate().getImage(), map.getGate().getX(),
-            map.getGate().getY())) {
+                map.getGate().getY())) {
             if (!map.getGate().checkTouch) {
                 map.getGate().setStep(1);
                 map.getGate().checkTouch = true;
@@ -83,4 +88,11 @@ public class GamePlay implements Base {
         }
     }
 
+    public void SaveUserData(String address) {
+        map.SaveUserData(address);
+    }
+
+    public void DeleteUserData(String address) {
+        map.DeleteUserData(address);
+    }
 }

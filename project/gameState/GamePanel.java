@@ -1,16 +1,18 @@
 package project.gameState;
 
 import javax.swing.*;
+import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
 
 import project.EventListener.KeyHandle;
 import project.EventListener.MouseHandle;
+import project.EventListener.WindowHandle;
 import project.entity.character;
-
 import java.awt.*;
 
 public class GamePanel extends JPanel implements Runnable {
 
-    private boolean IsRun = true;
+    public boolean IsRun = true;
     public static int gameOverNumber = 1;
     private static int FPS = 60; // Frame per second
     private Thread thread;
@@ -18,13 +20,15 @@ public class GamePanel extends JPanel implements Runnable {
     private MouseHandle mouseKey;
     public MenuState mn;
     public GamePlay gamePlay;
-    // private ArrayList<GamePlay> gamePlay= new ArrayList<GamePlay>();
     public GameOverState overState;
     public LevelState levelState;
+    private BufferedImage[] pause = new BufferedImage[2];
+    private WindowHandle wh;
 
-    public GamePanel() {
+    public GamePanel(WindowHandle wh) {
 
         super();
+        this.wh = wh;
         // respond to keyboard events of game panel
         this.setFocusable(true);
         mouseKey = new MouseHandle(this);
@@ -33,6 +37,12 @@ public class GamePanel extends JPanel implements Runnable {
         this.addMouseMotionListener(mouseKey);
         this.addKeyListener(key);
 
+        try {
+            pause[0] = ImageIO.read(getClass().getResourceAsStream("../../assets/pauseMenu.png"));
+        } catch (Exception e) {
+            // TODO: handle exception
+            System.out.println("ERROR");
+        }
         thread = new Thread(this);
 
         // call run method
@@ -46,43 +56,62 @@ public class GamePanel extends JPanel implements Runnable {
         long timer = 0;
         // int count=0;
 
-        while (IsRun) {
-            update();
-            // call paintcomponent
+        while (true) {
+            IsPause();
             repaint();
-            try {
-                double remainingTime = nextDrawTime - System.nanoTime();
-                timer += remainingTime;
 
-                // sleep chạy theo mili giây
-                remainingTime /= 1000000;
+            while (IsRun) {
+                IsWindowDeactivated();
+                update();
+                // call paintcomponent
+                repaint();
+                try {
+                    double remainingTime = nextDrawTime - System.nanoTime();
+                    timer += remainingTime;
 
-                if (remainingTime < 0) {
-                    remainingTime = 0;
+                    // sleep chạy theo mili giây
+                    remainingTime /= 1000000;
+
+                    if (remainingTime < 0) {
+                        remainingTime = 0;
+                    }
+
+                    Thread.sleep((long) remainingTime);
+
+                    nextDrawTime += drawInterval;
+
+                    // count++;
+                    // if (timer >= 1000000000){
+                    // // System.out.println("FPS: "+count);
+                    // timer=0;
+                    // count=0;
+                    // }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
-
-                Thread.sleep((long) remainingTime);
-
-                nextDrawTime += drawInterval;
-
-                // count++;
-                // if (timer >= 1000000000){
-                // // System.out.println("FPS: "+count);
-                // timer=0;
-                // count=0;
-                // }
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+                IsPause();
             }
         }
 
     }
 
-    public void update() {
-        // if(key.isKeyEsc() == true) {
-        // IsRun=false;
-        // }
+    public void IsPause() {
+        if (key.isKeyEsc() == true && gamePlay != null) {
+            IsRun = !IsRun;
+            key.setKeyEsc(false);
+        }
+    }
 
+    public void IsWindowDeactivated() {
+        if (wh.IsWindowDeactivated) {
+            wh.IsWindowDeactivated = false;
+            if (gamePlay != null) {
+                IsRun = false;
+            }
+        }
+    }
+
+    public void update() {
         if (gamePlay != null)
             gamePlay.update();
 
@@ -94,8 +123,12 @@ public class GamePanel extends JPanel implements Runnable {
 
         if (mn != null)
             mn.draw(g);
-        if (gamePlay != null)
+        if (gamePlay != null) {
             gamePlay.draw(g);
+            if (!IsRun) {
+                g.drawImage(pause[0], 250, 230, null);
+            }
+        }
 
         if (character.isDie == true && overState == null) {
             gamePlay = null;
@@ -116,6 +149,35 @@ public class GamePanel extends JPanel implements Runnable {
 
     public static int getFPS() {
         return FPS;
+    }
+
+    public void mouse_click(int mx, int my) {
+        // RESUME
+        if (new Rectangle(330, 295, 155, 55).contains(mx, my)) {
+            IsRun = true;
+            // gamePlay=new GamePlay(this);
+        }
+        // RESTART
+        if (new Rectangle(540, 295, 155, 55).contains(mx, my)) {
+            IsRun = true;
+            gamePlay.DeleteUserData("assets/UserSavedGame/User1.map");
+            gamePlay = new GamePlay(this);
+            // gamePlay=new GamePlay(this);
+        }
+        // LEVEL STATE
+        if (new Rectangle(330, 365, 155, 55).contains(mx, my)) {
+            IsRun = true;
+            gamePlay.SaveUserData("assets/UserSavedGame/User1.map");
+            gamePlay = null;
+            levelState = new LevelState(this);
+        }
+        // MENU STATE
+        if (new Rectangle(410, 420, 155, 55).contains(mx, my)) {
+            IsRun = true;
+            // System.exit(0);
+            gamePlay = null;
+            mn = new MenuState(this);
+        }
     }
 
 }

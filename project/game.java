@@ -3,6 +3,7 @@ package project;
 import javax.swing.*;
 import javax.swing.JFrame;
 
+import project.EventListener.WindowHandle;
 import project.gameState.GamePanel;
 
 public class game {
@@ -12,9 +13,10 @@ public class game {
     public static void main(String[] args) {
 
         JFrame panel = new JFrame("Capoo Game");
-
+        WindowHandle wh = new WindowHandle();
+        panel.addWindowListener(wh);
         // set a custom Container object as the content pane of the JFrame.
-        panel.setContentPane(new GamePanel());
+        panel.setContentPane(new GamePanel(wh));
 
         // if close window -> stop the program
         panel.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

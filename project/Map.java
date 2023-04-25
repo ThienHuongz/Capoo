@@ -8,11 +8,16 @@ import project.entity.Fish;
 import project.entity.Lava;
 import project.entity.ObjectTime;
 import project.entity.Timer;
-
+import project.entity.character;
 import project.entity.Thorn;
 import project.entity.Gate;
 
+import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 public class Map implements Base {
@@ -23,6 +28,7 @@ public class Map implements Base {
     private ArrayList<Thorn> thorn = new ArrayList<Thorn>();
     private ArrayList<ObjectTime> time = new ArrayList<ObjectTime>();
     private BufferedImage progressBar[] = new BufferedImage[2];
+    private character c;
 
     private Gate gate;
     private Timer timeCount;
@@ -30,6 +36,12 @@ public class Map implements Base {
 
     public Map() {
         init();
+
+    }
+
+    public Map(character c) {
+        init();
+        this.c = c;
     }
 
     public void draw(Graphics g) {
@@ -85,9 +97,9 @@ public class Map implements Base {
             lava.add(new Lava(500, 134));
 
             fish.add(new Fish(500, 480));
-            fish.add(new Fish(450, 80));
-            fish.add(new Fish(900, 190));
             fish.add(new Fish(350, 320));
+            fish.add(new Fish(900, 190));
+            fish.add(new Fish(450, 80));
 
             time.add(new ObjectTime(200, 400));
             time.add(new ObjectTime(250, 630));
@@ -103,12 +115,53 @@ public class Map implements Base {
         }
     }
 
-    public int getMapWidth() {
-        return bg[1].getWidth();
+    public void loadUserSavedGame(String address) {
+        try {
+
+            InputStream in = getClass().getResourceAsStream(address);
+            BufferedReader br = new BufferedReader(new InputStreamReader(in));
+            score = Integer.parseInt(br.readLine());
+            String line = br.readLine();
+            String delims = "\\s++";
+
+            String[] tokens = line.split(delims);
+            c.setX(Integer.parseInt(tokens[0]));
+            c.setY(Integer.parseInt(tokens[1]));
+
+            for (int i = 0; i < score; i++) {
+                fish.remove(0);
+            }
+
+            br.close();
+        } catch (Exception e) {
+
+            e.printStackTrace();
+        }
     }
 
-    public int getMapHeight() {
-        return bg[1].getHeight();
+    public void SaveUserData(String address) {
+        try {
+            PrintWriter writer = new PrintWriter(address, "UTF-8");
+            writer.println(score);
+            writer.println(c.getX() + " " + c.getY());
+
+            // for (int i = 0; i < fish.size(); i++) {
+            // writer.println(fish.get(i).getX()+" "+fish.get(i).getY());
+            // }
+
+            // for (int i = 0; i < box.size; i++) {
+            // writer.println(box.get(i).getX()+" "+box.get(i).getY());
+            // }
+
+            writer.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void DeleteUserData(String address) {
+        File myObj = new File(address);
+        myObj.delete();
     }
 
     public BufferedImage getBackground() {
