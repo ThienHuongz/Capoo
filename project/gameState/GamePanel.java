@@ -123,6 +123,7 @@ public class GamePanel extends JPanel implements Runnable {
 
         if (mn != null)
             mn.draw(g);
+        
         if (gamePlay != null) {
             gamePlay.draw(g);
             if (!IsRun) {
@@ -131,10 +132,10 @@ public class GamePanel extends JPanel implements Runnable {
         }
 
         if (character.isDie == true && overState == null) {
-            gamePlay = null;
-            overState = new GameOverState(this);
-            character.isDie = false;
+//            gamePlay = null;
+            overState = new GameOverState(this); 
         }
+        
         if (overState != null) {
             overState.draw(g);
         }

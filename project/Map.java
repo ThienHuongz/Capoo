@@ -93,6 +93,7 @@ public class Map implements Base {
             bg[1] = ImageIO.read(getClass().getResourceAsStream("../assets/Background OOP1.png"));
             progressBar[0] = ImageIO.read(getClass().getResourceAsStream("../assets/level/ProgressBar.png"));
             progressBar[1] = ImageIO.read(getClass().getResourceAsStream("../assets/level/unstar.png"));
+            
             lava.add(new Lava(609, 522));
             lava.add(new Lava(500, 134));
 
