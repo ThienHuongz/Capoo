@@ -32,7 +32,8 @@ public class Map implements Base {
 
     private Gate gate;
     private Timer timeCount;
-    private int score = 0;
+    public static int score = 0;
+    public static boolean checkTouch = false;
 
     public Map() {
         init();
@@ -194,7 +195,7 @@ public class Map implements Base {
     }
 
     public void setScore(int score) {
-        this.score = score;
+        Map.score = score;
     }
 
     public int getScore() {

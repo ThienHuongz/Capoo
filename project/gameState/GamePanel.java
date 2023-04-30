@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 
+import project.Map;
 import project.EventListener.KeyHandle;
 import project.EventListener.MouseHandle;
 import project.EventListener.WindowHandle;
@@ -21,7 +22,9 @@ public class GamePanel extends JPanel implements Runnable {
     public MenuState mn;
     public GamePlay gamePlay;
     public GameOverState overState;
+    public WinnerState winnerState; 
     public LevelState levelState;
+    
     private BufferedImage[] pause = new BufferedImage[2];
     private WindowHandle wh;
 
@@ -33,6 +36,7 @@ public class GamePanel extends JPanel implements Runnable {
         this.setFocusable(true);
         mouseKey = new MouseHandle(this);
         mn = new MenuState(this);
+        
         this.addMouseListener(mouseKey);
         this.addMouseMotionListener(mouseKey);
         this.addKeyListener(key);
@@ -134,13 +138,22 @@ public class GamePanel extends JPanel implements Runnable {
         if (character.isDie == true && overState == null) {
 //            gamePlay = null;
             overState = new GameOverState(this); 
+            character.isDie = false;
         }
+        
+//        if(Map.checkTouch == true && winnerState == null)
+//        {
+//        	winnerState = new WinnerState(this);
+//        	Map.checkTouch = false;
+//        }
         
         if (overState != null) {
             overState.draw(g);
         }
         if (levelState != null)
             levelState.draw(g);
+        
+        
 
     }
 

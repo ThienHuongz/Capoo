@@ -74,15 +74,15 @@ public class GamePlay implements Base {
         }
         if (collision.isCharacterCollisionObject(x, y, map.getGate().getImage(), map.getGate().getX(),
                 map.getGate().getY())) {
-            if (!map.getGate().checkTouch) {
+            if (!Map.checkTouch) {
                 map.getGate().setStep(1);
-                map.getGate().checkTouch = true;
+                Map.checkTouch = true;
                 SoundEffect.play(6);
             }
         } else {
-            if (map.getGate().checkTouch) {
+            if (Map.checkTouch) {
                 map.getGate().setStep(0);
-                map.getGate().checkTouch = false;
+                Map.checkTouch = false;
                 SoundEffect.play(7);
             }
         }

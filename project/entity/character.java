@@ -113,12 +113,6 @@ public class character implements Base {
             }
         }
 
-        // if(isDie) {
-        // overState = new GameOverState(gp);
-        //
-        // overState.draw(g);
-        // }
-
     }
 
     public void update() {
