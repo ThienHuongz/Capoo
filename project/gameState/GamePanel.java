@@ -116,7 +116,7 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void update() {
-        if (character.isDie != true && gamePlay != null)
+        if ((character.isDie != true && gamePlay != null) || (Map.checkTouch == true && gamePlay != null ))
             gamePlay.update();
 
     }
@@ -141,15 +141,19 @@ public class GamePanel extends JPanel implements Runnable {
             character.isDie = false;
         }
         
-//        if(Map.checkTouch == true && winnerState == null)
-//        {
-//        	winnerState = new WinnerState(this);
-//        	Map.checkTouch = false;
-//        }
+        if(Map.checkTouch == true && winnerState == null)
+        {
+        	winnerState = new WinnerState(this);
+        }
         
         if (overState != null) {
             overState.draw(g);
         }
+        
+        if (winnerState != null) {
+        	winnerState.draw(g);
+        }
+        
         if (levelState != null)
             levelState.draw(g);
         
