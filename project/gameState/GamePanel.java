@@ -116,7 +116,7 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void update() {
-        if (gamePlay != null)
+        if (character.isDie != true && gamePlay != null)
             gamePlay.update();
 
     }
@@ -136,7 +136,7 @@ public class GamePanel extends JPanel implements Runnable {
         }
 
         if (character.isDie == true && overState == null) {
-//            gamePlay = null;
+            // gamePlay = null;
             overState = new GameOverState(this); 
             character.isDie = false;
         }
