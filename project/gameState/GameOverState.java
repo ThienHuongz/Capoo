@@ -48,7 +48,7 @@ public class GameOverState {
 
     public void draw(Graphics g) {
 
-
+    	g.setColor(new Color(0,0,0,150));
     	
         g.fillRect(0, 0, game.getScreenWidth(), game.getScreenHeight());
         
@@ -85,12 +85,7 @@ public class GameOverState {
     }
 
     public void mouse_click(int mx, int my) {
-//        if (new Rectangle((game.getScreenWidth()- mn[4].getWidth())/2, 400, getButtonWidth(), getButtonHeight()).contains(mx, my)) {
-//        	gamepanel.gamePlay = null;
-//        	character.isDie = false;
-//            gamepanel.overState = null;
-//            gamepanel.mn = new MenuState(gamepanel);
-//        } 
+
         if (new Rectangle((game.getScreenWidth()- mn[4].getWidth())/2, 300, getButtonWidth(), getButtonHeight()).contains(mx, my)) {
             gamepanel.gamePlay = null;
             character.isDie = false;
@@ -98,10 +93,7 @@ public class GameOverState {
             gamepanel.levelState = new LevelState(gamepanel);
         }        
         else if (new Rectangle((game.getScreenWidth()- mn[3].getWidth())/2, 400, getButtonWidth(), getButtonHeight()).contains(mx, my)) {
-//        	gamepanel.overState = null;
-//        	character.isDie = false;
-//        	gamepanel.gamePlay = null;
-//        	gamepanel.mn = new MenuState(gamepanel);
+
         	System.exit(0);
         }
     }

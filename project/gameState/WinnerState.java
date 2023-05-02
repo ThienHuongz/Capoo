@@ -75,21 +75,34 @@ public class WinnerState {
     }
 
     public void mouse_click(int mx, int my) {
-        if (new Rectangle((game.getScreenWidth()- mn[6].getWidth())/2, 450, getButtonWidth(), getButtonHeight()).contains(mx, my)) {
+    	if(Map.score == 1 || Map.score == 0)
+        {
+        	create_rectangle(6,mx,my);
+        }
+        else if(Map.score == 2 || Map.score == 3 )
+        {
+        	create_rectangle(7,mx,my);
+        }
+        else if(Map.score == 4)
+        {
+        	create_rectangle(8,mx,my);
+        } 
+    }
+    
+    public void create_rectangle(int i, int mx, int my)
+    {
+    	if (new Rectangle((game.getScreenWidth()- mn[i].getWidth())/2, 450, getButtonWidth(), getButtonHeight()).contains(mx, my)) {
         	gamepanel.gamePlay = null;
-        	character.isDie = false;
-            gamepanel.overState = null;
+            gamepanel.winnerState = null;
             gamepanel.mn = new MenuState(gamepanel);
         } 
-        else if (new Rectangle((game.getScreenWidth()- mn[6].getWidth())/2 + + mn[6].getWidth()/3, 480, getButtonWidth(), getButtonHeight()).contains(mx, my)) {
+        else if (new Rectangle((game.getScreenWidth()- mn[i].getWidth())/2 + + mn[i].getWidth()/3, 480, getButtonWidth(), getButtonHeight()).contains(mx, my)) {
             gamepanel.gamePlay = null;
-            character.isDie = false;
-            gamepanel.overState = null;
+            gamepanel.winnerState = null;
             gamepanel.levelState = new LevelState(gamepanel);
         }        
-        else if (new Rectangle((game.getScreenWidth()- mn[6].getWidth())/2 + mn[6].getWidth()*2/3, 450, getButtonWidth(), getButtonHeight()).contains(mx, my)) {
-        	gamepanel.overState = null;
-        	character.isDie = false;
+        else if (new Rectangle((game.getScreenWidth()- mn[i].getWidth())/2 + mn[i].getWidth()*2/3, 450, getButtonWidth(), getButtonHeight()).contains(mx, my)) {
+        	gamepanel.winnerState = null;
         	gamepanel.gamePlay = null;
         	gamepanel.mn = new MenuState(gamepanel);
         }

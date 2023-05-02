@@ -116,7 +116,7 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void update() {
-        if ((character.isDie != true && gamePlay != null) || (Map.checkTouch == true && gamePlay != null ))
+        if ((character.isDie != true && gamePlay != null))
             gamePlay.update();
 
     }
