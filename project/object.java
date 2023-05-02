@@ -1,12 +1,13 @@
 package project;
 
 class object {
-    private int x,y;
+    private int x, y;
 
-    public object(int x,int y){
-        this.x=x;
-        this.y=y;
+    public object(int x, int y) {
+        this.x = x;
+        this.y = y;
     }
+
     public int getX() {
         return this.x;
     }

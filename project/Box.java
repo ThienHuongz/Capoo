@@ -10,6 +10,7 @@ import javax.imageio.ImageIO;
 public class Box extends object {
     private BufferedImage image;
     private String direction;
+
     public Box(int x, int y) {
         super(x, y);
         init();
@@ -27,46 +28,53 @@ public class Box extends object {
         g.drawImage(image, super.getX(), super.getY(), null);
     }
 
-    
-    public BufferedImage getImage(){
+    public BufferedImage getImage() {
         return image;
     }
-    
+
     public void move(int dx, int dy) {
-    	int newX = this.getX() + dx;
+
+        // if (getX() < 900 && getX() > 100) {
+        // int newX = this.getX() + dx;
+        // int newY = this.getY() + dy;
+
+        // this.setX(newX);
+        // this.setY(newY);
+        // }
+
+        int newX = this.getX() + dx;
         int newY = this.getY() + dy;
-        
+
         this.setX(newX);
         this.setY(newY);
     }
-    
-    
+
     public String getDirection() {
-    	return direction;
+        return direction;
     }
-    
+
     public void setDirection(String direct) {
-    	direction = direct;
+        direction = direct;
     }
-    
-    public void update(){
-    	//THE DIRECTION AND MOVE THE BOX 
-    	if (direction == "right") {
-            direction="";
-    		move(3, 0);
-    	}
-    	
-    	if (direction == "left") {
-            direction="";
-    		move(-3, 0);
-    	}
-    	
-    	if (direction == "down") {
-    		
-    	}
-    	
-    	if (direction == "up") {
-    		
-    	}
+
+    public void update() {
+        // THE DIRECTION AND MOVE THE BOX
+        if (direction == "right") {
+            direction = "";
+            move(3, 0);
+        }
+
+        if (direction == "left") {
+            direction = "";
+            move(-3, 0);
+        }
+
+        if (direction == "down") {
+
+        }
+
+        if (direction == "up") {
+
+        }
     }
 }
