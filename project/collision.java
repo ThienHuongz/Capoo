@@ -1,6 +1,7 @@
 package project;
 
 import java.awt.image.BufferedImage;
+import java.awt.Rectangle;
 import project.entity.character;
 
 public class collision {
@@ -118,7 +119,7 @@ public class collision {
                 intersectionWidth = character.getWidth() - 20;
                 intersectionHeight = character.getHeight() - 5;
 
-                for (int x = intersectionX; x < intersectionX + intersectionWidth; x++) {
+                for (int x = intersectionX; x < intersectionX + intersectionWidth - 10; x++) {
                     pixel = bg.getRGB(x, y1 + intersectionHeight);
                     if (((pixel >> 24) & 0xff) != 0) {
                         return true;
@@ -156,12 +157,82 @@ public class collision {
                     int pixel1 = character.getRGB(x - x1, y - y1);
                     int pixel2 = image2.getRGB(x - x2, y - y2);
                     if (((pixel1 >> 24) & 0xff) != 0 && ((pixel2 >> 24) & 0xff) != 0) {
+                        // System.out.println("true");
                         return true;
                     }
                 }
             }
         }
-
         return false;
+    }
+
+    public static boolean isCharacterCollisionBox(int x1, int y1, String direct, BufferedImage image2, int x2, int y2) {
+        switch (direct) {
+            case "left":
+                if (new Rectangle(x1, y1, character.getWidth() / 2, character.getHeight())
+                        .intersects(new Rectangle(x2 + image2.getWidth() - 3, y2 + 5, 5, image2.getHeight()))) {
+                    System.out.println("left");
+                    return true;
+                }
+                break;
+            case "right":
+                if (new Rectangle(x1, y1, character.getWidth(), character.getHeight())
+                        .intersects(new Rectangle(x2, y2 + 5, 1, image2.getHeight()))) {
+                    System.out.println("right");
+                    return true;
+                }
+                break;
+            // case "jump":
+            // if (new Rectangle(x1, y1 + character.getHeight() - 1, character.getWidth(),
+            // 1)
+            // .intersects(new Rectangle(x2+1, y2, 1, 1))) {
+            // return true;
+            // }
+            // break;
+            case "down":
+                if (new Rectangle(x1, y1 + character.getHeight() - 3, character.getWidth() - 3, 3)
+                        .intersects(new Rectangle(x2, y2, image2.getWidth(), 1))) {
+                    System.out.println("down");
+                    return true;
+                }
+                break;
+        }
+        return false;
+    }
+
+    public static boolean isBoxCollisionBg(String direct, BufferedImage image2, int x2, int y2) {
+        int intersectionX = x2;
+        int intersectionY = y2;
+        int intersectionHeight = image2.getHeight();
+        int intersectionWidth = image2.getWidth();
+        int pixel;
+        switch (direct) {
+            case "left":
+                for (int y = intersectionY; y < intersectionY + intersectionHeight - 5; y++) {
+                    pixel = bg.getRGB(intersectionX, y);
+                    if (((pixel >> 24) & 0xff) != 0) {
+                        return true;
+                    }
+                }
+                break;
+            case "right":
+                for (int y = intersectionY; y < intersectionY + intersectionHeight - 5; y++) {
+                    pixel = bg.getRGB(x2 + intersectionWidth, y);
+                    if (((pixel >> 24) & 0xff) != 0) {
+                        return true;
+                    }
+                }
+                break;
+            case "down":
+                for (int x = intersectionX; x < intersectionX + intersectionWidth; x++) {
+                    pixel = bg.getRGB(x, y2 + intersectionHeight);
+                    if (((pixel >> 24) & 0xff) != 0) {
+                        return true;
+                    }
+                }
+                break;
+        }
+        return false;
+
     }
 }

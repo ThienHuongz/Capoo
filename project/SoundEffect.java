@@ -24,7 +24,10 @@ public class SoundEffect {
         soundURL[6] = getClass().getResource("/assets/sound/door-open.wav");
         soundURL[7] = getClass().getResource("/assets/sound/door-close.wav");
         soundURL[8] = getClass().getResource("/assets/sound/level_lock.wav");
+    }
 
+    static {
+        new SoundEffect();
     }
 
     public static void play(int i) {
@@ -37,6 +40,10 @@ public class SoundEffect {
         } catch (Exception e) {
 
         }
+    }
+
+    public void play() {
+        clip.start();
     }
 
     public static void playBGM(int i) {
@@ -61,6 +68,10 @@ public class SoundEffect {
         if (clipBGM != null) {
             clipBGM.stop();
         }
+    }
+
+    public void loop() {
+        clip.loop(clip.LOOP_CONTINUOUSLY);
     }
 
 }

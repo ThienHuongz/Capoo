@@ -14,11 +14,16 @@ import project.entity.Gate;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Timer;
 
 public class Map implements Base {
 
@@ -27,10 +32,11 @@ public class Map implements Base {
     private ArrayList<Fish> fish = new ArrayList<Fish>();
     private ArrayList<Thorn> thorn = new ArrayList<Thorn>();
     private ArrayList<ObjectTime> time = new ArrayList<ObjectTime>();
+    private Gate gate;
+    private ArrayList<Box> box = new ArrayList<Box>();
     private BufferedImage progressBar[] = new BufferedImage[2];
     private character c;
 
-    private Gate gate;
     private Timer timeCount;
     public static int score = 0;
     public static boolean checkTouch = false;
@@ -46,6 +52,7 @@ public class Map implements Base {
     }
 
     public void draw(Graphics g) {
+
         g.drawImage(bg[0], 0, 0, null);
 
         for (int i = 0; i < lava.size(); i++) {
@@ -73,6 +80,12 @@ public class Map implements Base {
             g.drawImage(progressBar[1], 24 + (33 * i), 22, null);
 
         }
+        for (int i = 0; i < box.size(); i++) {
+            box.get(i).draw(g);
+        }
+
+        g.drawImage(bg[1], 0, 0, null);
+
     }
 
     public void update() {
@@ -82,6 +95,9 @@ public class Map implements Base {
         }
         for (int i = 0; i < fish.size(); i++) {
             fish.get(i).update();
+        }
+        for (int i = 0; i < box.size(); i++) {
+            box.get(i).update();
         }
 
         timeCount.update();
@@ -94,7 +110,7 @@ public class Map implements Base {
             bg[1] = ImageIO.read(getClass().getResourceAsStream("../assets/Background OOP1.png"));
             progressBar[0] = ImageIO.read(getClass().getResourceAsStream("../assets/level/ProgressBar.png"));
             progressBar[1] = ImageIO.read(getClass().getResourceAsStream("../assets/level/unstar.png"));
-            
+
             lava.add(new Lava(609, 522));
             lava.add(new Lava(500, 134));
 
@@ -110,6 +126,10 @@ public class Map implements Base {
             thorn.add(new Thorn(35, 150, 1));
 
             gate = new Gate(860, 65);
+
+            box.add(new Box(480, 310));
+            box.add(new Box(550, 168));
+
             timeCount = new Timer();
 
         } catch (IOException e) {
@@ -178,27 +198,59 @@ public class Map implements Base {
         return thorn;
     }
 
-    public ArrayList<Fish> getFish() {
-        return fish;
-    }
-
-    public ArrayList<Lava> getLava() {
-        return lava;
-    }
-
     public Gate getGate() {
         return gate;
-    }
-
-    public Timer getTimeCount() {
-        return timeCount;
     }
 
     public void setScore(int score) {
         Map.score = score;
     }
 
+    public boolean isCollision(int x, int y) {
+        for (int i = 0; i < lava.size(); i++) {
+            if (collision.isCharacterCollisionObject(x, y, lava.get(i).getImage(), lava.get(i).getX(),
+                    lava.get(i).getY())) {
+                return true;
+            }
+            for (int j = 0; j < fish.size(); j++) {
+                if (collision.isCharacterCollisionObject(x, y, fish.get(j).getImage(), fish.get(j).getX(),
+                        fish.get(j).getY())) {
+                    score++;
+                    System.out.println("true");
+                    fish.remove(j);
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    public ArrayList<Box> getBox() {
+        return box;
+    }
+
+    public Timer getTimeCount() {
+        return timeCount;
+    }
+
+    public int getMapWidth() {
+        return bg[1].getWidth();
+    }
+
+    public int getMapHeight() {
+        return bg[1].getHeight();
+    }
+
+    public Object getLava() {
+        return null;
+    }
+
+    public Object getFish() {
+        return null;
+    }
+
     public int getScore() {
-        return score;
+        return 0;
     }
 }

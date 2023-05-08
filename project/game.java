@@ -34,6 +34,7 @@ public class game {
 
         // add logo
         panel.setIconImage(new ImageIcon("assets/logo.png").getImage());
+
     }
 
     public static int getScreenWidth() {
