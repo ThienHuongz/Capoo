@@ -2,14 +2,13 @@ package project;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
 public class Box extends object {
     private BufferedImage image;
-    private String direction;
+    private String direction = "";
 
     public Box(int x, int y) {
         super(x, y);
@@ -18,7 +17,7 @@ public class Box extends object {
 
     public void init() {
         try {
-            image = ImageIO.read(new File("assets/testBox.png"));
+            image = ImageIO.read(getClass().getResourceAsStream("/assets/testBox.PNG"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -33,20 +32,14 @@ public class Box extends object {
     }
 
     public void move(int dx, int dy) {
-
-        // if (getX() < 900 && getX() > 100) {
-        // int newX = this.getX() + dx;
-        // int newY = this.getY() + dy;
-
-        // this.setX(newX);
-        // this.setY(newY);
-        // }
-
         int newX = this.getX() + dx;
         int newY = this.getY() + dy;
-
-        this.setX(newX);
-        this.setY(newY);
+        if (newX < collision.bg.getWidth() - image.getWidth() - 25 && newX >= 25) {
+            this.setX(newX);
+        }
+        if (newY < collision.bg.getHeight() - image.getHeight() - 25 && newY >= 25) {
+            this.setY(newY);
+        }
     }
 
     public String getDirection() {
@@ -59,22 +52,27 @@ public class Box extends object {
 
     public void update() {
         // THE DIRECTION AND MOVE THE BOX
-        if (direction == "right") {
-            direction = "";
-            move(3, 0);
+        if (!collision.isBoxCollisionBg("down", image, super.getX(), super.getY())) {
+            direction = "down";
         }
+        switch (direction) {
+            case "right":
+                if (!collision.isBoxCollisionBg("right", image, super.getX(), super.getY())) {
+                    move(3, 0);
+                }
+                break;
+            case "left":
+                if (!collision.isBoxCollisionBg("left", image, super.getX(), super.getY())) {
+                    move(-3, 0);
+                }
+                break;
+            case "down":
+                move(0, 3);
+                break;
+            default:
 
-        if (direction == "left") {
-            direction = "";
-            move(-3, 0);
         }
+        direction = "";
 
-        if (direction == "down") {
-
-        }
-
-        if (direction == "up") {
-
-        }
     }
 }

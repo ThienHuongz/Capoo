@@ -4,10 +4,9 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 
-import project.collision.CollisionDirection;
-
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Timer;
 
 public class Map {
 
@@ -15,42 +14,44 @@ public class Map {
     private ArrayList<Lava> lava = new ArrayList<Lava>();
     private ArrayList<Fish> fish = new ArrayList<Fish>();
     private ArrayList<Box> box = new ArrayList<Box>();
-    private ArrayList<Rectangle> blockage = new ArrayList<Rectangle>();
+    private BufferedImage progressBar[] = new BufferedImage[2];
+    private character c;
 
-    private int score = 0;
-    int boxUpper;
-    int standingOnBox = 0;
+    private Timer timeCount;
+    public static int score = 0;
+    public static boolean checkTouch = false;
 
     public Map() {
         init();
     }
 
+    public Map(character c) {
+        init();
+        this.c = c;
+    }
+
     public void draw(Graphics g) {
 
         g.drawImage(bg[0], 0, 0, null);
+
         for (int i = 0; i < lava.size(); i++) {
             lava.get(i).draw(g);
         }
 
-        g.drawImage(bg[1], 0, 0, null);
         for (int i = 0; i < fish.size(); i++) {
             fish.get(i).draw(g);
         }
 
-        g.drawImage(bg[1], 0, 0, null);
         for (int i = 0; i < box.size(); i++) {
             box.get(i).draw(g);
         }
 
-        // draw blockage right here
-        g.setColor(Color.BLUE);
-        blockage.add(new Rectangle(54, 172, 100, 100));
-
-        g.fillRect(54, 172, 100, 100);
+        g.drawImage(bg[1], 0, 0, null);
 
     }
 
     public void update() {
+
         for (int i = 0; i < lava.size(); i++) {
             lava.get(i).update();
         }
@@ -60,6 +61,7 @@ public class Map {
         for (int i = 0; i < box.size(); i++) {
             box.get(i).update();
         }
+
     }
 
     public void init() {
@@ -71,11 +73,14 @@ public class Map {
             lava.add(new Lava(500, 134));
 
             fish.add(new Fish(500, 480));
+            fish.add(new Fish(350, 320));
+            fish.add(new Fish(900, 190));
             fish.add(new Fish(450, 80));
 
-            box.add(new Box(240, 215));
-            box.add(new Box(609, 625));
-            box.add(new Box(700, 335));
+            box.add(new Box(480, 310));
+            box.add(new Box(550, 168));
+
+            timeCount = new Timer();
 
         } catch (IOException e) {
             System.err.println("Error loading map from file: " + e.getMessage());
@@ -96,6 +101,7 @@ public class Map {
                 if (collision.isCharacterCollisionObject(x, y, fish.get(j).getImage(), fish.get(j).getX(),
                         fish.get(j).getY())) {
                     score++;
+                    System.out.println("true");
                     fish.remove(j);
                     return true;
                 }
@@ -105,39 +111,12 @@ public class Map {
         return false;
     }
 
-    public boolean checkCollisionBox(int x, int y, String direct) {
-        for (int i = 0; i < box.size(); i++) {
-            if (collision.isCharacterCollisionObjectBox(x, y, box.get(i).getImage(), box.get(i).getX(),
-                    box.get(i).getY())) {
-                CollisionDirection collisionDirection = collision.getCharacterCollisionDirection(x, y,
-                        box.get(i).getImage(), box.get(i).getX(),
-                        box.get(i).getY());
-                if (collisionDirection == CollisionDirection.UP) {
-                    boxUpper = (box.get(i).getY() - 50);
-                    direct = "up";
-                    standingOnBox = 1;
+    public ArrayList<Box> getBox() {
+        return box;
+    }
 
-                    // Adjust character position to be above the box
-                    y = box.get(i).getY() - box.get(i).getImage().getHeight();
-                } else if (collisionDirection == CollisionDirection.LEFT) {
-                    direct = "left";
-                    box.get(i).setDirection(direct);
-
-                    // Adjust character position to be to the left of the box
-                    x = box.get(i).getX() - box.get(i).getImage().getWidth();
-                } else if (collisionDirection == CollisionDirection.RIGHT) {
-                    direct = "right";
-                    box.get(i).setDirection(direct);
-
-                    // Adjust character position to be to the right of the box
-                    x = box.get(i).getX() + box.get(i).getImage().getWidth();
-                }
-                return true;
-            } else {
-                standingOnBox = 0;
-            }
-        }
-        return false;
+    public Timer getTimeCount() {
+        return timeCount;
     }
 
     public int getMapWidth() {
@@ -146,5 +125,17 @@ public class Map {
 
     public int getMapHeight() {
         return bg[1].getHeight();
+    }
+
+    public Object getLava() {
+        return null;
+    }
+
+    public Object getFish() {
+        return null;
+    }
+
+    public int getScore() {
+        return 0;
     }
 }

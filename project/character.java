@@ -5,33 +5,29 @@ import javax.imageio.ImageIO;
 import java.awt.Graphics;
 
 public class character {
-    private int x;
-    private int y;
-    private int speed;
-    private int step = 0;
-    private int counterStep = 0;
-    private int d = 0;
+
+    private int x, y, speed, step = 0, counterStep = 0, d = 0;
     private KeyHandle key;
-    private BufferedImage walk[] = new BufferedImage[7], jump[] = new BufferedImage[7];
-    private boolean isRight = true, isJump = false, checkJump = true;
-    private Map map;
-    private SoundEffect sound = new SoundEffect();
+    private BufferedImage walk[] = new BufferedImage[7], jump[] = new BufferedImage[7], die[] = new BufferedImage[7],
+            stun;
+    private boolean isRight = true, isJump = false;
+    private String direct = "";
+    public static boolean isDie = false, isStun = false, isCollisionBox = false, isCollisionBoxDown = false;
 
     private static final int totalImageOfCharacter = 7;
-    private static final int animation = (int) (GamePanel.getFPS() / (int) (totalImageOfCharacter - 3));
+    private static final int animation = (int) (GamePanel.getFPS() / (totalImageOfCharacter - 3));
     private static final int gravity = 3;
-    private static final int heightOfJump = 35; // 30*speed = 30 * 3 = 90
+    private static final int heightOfJump = 25; // 30*speed = 30 * 3 = 90
 
     public character() {
         init();
     }
 
     public character(KeyHandle key, Map map) {
-        x = 100;
-        y = 100;
-        speed = 3;
+        x = 400;
+        y = 250;
+        speed = 4;
         this.key = key;
-        this.map = map;
         init();
     }
 
@@ -39,18 +35,18 @@ public class character {
         return x;
     }
 
-    public void setX(int x) {
-        if (x < map.getMapWidth()) {
-            this.x = x;
-        }
-    }
-
     public int getY() {
         return y;
     }
 
+    public void setX(int x) {
+        if (x < game.getScreenWidth()) {
+            this.x = x;
+        }
+    }
+
     public void setY(int y) {
-        if (y < map.getMapHeight()) {
+        if (y < game.getScreenHeight()) {
             this.y = y;
         }
     }
@@ -67,6 +63,14 @@ public class character {
         return walk[0];
     }
 
+    public String getDirect() {
+        return direct;
+    }
+
+    public void setIsCollisionBox(boolean check) {
+        this.isCollisionBox = check;
+    }
+
     public void init() {
         try {
             for (int i = 0; i < totalImageOfCharacter; i++) {
@@ -80,8 +84,12 @@ public class character {
 
     public void draw(Graphics g) {
         if (isRight == true) {
+            if (isDie) {
+                g.drawImage(stun, x + 10, y - 45, null);
+                g.drawImage(die[step], x + die[step].getWidth(), y, -die[step].getWidth(), die[step].getHeight(), null);
+            }
             // reverse image
-            if (isJump) {
+            else if (isJump) {
                 g.drawImage(jump[step], x + jump[step].getWidth(), y, -jump[step].getWidth(), jump[step].getHeight(),
                         null);
             } else {
@@ -89,7 +97,11 @@ public class character {
                         null);
             }
         } else {
-            if (isJump) {
+            if (isDie) {
+                g.drawImage(stun, x + 10, y - 45, null);
+
+                g.drawImage(die[step], x, y, null);
+            } else if (isJump) {
                 g.drawImage(jump[step], x, y, null);
             } else {
                 g.drawImage(walk[step], x, y, null);
@@ -98,106 +110,84 @@ public class character {
 
     }
 
+    public void setDirection() {
+        direct = "";
+        if (key.isKeyA()) {
+            direct = "left";
+        }
+        if (key.isKeyD()) {
+            direct = "right";
+        }
+    }
+
     public void update() {
 
-        if (key.isKeyA() == true || key.isKeyW() == true || key.isKeyS() == true || key.isKeyD() == true
-                || key.isKeySpace() == true || isJump) {
-            if (key.isKeyA() == true) {
-                if (!(collision.isCharacterCollision(x - speed, y, "left"))) {
-                    setX(x - speed);
-                } else if (!(collision.isCharacterCollision(x, y, "left-up"))
-                        && (collision.isCharacterCollision(x, y, "down"))) {
-                    setX(x - speed);
-                    setY(y - speed);
-                }
-                map.checkCollisionBox(x, y, "left");
-                isRight = false;
-            }
+        setDirection();
 
-            if ((key.isKeyW() == true || key.isKeySpace() == true)) {
-                if (isJump == false && (collision.isCharacterCollision(x, y, "down"))
-                        || isJump == false && map.standingOnBox == 1) {
-                    isJump = true;
-                    sound.SetClip(0);
-                    sound.play();
+        if (!isCollisionBox) {
+            if (key.isKeyA() == true || key.isKeyW() == true || key.isKeyS() == true || key.isKeyD() == true
+                    || key.isKeySpace() == true || isJump) {
+                // MOVE LEFT
+                if (key.isKeyA() == true) {
+                    if (!(collision.isCharacterCollision(x - speed, y, "left"))) {
+                        setX(x - speed);
+                    }
+                    // MOVE LEFT UP
+                    else if (!(collision.isCharacterCollision(x, y, "left-up"))
+                            && (collision.isCharacterCollision(x, y, "down"))) {
+                        setX(x - speed);
+                        setY(y - speed);
+                    }
+                    isRight = false;
                 }
-                map.checkCollisionBox(x, y, "up");
-            }
-            if (key.isKeyD() == true) {
-                if (!(collision.isCharacterCollision(x + speed, y, "right"))) {
-                    setX(x + speed);
-                } else if (!(collision.isCharacterCollision(x, y, "right-up"))
-                        && (collision.isCharacterCollision(x, y, "down"))) {
-                    setX(x + speed);
-                    setY(y - speed);
+                // SET JUMP
+                if ((key.isKeyW() == true || key.isKeySpace() == true)) {
+                    if (isJump == false && ((collision.isCharacterCollision(x, y, "down")) || isCollisionBoxDown)) {
+                        // direct="jump";
+                        isJump = true;
+                        SoundEffect.play(0);
+                    }
                 }
-                map.checkCollisionBox(x, y, "right");
-                isRight = true;
-            }
-            if (isJump && d < heightOfJump && checkJump) {
-                if (!(collision.isCharacterCollision(x, y - speed, "jump"))) {
+                // MOVE RIGHT
+                if (key.isKeyD() == true) {
+                    if (!(collision.isCharacterCollision(x + speed, y, "right"))) {
+                        setX(x + speed);
+                    }
+                    // MOVE RIGHT UP
+                    else if (!(collision.isCharacterCollision(x, y, "right-up"))
+                            && (collision.isCharacterCollision(x, y, "down"))) {
+                        setX(x + speed);
+                        setY(y - speed);
+                    }
+                    isRight = true;
+                }
+                // JUMP UP
+                if (isJump && d < heightOfJump && (!(collision.isCharacterCollision(x, y - speed, "jump")))) {
                     d++;
                     setY(y - speed);
-                } else {
-                    checkJump = false;
-                }
-            } else if (isJump && d < (heightOfJump * 2) && checkJump) {
-                if (!(collision.isCharacterCollision(x, y, "up"))) {
-                    d++;
-                    setY(y + speed);
                 } else {
                     d = 0;
                     isJump = false;
                 }
-            } else if (d >= (heightOfJump * 2)) {
-                isJump = false;
-                d = 0;
-            }
-            if (checkJump == false && d > 0) {
-                if (!(collision.isCharacterCollision(x, y + speed, "down"))) {
-                    d--;
-                    setY(y + speed);
-                } else {
-                    d = 0;
-                }
-            } else if (checkJump == false && d == 0) {
-                isJump = false;
-                checkJump = true;
-            }
-
-            // CHARACTER IMG
-            counterStep++;
-            if (counterStep > animation) {
-                step++;
-                counterStep = 0;
-                if (step >= totalImageOfCharacter) {
-                    step = 0;
-                } else
-                    step++;
-            } else
+                // CHARACTER ANIMATION
                 counterStep++;
+                if (counterStep > animation) {
+                    step++;
+                    counterStep = 0;
+                    if (step >= totalImageOfCharacter) {
+                        step = 0;
+                    } else
+                        step++;
+                } else
+                    counterStep++;
+            }
         }
 
         // GRAVITY
         if (!isJump) {
-            if (!(collision.isCharacterCollision(x, y, "down"))) {
+            if (!(collision.isCharacterCollision(x, y, "down")) && !isCollisionBoxDown) {
                 setY(y + gravity);
             }
         }
-
-        // Standing on the box
-        if (map.standingOnBox == 1 && isJump == true) {
-            setY(y - speed);
-        }
-
-        if (map.standingOnBox == 1) {
-            setY(map.boxUpper);
-        }
-
-        if (map.isCollision(x, y)) {
-            sound.SetClip(2);
-            sound.play();
-        }
-
     }
 }
