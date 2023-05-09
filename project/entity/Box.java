@@ -1,10 +1,12 @@
-package project;
+package project.entity;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+
+import project.collision;
 
 public class Box extends object {
     private BufferedImage image;

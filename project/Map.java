@@ -4,26 +4,16 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 
-import project.entity.Fish;
-import project.entity.Lava;
-import project.entity.ObjectTime;
-import project.entity.Timer;
-import project.entity.character;
-import project.entity.Thorn;
-import project.entity.Gate;
+import project.entity.*;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import javax.imageio.ImageIO;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Timer;
 
 public class Map implements Base {
 
@@ -84,8 +74,6 @@ public class Map implements Base {
             box.get(i).draw(g);
         }
 
-        g.drawImage(bg[1], 0, 0, null);
-
     }
 
     public void update() {
@@ -143,17 +131,37 @@ public class Map implements Base {
             InputStream in = getClass().getResourceAsStream(address);
             BufferedReader br = new BufferedReader(new InputStreamReader(in));
             score = Integer.parseInt(br.readLine());
-            String line = br.readLine();
             String delims = "\\s++";
 
+            String line = br.readLine();
             String[] tokens = line.split(delims);
             c.setX(Integer.parseInt(tokens[0]));
             c.setY(Integer.parseInt(tokens[1]));
 
-            for (int i = 0; i < score; i++) {
-                fish.remove(0);
+            int fishSize = Integer.parseInt(br.readLine());
+            fish = null;
+            fish = new ArrayList<Fish>();
+            for (int i = 0; i < fishSize; i++) {
+                line = br.readLine();
+                tokens = line.split(delims);
+                fish.add(new Fish(Integer.parseInt(tokens[0]), Integer.parseInt(tokens[1])));
             }
 
+            int timeSize = Integer.parseInt(br.readLine());
+            time = null;
+            time = new ArrayList<ObjectTime>();
+            for (int i = 0; i < timeSize; i++) {
+                line = br.readLine();
+                tokens = line.split(delims);
+                time.add(new ObjectTime(Integer.parseInt(tokens[0]), Integer.parseInt(tokens[1])));
+            }
+
+            for (int i = 0; i < box.size(); i++) {
+                line = br.readLine();
+                tokens = line.split(delims);
+                box.get(i).setX(Integer.parseInt(tokens[0]));
+                box.get(i).setY(Integer.parseInt(tokens[1]));
+            }
             br.close();
         } catch (Exception e) {
 
@@ -167,13 +175,18 @@ public class Map implements Base {
             writer.println(score);
             writer.println(c.getX() + " " + c.getY());
 
-            // for (int i = 0; i < fish.size(); i++) {
-            // writer.println(fish.get(i).getX()+" "+fish.get(i).getY());
-            // }
+            writer.println(fish.size());
+            for (int i = 0; i < fish.size(); i++) {
+                writer.println(fish.get(i).getX() + " " + fish.get(i).getY());
+            }
+            writer.println(time.size());
+            for (int i = 0; i < time.size(); i++) {
+                writer.println(time.get(i).getX() + " " + time.get(i).getY());
+            }
 
-            // for (int i = 0; i < box.size; i++) {
-            // writer.println(box.get(i).getX()+" "+box.get(i).getY());
-            // }
+            for (int i = 0; i < box.size(); i++) {
+                writer.println(box.get(i).getX() + " " + box.get(i).getY());
+            }
 
             writer.close();
         } catch (Exception e) {
@@ -216,7 +229,6 @@ public class Map implements Base {
                 if (collision.isCharacterCollisionObject(x, y, fish.get(j).getImage(), fish.get(j).getX(),
                         fish.get(j).getY())) {
                     score++;
-                    System.out.println("true");
                     fish.remove(j);
                     return true;
                 }
@@ -242,15 +254,15 @@ public class Map implements Base {
         return bg[1].getHeight();
     }
 
-    public Object getLava() {
-        return null;
+    public ArrayList<Lava> getLava() {
+        return lava;
     }
 
-    public Object getFish() {
-        return null;
+    public ArrayList<Fish> getFish() {
+        return fish;
     }
 
     public int getScore() {
-        return 0;
+        return score;
     }
 }

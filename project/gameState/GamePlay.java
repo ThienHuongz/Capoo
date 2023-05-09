@@ -6,6 +6,7 @@ import java.io.File;
 import project.Map;
 import project.SoundEffect;
 import project.collision;
+import project.entity.Box;
 import project.entity.character;
 import project.Base;
 import project.entity.object;
@@ -31,10 +32,10 @@ public class GamePlay implements Base {
     }
 
     public void update() {
+        // Check Collision of Object
+        isCollision(c.getX(), c.getY(), c.getDirect());
         map.update();
         c.update();
-        // Check Collision of Object
-        isCollision(c.getX(), c.getY());
     }
 
     public void draw(Graphics g) {
@@ -59,7 +60,8 @@ public class GamePlay implements Base {
         return false;
     }
 
-    public void isCollision(int x, int y) {
+    // x y direction of character
+    public void isCollision(int x, int y, String direct) {
         if (forLoopCollision(map.getLava(), x, y, 0) || forLoopCollision(map.getThorn(), x, y, 0)) {
             character.isDie = true;
             SoundEffect.play(5);
@@ -74,16 +76,32 @@ public class GamePlay implements Base {
         }
         if (collision.isCharacterCollisionObject(x, y, map.getGate().getImage(), map.getGate().getX(),
                 map.getGate().getY())) {
-            if (!Map.checkTouch) {
-                map.getGate().setStep(1);
-                Map.checkTouch = true;
-                SoundEffect.play(6);
+            Map.checkTouch = true;
+            SoundEffect.play(6);
+        }
+
+        // IF COLIISION DONT MOVE CHARACTER
+        ArrayList<Box> box = map.getBox();
+        c.setIsCollisionBox(false);
+
+        if (direct != "") {
+            for (int i = 0; i < box.size(); i++) {
+                if (collision.isCharacterCollisionBox(x, y, direct, box.get(i).getImage(), box.get(i).getX(),
+                        box.get(i).getY())) {
+                    box.get(i).setDirection(direct);
+                    c.setIsCollisionBox(true);
+                    break;
+                }
             }
-        } else {
-            if (Map.checkTouch) {
-                map.getGate().setStep(0);
-                Map.checkTouch = false;
-                SoundEffect.play(7);
+        }
+
+        // GRAVITY CHARACTER TO BOX
+        character.isCollisionBoxDown = false;
+        for (int i = 0; i < box.size(); i++) {
+            if (collision.isCharacterCollisionBox(x, y, "down", box.get(i).getImage(), box.get(i).getX(),
+                    box.get(i).getY())) {
+                character.isCollisionBoxDown = true;
+                break;
             }
         }
     }

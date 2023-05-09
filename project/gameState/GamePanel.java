@@ -22,9 +22,9 @@ public class GamePanel extends JPanel implements Runnable {
     public MenuState mn;
     public GamePlay gamePlay;
     public GameOverState overState;
-    public WinnerState winnerState; 
+    public WinnerState winnerState;
     public LevelState levelState;
-    
+
     private BufferedImage[] pause = new BufferedImage[2];
     private WindowHandle wh;
 
@@ -36,7 +36,7 @@ public class GamePanel extends JPanel implements Runnable {
         this.setFocusable(true);
         mouseKey = new MouseHandle(this);
         mn = new MenuState(this);
-        
+
         this.addMouseListener(mouseKey);
         this.addMouseMotionListener(mouseKey);
         this.addKeyListener(key);
@@ -100,7 +100,7 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void IsPause() {
-        if (key.isKeyEsc() == true && gamePlay != null) {
+        if (key.isKeyEsc() == true && character.isDie != true && gamePlay != null && winnerState == null) {
             IsRun = !IsRun;
             key.setKeyEsc(false);
         }
@@ -109,15 +109,21 @@ public class GamePanel extends JPanel implements Runnable {
     public void IsWindowDeactivated() {
         if (wh.IsWindowDeactivated) {
             wh.IsWindowDeactivated = false;
-            if (gamePlay != null) {
+            if (character.isDie != true && gamePlay != null && winnerState == null) {
                 IsRun = false;
             }
         }
     }
 
     public void update() {
-        if ((character.isDie != true && gamePlay != null))
-            gamePlay.update();
+        if (character.isDie != true && winnerState == null) {
+            if (gamePlay != null) {
+                gamePlay.update();
+            }
+            if (wh.IsWindowClosing) {
+                gamePlay.SaveUserData("assets/UserSavedGame/User1.map");
+            }
+        }
 
     }
 
@@ -127,7 +133,7 @@ public class GamePanel extends JPanel implements Runnable {
 
         if (mn != null)
             mn.draw(g);
-        
+
         if (gamePlay != null) {
             gamePlay.draw(g);
             if (!IsRun) {
@@ -137,27 +143,24 @@ public class GamePanel extends JPanel implements Runnable {
 
         if (character.isDie == true && overState == null) {
             // gamePlay = null;
-            overState = new GameOverState(this); 
+            overState = new GameOverState(this);
             character.isDie = false;
         }
-        
-        if(Map.checkTouch == true && winnerState == null)
-        {
-        	winnerState = new WinnerState(this);
+
+        if (Map.checkTouch == true && winnerState == null) {
+            winnerState = new WinnerState(this);
         }
-        
+
         if (overState != null) {
             overState.draw(g);
         }
-        
+
         if (winnerState != null) {
-        	winnerState.draw(g);
+            winnerState.draw(g);
         }
-        
+
         if (levelState != null)
             levelState.draw(g);
-        
-        
 
     }
 

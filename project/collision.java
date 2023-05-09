@@ -1,7 +1,7 @@
 package project;
 
-import java.awt.image.BufferedImage;
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
 import project.entity.character;
 
 public class collision {
@@ -157,7 +157,6 @@ public class collision {
                     int pixel1 = character.getRGB(x - x1, y - y1);
                     int pixel2 = image2.getRGB(x - x2, y - y2);
                     if (((pixel1 >> 24) & 0xff) != 0 && ((pixel2 >> 24) & 0xff) != 0) {
-                        // System.out.println("true");
                         return true;
                     }
                 }
@@ -171,14 +170,13 @@ public class collision {
             case "left":
                 if (new Rectangle(x1, y1, character.getWidth() / 2, character.getHeight())
                         .intersects(new Rectangle(x2 + image2.getWidth() - 3, y2 + 5, 5, image2.getHeight()))) {
-                    System.out.println("left");
+
                     return true;
                 }
                 break;
             case "right":
                 if (new Rectangle(x1, y1, character.getWidth(), character.getHeight())
                         .intersects(new Rectangle(x2, y2 + 5, 1, image2.getHeight()))) {
-                    System.out.println("right");
                     return true;
                 }
                 break;
@@ -192,7 +190,6 @@ public class collision {
             case "down":
                 if (new Rectangle(x1, y1 + character.getHeight() - 3, character.getWidth() - 3, 3)
                         .intersects(new Rectangle(x2, y2, image2.getWidth(), 1))) {
-                    System.out.println("down");
                     return true;
                 }
                 break;
@@ -235,4 +232,5 @@ public class collision {
         return false;
 
     }
+
 }

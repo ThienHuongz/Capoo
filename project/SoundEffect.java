@@ -71,7 +71,7 @@ public class SoundEffect {
     }
 
     public void loop() {
-        clip.loop(clip.LOOP_CONTINUOUSLY);
+        clip.loop(Clip.LOOP_CONTINUOUSLY);
     }
 
 }
