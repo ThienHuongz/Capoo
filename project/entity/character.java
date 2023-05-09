@@ -76,7 +76,7 @@ public class character implements Base {
     }
 
     public void setIsCollisionBox(boolean check) {
-        this.isCollisionBox = check;
+        character.isCollisionBox = check;
     }
 
     public void init() {

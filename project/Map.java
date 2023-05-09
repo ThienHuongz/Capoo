@@ -119,7 +119,7 @@ public class Map implements Base {
             box.add(new Box(550, 168));
 
             timeCount = new Timer();
-
+            score =0;
         } catch (IOException e) {
             System.err.println("Error loading map from file: " + e.getMessage());
         }
