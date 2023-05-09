@@ -116,10 +116,8 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void update() {
-        if (character.isDie != true && winnerState == null) {
-            if (gamePlay != null) {
-                gamePlay.update();
-            }
+        if (character.isDie != true && winnerState == null && gamePlay != null) {
+            gamePlay.update();
             if (wh.IsWindowClosing) {
                 gamePlay.SaveUserData("assets/UserSavedGame/User1.map");
             }
