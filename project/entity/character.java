@@ -38,7 +38,10 @@ public class character implements Base {
         this.key = key;
         init();
     }
-
+    public void setXYInit(){
+        x=100;
+        y=530;
+    }
     public int getY() {
         return y;
     }

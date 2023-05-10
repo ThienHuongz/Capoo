@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 
 import project.Map;
+import project.game;
 import project.EventListener.KeyHandle;
 import project.EventListener.MouseHandle;
 import project.EventListener.WindowHandle;
@@ -19,11 +20,7 @@ public class GamePanel extends JPanel implements Runnable {
     private Thread thread;
     private KeyHandle key = new KeyHandle();
     private MouseHandle mouseKey;
-    public MenuState mn;
-    public GamePlay gamePlay;
-    public GameOverState overState;
-    public WinnerState winnerState;
-    public LevelState levelState;
+    private GameStateManager gameState;
 
     private BufferedImage[] pause = new BufferedImage[2];
     private WindowHandle wh;
@@ -35,7 +32,7 @@ public class GamePanel extends JPanel implements Runnable {
         // respond to keyboard events of game panel
         this.setFocusable(true);
         mouseKey = new MouseHandle(this);
-        mn = new MenuState(this);
+        gameState = new GameStateManager(this);
 
         this.addMouseListener(mouseKey);
         this.addMouseMotionListener(mouseKey);
@@ -100,7 +97,7 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void IsPause() {
-        if (key.isKeyEsc() == true && character.isDie != true && gamePlay != null && winnerState == null) {
+        if (key.isKeyEsc() == true && character.isDie != true && gameState.getCurrentState() == 2) {
             IsRun = !IsRun;
             key.setKeyEsc(false);
         }
@@ -109,57 +106,62 @@ public class GamePanel extends JPanel implements Runnable {
     public void IsWindowDeactivated() {
         if (wh.IsWindowDeactivated) {
             wh.IsWindowDeactivated = false;
-            if (character.isDie != true && gamePlay != null && winnerState == null) {
+            if (character.isDie != true && gameState.getCurrentState() == 2) {
                 IsRun = false;
             }
         }
     }
 
     public void update() {
-        if (character.isDie != true && winnerState == null && gamePlay != null) {
-            gamePlay.update();
+        if (gameState.getCurrentState() == 2 && character.isDie != true) {
+            gameState.update();
             if (wh.IsWindowClosing) {
-                gamePlay.SaveUserData("assets/UserSavedGame/User1.map");
+                gameState.getGamePlay().SaveUserData("assets/UserSavedGame/User1.map");
             }
         }
+        // if (character.isDie != true && winnerState == null && gamePlay != null) {
+        // gamePlay.update();
+
+        // }
 
     }
 
     public void paintComponent(Graphics g) {
         // to ensure that any necessary pre-painting operations are performed
         super.paintComponent(g);
+        gameState.draw(g);
+        // if (mn != null)
+        // mn.draw(g);
 
-        if (mn != null)
-            mn.draw(g);
-
-        if (gamePlay != null) {
-            gamePlay.draw(g);
-            if (!IsRun) {
-                g.drawImage(pause[0], 250, 230, null);
-            }
+        if (!IsRun && gameState.getGamePlay() != null) {
+            g.drawImage(pause[0], 250, 230, null);
         }
 
-        if (character.isDie == true && overState == null) {
-            // gamePlay = null;
-            overState = new GameOverState(this);
-            character.isDie = false;
-        }
+        // if (character.isDie == true && overState == null) {
+        // // gamePlay = null;
+        // overState = new GameOverState(this);
+        // character.isDie = false;
+        // }
 
-        if (Map.checkTouch == true && winnerState == null) {
-            winnerState = new WinnerState(this);
-        }
+        // if (Map.checkTouch == true && winnerState == null) {
+        // winnerState = new WinnerState(this);
+        // }
 
-        if (overState != null) {
-            overState.draw(g);
-        }
+        // if (overState != null) {
+        // overState.draw(g);
+        // }
 
-        if (winnerState != null) {
-            winnerState.draw(g);
-        }
+        // if (winnerState != null) {
+        // winnerState.draw(g);
+        // }
 
-        if (levelState != null)
-            levelState.draw(g);
+        // if (levelState != null)
+        // levelState.draw(g);
 
+    }
+
+    public GameStateManager getGameStateManager() {
+        return gameState;
     }
 
     public KeyHandle getKey() {
@@ -174,28 +176,36 @@ public class GamePanel extends JPanel implements Runnable {
         // RESUME
         if (new Rectangle(330, 295, 155, 55).contains(mx, my)) {
             IsRun = true;
+            key.setKeyEsc(false);
+
             // gamePlay=new GamePlay(this);
         }
         // RESTART
         if (new Rectangle(540, 295, 155, 55).contains(mx, my)) {
             IsRun = true;
-            gamePlay.DeleteUserData("assets/UserSavedGame/User1.map");
-            gamePlay = new GamePlay(this);
+            key.setKeyEsc(false);
+
+            gameState.getGamePlay().DeleteUserData("assets/UserSavedGame/User1.map");
+            gameState.getGamePlay().RestartGamePlay();
+            gameState.setState(2);
             // gamePlay=new GamePlay(this);
         }
         // LEVEL STATE
         if (new Rectangle(330, 365, 155, 55).contains(mx, my)) {
             IsRun = true;
-            gamePlay.SaveUserData("assets/UserSavedGame/User1.map");
-            gamePlay = null;
-            levelState = new LevelState(this);
+            key.setKeyEsc(false);
+            gameState.getGamePlay().SaveUserData("assets/UserSavedGame/User1.map");
+            // gamePlay = null;
+            // levelState = new LevelState(this);
+            gameState.setState(1);
         }
         // MENU STATE
         if (new Rectangle(410, 420, 155, 55).contains(mx, my)) {
             IsRun = true;
             // System.exit(0);
-            gamePlay = null;
-            mn = new MenuState(this);
+            // gamePlay = null;
+            // mn = new MenuState(this);
+            gameState.setState(0);
         }
     }
 

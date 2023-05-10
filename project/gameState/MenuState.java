@@ -7,11 +7,10 @@ import javax.imageio.ImageIO;
 import project.SoundEffect;
 import project.game;
 
-import project.Base;
 
 import java.io.IOException;
 
-public class MenuState implements Base {
+public class MenuState implements GameStateBase {
     private BufferedImage mn[] = new BufferedImage[10];
 
     private boolean startButton = false, exitButton = false;
@@ -93,9 +92,9 @@ public class MenuState implements Base {
     public void mouse_click(int mx, int my) {
         if (new Rectangle(370, 350, getButtonWidth(), getButtonHeight()).contains(mx, my)) {
             SoundEffect.play(3);
-
-            gamepanel.mn = null;
-            gamepanel.levelState = new LevelState(gamepanel);
+            gamepanel.getGameStateManager().setState(1);
+            // gamepanel.mn = null;
+            // gamepanel.levelState = new LevelState(gamepanel);
         }
         if (new Rectangle(370, 490, getButtonWidth(), getButtonHeight()).contains(mx, my)) {
             System.exit(0);

@@ -9,8 +9,9 @@ import project.game;
 
 import java.io.IOException;
 
-public class WinnerState {
+public class WinnerState implements GameStateBase {
     private BufferedImage mn[] = new BufferedImage[10];
+    private BufferedImage bg[] = new BufferedImage[2];
 
     // private boolean startButton = false, exitButton = false;
     GamePanel gamepanel;
@@ -33,13 +34,18 @@ public class WinnerState {
             mn[7] = ImageIO.read(getClass().getResourceAsStream("../../assets/endState/Star2.png"));
             mn[8] = ImageIO.read(getClass().getResourceAsStream("../../assets/endState/Star3.png"));
 
+            bg[0] = ImageIO.read(getClass().getResourceAsStream("../../assets/background.png"));
+            bg[1] = ImageIO.read(getClass().getResourceAsStream("../../assets/Background OOP1.png"));
         } catch (IOException e) {
             System.err.println("Error loading map from file: " + e.getMessage());
         }
     }
 
     public void draw(Graphics g) {
-
+        
+        g.drawImage(bg[0], 0, 0, null);
+        g.drawImage(bg[1], 0, 0, null);
+        
         g.drawImage(mn[5], (game.getScreenWidth() - mn[5].getWidth()) / 2, 50, null);
 
         if (Map.score == 1 || Map.score == 0) {
@@ -77,19 +83,22 @@ public class WinnerState {
     public void create_rectangle(int i, int mx, int my) {
         if (new Rectangle((game.getScreenWidth() - mn[i].getWidth()) / 2, 450, getButtonWidth(), getButtonHeight())
                 .contains(mx, my)) {
-            gamepanel.gamePlay = null;
-            gamepanel.winnerState = null;
-            gamepanel.mn = new MenuState(gamepanel);
+            gamepanel.getGameStateManager().setState(0);
+            // gamepanel.gamePlay = null;
+            // gamepanel.winnerState = null;
+            // gamepanel.mn = new MenuState(gamepanel);
         } else if (new Rectangle((game.getScreenWidth() - mn[i].getWidth()) / 2 + +mn[i].getWidth() / 3, 480,
                 getButtonWidth(), getButtonHeight()).contains(mx, my)) {
-            gamepanel.gamePlay = null;
-            gamepanel.winnerState = null;
-            gamepanel.levelState = new LevelState(gamepanel);
+            gamepanel.getGameStateManager().setState(1);
+            // gamepanel.gamePlay = null;
+            // gamepanel.winnerState = null;
+            // gamepanel.levelState = new LevelState(gamepanel);
         } else if (new Rectangle((game.getScreenWidth() - mn[i].getWidth()) / 2 + mn[i].getWidth() * 2 / 3, 450,
                 getButtonWidth(), getButtonHeight()).contains(mx, my)) {
-            gamepanel.winnerState = null;
-            gamepanel.gamePlay = null;
-            gamepanel.mn = new MenuState(gamepanel);
+            gamepanel.getGameStateManager().setState(0);
+            // gamepanel.winnerState = null;
+            // gamepanel.gamePlay = null;
+            // gamepanel.mn = new MenuState(gamepanel);
         }
     }
 

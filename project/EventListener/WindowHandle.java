@@ -15,7 +15,6 @@ public class WindowHandle implements WindowListener {
     }
 
     public void windowClosing(WindowEvent e) {
-        System.out.println("vao");
         IsWindowClosing = true;
     }
 

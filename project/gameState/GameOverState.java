@@ -8,7 +8,8 @@ import project.entity.character;
 
 import java.io.IOException;
 
-public class GameOverState {
+public class GameOverState implements GameStateBase {
+    private BufferedImage bg[] = new BufferedImage[2];
     private BufferedImage mn[] = new BufferedImage[20];
 
     GamePanel gamepanel;
@@ -42,6 +43,9 @@ public class GameOverState {
             mn[13] = ImageIO.read(getClass().getResourceAsStream("../../assets/endState/deadState/CapooWin1.png"));
             mn[14] = ImageIO.read(getClass().getResourceAsStream("../../assets/endState/deadState/CapooWin2.png"));
 
+            bg[0] = ImageIO.read(getClass().getResourceAsStream("../../assets/background.png"));
+            bg[1] = ImageIO.read(getClass().getResourceAsStream("../../assets/Background OOP1.png"));
+
         } catch (IOException e) {
             System.err.println("Error loading map from file: " + e.getMessage());
         }
@@ -50,6 +54,8 @@ public class GameOverState {
     public void draw(Graphics g) {
 
         g.setColor(new Color(0, 0, 0, 150));
+        g.drawImage(bg[0], 0, 0, null);
+        g.drawImage(bg[1], 0, 0, null);
 
         g.fillRect(0, 0, game.getScreenWidth(), game.getScreenHeight());
 
@@ -92,10 +98,12 @@ public class GameOverState {
 
         if (new Rectangle((game.getScreenWidth() - mn[4].getWidth()) / 2, 300, getButtonWidth(), getButtonHeight())
                 .contains(mx, my)) {
-            gamepanel.gamePlay = null;
+            // gamepanel.gamePlay = null;
             character.isDie = false;
-            gamepanel.overState = null;
-            gamepanel.levelState = new LevelState(gamepanel);
+            // gamepanel.overState = null;
+            // gamepanel.levelState = new LevelState(gamepanel);
+            gamepanel.getGameStateManager().setState(1);
+            gamepanel.getGameStateManager().getGamePlay().RestartGamePlay();
         } else if (new Rectangle((game.getScreenWidth() - mn[3].getWidth()) / 2, 400, getButtonWidth(),
                 getButtonHeight()).contains(mx, my)) {
 

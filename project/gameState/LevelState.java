@@ -8,10 +8,9 @@ import javax.imageio.ImageIO;
 
 import project.SoundEffect;
 import project.game;
-import project.Base;
 import java.io.IOException;
 
-public class LevelState implements Base {
+public class LevelState implements GameStateBase {
     private BufferedImage ls[] = new BufferedImage[10];
 
     private boolean levelButton[] = new boolean[7];
@@ -85,8 +84,9 @@ public class LevelState implements Base {
                     SoundEffect.play(3);
                     SoundEffect.StopBGM();
                     SoundEffect.playBGM(1);
-                    gamepanel.levelState = null;
-                    gamepanel.gamePlay = new GamePlay(gamepanel);
+                    gamepanel.getGameStateManager().setState(2);
+                    // gamepanel.levelState = null;
+                    // gamepanel.gamePlay = new GamePlay(gamepanel);
                 } else {
                     SoundEffect.play(8);
                 }

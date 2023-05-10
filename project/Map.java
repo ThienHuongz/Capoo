@@ -18,12 +18,12 @@ import java.util.ArrayList;
 public class Map implements Base {
 
     private BufferedImage bg[] = new BufferedImage[2];
-    private ArrayList<Lava> lava = new ArrayList<Lava>();
-    private ArrayList<Fish> fish = new ArrayList<Fish>();
-    private ArrayList<Thorn> thorn = new ArrayList<Thorn>();
-    private ArrayList<ObjectTime> time = new ArrayList<ObjectTime>();
+    private ArrayList<Lava> lava;
+    private ArrayList<Fish> fish;
+    private ArrayList<Thorn> thorn;
+    private ArrayList<ObjectTime> time;
     private Gate gate;
-    private ArrayList<Box> box = new ArrayList<Box>();
+    private ArrayList<Box> box;
     private BufferedImage progressBar[] = new BufferedImage[2];
     private character c;
 
@@ -33,7 +33,6 @@ public class Map implements Base {
 
     public Map() {
         init();
-
     }
 
     public Map(character c) {
@@ -94,32 +93,38 @@ public class Map implements Base {
 
     public void init() {
         try {
+
             bg[0] = ImageIO.read(getClass().getResourceAsStream("../assets/background.png"));
             bg[1] = ImageIO.read(getClass().getResourceAsStream("../assets/Background OOP1.png"));
             progressBar[0] = ImageIO.read(getClass().getResourceAsStream("../assets/level/ProgressBar.png"));
             progressBar[1] = ImageIO.read(getClass().getResourceAsStream("../assets/level/unstar.png"));
 
+            lava = new ArrayList<Lava>();
             lava.add(new Lava(609, 522));
             lava.add(new Lava(500, 134));
 
+            fish = new ArrayList<Fish>();
             fish.add(new Fish(500, 480));
             fish.add(new Fish(350, 320));
             fish.add(new Fish(900, 190));
             fish.add(new Fish(450, 80));
 
+            time = new ArrayList<ObjectTime>();
             time.add(new ObjectTime(200, 400));
             time.add(new ObjectTime(250, 630));
 
+            thorn = new ArrayList<Thorn>();
             thorn.add(new Thorn(500, 655));
             thorn.add(new Thorn(35, 150, 1));
 
             gate = new Gate(860, 65);
 
+            box = new ArrayList<Box>();
             box.add(new Box(480, 310));
             box.add(new Box(550, 168));
 
             timeCount = new Timer();
-            score =0;
+            score = 0;
         } catch (IOException e) {
             System.err.println("Error loading map from file: " + e.getMessage());
         }
@@ -198,7 +203,7 @@ public class Map implements Base {
         File myObj = new File(address);
         myObj.delete();
     }
-
+    
     public BufferedImage getBackground() {
         return bg[1];
     }

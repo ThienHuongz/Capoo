@@ -8,17 +8,18 @@ import project.SoundEffect;
 import project.collision;
 import project.entity.Box;
 import project.entity.character;
-import project.Base;
 import project.entity.object;
 
 import java.util.ArrayList;
 
-public class GamePlay implements Base {
+public class GamePlay implements GameStateBase {
     private character c;
     private Map map;
     public static int currentLevel = 1;
+    private GamePanel gamePanel;
 
     public GamePlay(GamePanel gamepanel) {
+        this.gamePanel = gamepanel;
         this.c = new character(gamepanel.getKey());
         this.map = new Map(c);
 
@@ -64,6 +65,7 @@ public class GamePlay implements Base {
     public void isCollision(int x, int y, String direct) {
         if (forLoopCollision(map.getLava(), x, y, 0) || forLoopCollision(map.getThorn(), x, y, 0)) {
             character.isDie = true;
+            gamePanel.getGameStateManager().setState(3);
             SoundEffect.play(5);
         }
         if (forLoopCollision(map.getFish(), x, y, 1)) {
@@ -77,6 +79,7 @@ public class GamePlay implements Base {
         if (collision.isCharacterCollisionObject(x, y, map.getGate().getImage(), map.getGate().getX(),
                 map.getGate().getY())) {
             Map.checkTouch = true;
+            gamePanel.getGameStateManager().setState(4);
             SoundEffect.play(6);
         }
 
@@ -112,5 +115,16 @@ public class GamePlay implements Base {
 
     public void DeleteUserData(String address) {
         map.DeleteUserData(address);
+    }
+    public void RestartGamePlay(){
+        map.init();
+        c.setXYInit();
+    }
+    public void mouse_click(int x, int y) {
+
+    }
+
+    public void mouse_move(int x, int y) {
+
     }
 }
