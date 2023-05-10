@@ -98,15 +98,11 @@ public class GameOverState implements GameStateBase {
 
         if (new Rectangle((game.getScreenWidth() - mn[4].getWidth()) / 2, 300, getButtonWidth(), getButtonHeight())
                 .contains(mx, my)) {
-            // gamepanel.gamePlay = null;
             character.isDie = false;
-            // gamepanel.overState = null;
-            // gamepanel.levelState = new LevelState(gamepanel);
             gamepanel.getGameStateManager().setState(1);
             gamepanel.getGameStateManager().getGamePlay().RestartGamePlay();
         } else if (new Rectangle((game.getScreenWidth() - mn[3].getWidth()) / 2, 400, getButtonWidth(),
                 getButtonHeight()).contains(mx, my)) {
-
             System.exit(0);
         }
     }

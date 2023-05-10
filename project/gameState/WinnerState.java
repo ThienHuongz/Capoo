@@ -84,21 +84,15 @@ public class WinnerState implements GameStateBase {
         if (new Rectangle((game.getScreenWidth() - mn[i].getWidth()) / 2, 450, getButtonWidth(), getButtonHeight())
                 .contains(mx, my)) {
             gamepanel.getGameStateManager().setState(0);
-            // gamepanel.gamePlay = null;
-            // gamepanel.winnerState = null;
-            // gamepanel.mn = new MenuState(gamepanel);
+
         } else if (new Rectangle((game.getScreenWidth() - mn[i].getWidth()) / 2 + +mn[i].getWidth() / 3, 480,
                 getButtonWidth(), getButtonHeight()).contains(mx, my)) {
             gamepanel.getGameStateManager().setState(1);
-            // gamepanel.gamePlay = null;
-            // gamepanel.winnerState = null;
-            // gamepanel.levelState = new LevelState(gamepanel);
+
         } else if (new Rectangle((game.getScreenWidth() - mn[i].getWidth()) / 2 + mn[i].getWidth() * 2 / 3, 450,
                 getButtonWidth(), getButtonHeight()).contains(mx, my)) {
             gamepanel.getGameStateManager().setState(0);
-            // gamepanel.winnerState = null;
-            // gamepanel.gamePlay = null;
-            // gamepanel.mn = new MenuState(gamepanel);
+
         }
     }
 

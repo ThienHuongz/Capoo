@@ -93,8 +93,6 @@ public class MenuState implements GameStateBase {
         if (new Rectangle(370, 350, getButtonWidth(), getButtonHeight()).contains(mx, my)) {
             SoundEffect.play(3);
             gamepanel.getGameStateManager().setState(1);
-            // gamepanel.mn = null;
-            // gamepanel.levelState = new LevelState(gamepanel);
         }
         if (new Rectangle(370, 490, getButtonWidth(), getButtonHeight()).contains(mx, my)) {
             System.exit(0);

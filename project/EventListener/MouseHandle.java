@@ -23,29 +23,10 @@ public class MouseHandle extends MouseAdapter {
 
     public void mouseMove() {
         gamepanel.getGameStateManager().mouse_move(mx, my);
-        // if (gamepanel.mn != null) {
-        //     gamepanel.mn.mouse_move(mx, my);
-        // }
-        // if (gamepanel.levelState != null) {
-        //     gamepanel.levelState.mouse_move(mx, my);
-        // }
-        // if (gamepanel.overState != null) {
-        //     gamepanel.overState.mouse_move(mx, my);
-        // }
     }
 
     public void mouseClick() {
         gamepanel.getGameStateManager().mouse_click(mx, my);
-        // if (gamepanel.mn != null) {
-        //     gamepanel.mn.mouse_click(mx, my);
-        // }
-
-        // if (gamepanel.overState != null) {
-        //     gamepanel.overState.mouse_click(mx, my);
-        // }
-        // if (gamepanel.levelState != null) {
-        //     gamepanel.levelState.mouse_click(mx, my);
-        // }
         if (!gamepanel.IsRun){
             gamepanel.mouse_click(mx,my);
         }

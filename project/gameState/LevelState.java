@@ -85,8 +85,6 @@ public class LevelState implements GameStateBase {
                     SoundEffect.StopBGM();
                     SoundEffect.playBGM(1);
                     gamepanel.getGameStateManager().setState(2);
-                    // gamepanel.levelState = null;
-                    // gamepanel.gamePlay = new GamePlay(gamepanel);
                 } else {
                     SoundEffect.play(8);
                 }
