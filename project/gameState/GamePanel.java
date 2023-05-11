@@ -55,7 +55,7 @@ public class GamePanel extends JPanel implements Runnable {
         // int count=0;
 
         while (true) {
-            
+
             IsPause();
             IsWindowDeactivated();
             if (IsRun)
@@ -114,6 +114,8 @@ public class GamePanel extends JPanel implements Runnable {
                 gameState.getGamePlay().SaveUserData("assets/UserSavedGame/User1.map");
             }
 
+        } else if (gameState.getCurrentState() == 4) {
+            gameState.update();
         }
 
     }
