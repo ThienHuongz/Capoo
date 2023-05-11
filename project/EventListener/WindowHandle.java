@@ -4,7 +4,7 @@ import java.awt.event.WindowListener;
 import java.awt.event.WindowEvent;
 
 public class WindowHandle implements WindowListener {
-    public boolean IsWindowDeactivated = false, IsWindowClosing = false;
+    public boolean IsWindowDeactivated = false, IsWindowClosing = false, IsWindowOpen=false;
 
     // When change tab or click outside the window
     public void windowDeactivated(WindowEvent e) {
@@ -12,6 +12,7 @@ public class WindowHandle implements WindowListener {
     }
 
     public void windowOpened(WindowEvent e) {
+        this.IsWindowOpen=true;
     }
 
     public void windowClosing(WindowEvent e) {

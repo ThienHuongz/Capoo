@@ -80,6 +80,7 @@ public class GamePlay implements GameStateBase {
                 map.getGate().getY())) {
             Map.checkTouch = true;
             gamePanel.getGameStateManager().setState(4);
+            gamePanel.getGameStateManager().getGamePlay().RestartGamePlay();
             SoundEffect.play(6);
         }
 

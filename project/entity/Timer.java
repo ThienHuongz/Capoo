@@ -37,7 +37,12 @@ public class Timer {
 		}
 
 	}
-
+	public int getCountDownTime(){
+		return countdownTime;
+	}
+	public void setCountDownTime(int time){
+		this.countdownTime=time;
+	}
 	public void draw(Graphics g2) {
 		Font font1 = new Font("Arial", Font.PLAIN, 50);
 		seconds = countdownTime / 60;

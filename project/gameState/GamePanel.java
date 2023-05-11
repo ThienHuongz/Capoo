@@ -4,7 +4,6 @@ import javax.swing.*;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 
-
 import project.EventListener.*;
 import project.entity.character;
 import java.awt.*;
@@ -51,43 +50,41 @@ public class GamePanel extends JPanel implements Runnable {
 
         double drawInterval = 1000000000 / FPS; // 1 giây/ 60
         double nextDrawTime = System.nanoTime() + drawInterval;
+        double remainingTime;
         // long timer = 0;
         // int count=0;
 
         while (true) {
+            
             IsPause();
-            repaint();
-
-            while (IsRun) {
-                IsWindowDeactivated();
+            IsWindowDeactivated();
+            if (IsRun)
                 update();
-                // call paintcomponent
-                repaint();
-                try {
-                    double remainingTime = nextDrawTime - System.nanoTime();
-                    // timer += remainingTime;
+            // call paintcomponent
+            repaint();
+            try {
+                remainingTime = nextDrawTime - System.nanoTime();
+                // timer += remainingTime;
 
-                    // sleep chạy theo mili giây
-                    remainingTime /= 1000000;
+                // sleep chạy theo mili giây
+                remainingTime /= 1000000;
 
-                    if (remainingTime < 0) {
-                        remainingTime = 0;
-                    }
-
-                    Thread.sleep((long) remainingTime);
-
-                    nextDrawTime += drawInterval;
-
-                    // count++;
-                    // if (timer >= 1000000000){
-                    // // System.out.println("FPS: "+count);
-                    // timer=0;
-                    // count=0;
-                    // }
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                if (remainingTime < 0) {
+                    remainingTime = 0;
                 }
-                IsPause();
+
+                Thread.sleep((long) remainingTime);
+
+                nextDrawTime += drawInterval;
+
+                // count++;
+                // if (timer >= 1000000000){
+                // // System.out.println("FPS: "+count);
+                // timer=0;
+                // count=0;
+                // }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }
 
@@ -111,10 +108,12 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void update() {
         if (gameState.getCurrentState() == 2 && character.isDie != true) {
+
             gameState.update();
             if (wh.IsWindowClosing) {
                 gameState.getGamePlay().SaveUserData("assets/UserSavedGame/User1.map");
             }
+
         }
 
     }
@@ -135,6 +134,10 @@ public class GamePanel extends JPanel implements Runnable {
 
     public KeyHandle getKey() {
         return key;
+    }
+
+    public WindowHandle getWindowHandle() {
+        return wh;
     }
 
     public static int getFPS() {
