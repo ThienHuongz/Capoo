@@ -115,7 +115,13 @@ public class GamePanel extends JPanel implements Runnable {
             if (wh.IsWindowClosing) {
                 gameState.getGamePlay().SaveUserData("assets/UserSavedGame/User1.map");
             }
+        }    
+        else if( gameState.getCurrentState() == 4 )
+        {
+        	gameState.update();
         }
+        
+
 
     }
 
