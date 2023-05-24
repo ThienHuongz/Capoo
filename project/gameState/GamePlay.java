@@ -37,6 +37,7 @@ public class GamePlay implements GameStateBase {
         isCollision(c.getX(), c.getY(), c.getDirect());
         map.update();
         c.update();
+        countTimeOver();
     }
 
     public void draw(Graphics g) {
@@ -121,6 +122,13 @@ public class GamePlay implements GameStateBase {
         map.init();
         c.setXYInit();
     }
+    
+    public void countTimeOver() {
+    	if(map.getTimeCount().countdownTime <= 0) {
+    		gamePanel.getGameStateManager().setState(3);
+    	}
+    }
+    
     public void mouse_click(int x, int y) {
 
     }

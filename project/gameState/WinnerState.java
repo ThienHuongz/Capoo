@@ -62,11 +62,11 @@ public class WinnerState implements GameStateBase {
         g.drawImage(mn[5], (game.getScreenWidth() - mn[5].getWidth()) / 2, 50, null);
 
         if (Map.score == 1 || Map.score == 0) {
-            g.drawImage(mn[8], (game.getScreenWidth() - mn[6].getWidth()) / 2, 200, null);
+            g.drawImage(mn[6], (game.getScreenWidth() - mn[6].getWidth()) / 2, 200, null);
         } else if (Map.score == 2 || Map.score == 3) {
             g.drawImage(mn[7], (game.getScreenWidth() - mn[6].getWidth()) / 2, 200, null);
         } else if (Map.score == 4) {
-            g.drawImage(mn[6], (game.getScreenWidth() - mn[6].getWidth()) / 2, 200, null);
+            g.drawImage(mn[8], (game.getScreenWidth() - mn[6].getWidth()) / 2, 200, null);
         }
         
         g.drawImage(mn[9], getxCapoo1(), getyCapoo1(), null);
@@ -99,17 +99,17 @@ public class WinnerState implements GameStateBase {
     public void create_rectangle(int i, int mx, int my) {
         if (new Rectangle((game.getScreenWidth() - mn[i].getWidth()) / 2, 450, getButtonWidth(), getButtonHeight())
                 .contains(mx, my)) {
-            gamepanel.getGameStateManager().setState(0);
+            gamepanel.getGameStateManager().setState(1);
             gamepanel.getGameStateManager().getGamePlay().RestartGamePlay();
 
         } else if (new Rectangle((game.getScreenWidth() - mn[i].getWidth()) / 2 + +mn[i].getWidth() / 3, 480,
                 getButtonWidth(), getButtonHeight()).contains(mx, my)) {
-            gamepanel.getGameStateManager().setState(1);
+            gamepanel.getGameStateManager().setState(2);
             gamepanel.getGameStateManager().getGamePlay().RestartGamePlay();
 
         } else if (new Rectangle((game.getScreenWidth() - mn[i].getWidth()) / 2 + mn[i].getWidth() * 2 / 3, 450,
                 getButtonWidth(), getButtonHeight()).contains(mx, my)) {
-            gamepanel.getGameStateManager().setState(0);
+            gamepanel.getGameStateManager().setState(2);
             gamepanel.getGameStateManager().getGamePlay().RestartGamePlay();
 
         }
