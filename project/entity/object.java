@@ -13,9 +13,7 @@ public abstract class object implements Base{
     private int x, y, totalImage, animation;
     private int counterStep = 0, step = 0;
 
-    public object(){
-        
-    }
+
     public object(int x, int y){
         this.x = x;
         this.y = y;

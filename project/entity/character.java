@@ -27,6 +27,8 @@ public class character implements Base {
     private static final int gravity = 3;
     private static final int heightOfJump = 25; // 30*speed = 30 * 3 = 90
 
+    
+
     public character() {
         init();
     }

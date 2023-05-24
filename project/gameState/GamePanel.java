@@ -14,7 +14,7 @@ public class GamePanel extends JPanel implements Runnable {
     public static int gameOverNumber = 1;
     private static int FPS = 60; // Frame per second
     private Thread thread;
-    private KeyHandle key = new KeyHandle();
+    private KeyHandle key = KeyHandle.getInstance();
     private MouseHandle mouseKey;
     private GameStateManager gameState;
 

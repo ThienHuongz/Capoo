@@ -4,8 +4,16 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class KeyHandle implements KeyListener {
+
+    private static final KeyHandle INSTANCE = new KeyHandle();
     private boolean keyW, keyA, keyS, keyD, keySpace, keyEsc;
 
+    private KeyHandle(){
+
+    }
+    public static KeyHandle getInstance(){
+        return INSTANCE;
+    }
     public boolean isKeyEsc() {
         return this.keyEsc;
     }

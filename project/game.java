@@ -14,7 +14,7 @@ public class game {
 
         JFrame panel = new JFrame("Capoo Game");
         
-        WindowHandle wh = new WindowHandle();
+        WindowHandle wh = WindowHandle.getInstance();
 
         panel.addWindowListener(wh);
         // set a custom Container object as the content pane of the JFrame.
