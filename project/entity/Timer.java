@@ -44,7 +44,7 @@ public class Timer {
 		this.countdownTime=time;
 	}
 	public void draw(Graphics g2) {
-		Font font1 = new Font("Arial", Font.PLAIN, 50);
+		Font font1 = new Font("futura", Font.PLAIN, 50);
 		seconds = countdownTime / 60;
 		minutes = countdownTime / 3600;
 		g2.setFont(font1);
@@ -67,7 +67,7 @@ public class Timer {
 		if (countdownTime == 0 || countdownTime > 0) {
 			// g2.drawRect(x-20, 0, labelWidth*3/2-20, labelWidth/2);
 			g2.drawImage(timePanel[0], x - 25, -30, null);
-			g2.drawString(label, x, y);
+			g2.drawString(label, x-8, y);
 		}
 	}
 
