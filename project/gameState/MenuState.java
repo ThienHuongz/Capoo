@@ -1,3 +1,10 @@
+/* Name: 
+    Nguyen Trang Thien Huong ITITIU21212
+    Nguyen Minh luong ITITIU21240
+    Nguyen Tien Phat ITITIU21273
+    Dinh Thi Thanh Nha ITITIU21266
+ Purpose: This code defines the MenuState class in a Java game that displays the MenuState.
+*/
 package project.gameState;
 
 import java.awt.*;

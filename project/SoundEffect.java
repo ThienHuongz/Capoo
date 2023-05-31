@@ -1,3 +1,10 @@
+/* Name: 
+    Nguyen Trang Thien Huong ITITIU21212
+    Nguyen Minh luong ITITIU21240
+    Nguyen Tien Phat ITITIU21273
+    Dinh Thi Thanh Nha ITITIU21266
+ Purpose: This code defines a SoundEffect class that provides methods for playing various sound effects in a Java application. 
+*/
 package project;
 
 import java.net.URL;
@@ -42,9 +49,6 @@ public class SoundEffect {
         }
     }
 
-    public void play() {
-        clip.start();
-    }
 
     public static void playBGM(int i) {
         try {

@@ -1,3 +1,11 @@
+/* Name: 
+    Nguyen Trang Thien Huong ITITIU21212
+    Nguyen Minh luong ITITIU21240
+    Nguyen Tien Phat ITITIU21273
+    Dinh Thi Thanh Nha ITITIU21266
+ Purpose: This code defines a GamePanel class that extends JPanel and implements the Runnable interface in a Java game. 
+ It represents the main game panel in which the game is played.
+*/
 package project.gameState;
 
 import javax.swing.*;
@@ -47,7 +55,7 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void run() {
-
+        // tính time 1 lần draw
         double drawInterval = 1000000000 / FPS; // 1 giây/ 60
         double nextDrawTime = System.nanoTime() + drawInterval;
         double remainingTime;

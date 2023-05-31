@@ -1,3 +1,11 @@
+/* Name: 
+    Nguyen Trang Thien Huong ITITIU21212
+    Nguyen Minh luong ITITIU21240
+    Nguyen Tien Phat ITITIU21273
+    Dinh Thi Thanh Nha ITITIU21266
+ Purpose: This code defines the GamePlay class in a Java game that is used to control and manage the gameplay. 
+ The class includes methods that update the game state, draw the game scene, and handle collisions with game objects.
+*/
 package project.gameState;
 
 import java.awt.Graphics;

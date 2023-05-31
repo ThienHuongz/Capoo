@@ -1,3 +1,12 @@
+/* Name: 
+    Nguyen Trang Thien Huong ITITIU21212
+    Nguyen Minh luong ITITIU21240
+    Nguyen Tien Phat ITITIU21273
+    Dinh Thi Thanh Nha ITITIU21266
+ Purpose: This code defines the Box class that extends the object class in a Java game and 
+ is used to create movable boxes within the game environment. 
+ The class includes methods that handle the movement and collision detection of the boxes.
+*/
 package project.entity;
 
 import java.awt.Graphics;

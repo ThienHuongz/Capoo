@@ -1,3 +1,10 @@
+/* Name: 
+    Nguyen Trang Thien Huong ITITIU21212
+    Nguyen Minh luong ITITIU21240
+    Nguyen Tien Phat ITITIU21273
+    Dinh Thi Thanh Nha ITITIU21266
+ Purpose: This code defines the Timer class in a Java game that is used for tracking and displaying the remaining time for the game.
+*/
 package project.entity;
 
 import java.awt.Color;

@@ -1,3 +1,11 @@
+/* Name: 
+    Nguyen Trang Thien Huong ITITIU21212
+    Nguyen Minh luong ITITIU21240
+    Nguyen Tien Phat ITITIU21273
+    Dinh Thi Thanh Nha ITITIU21266
+ Purpose: This code defines the MouseHandle class in a Java game that implements the MouseAdapter interface. 
+ The class is used for handling mouse events within the game.
+*/
 package project.EventListener;
 
 import java.awt.event.*;

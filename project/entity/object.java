@@ -1,3 +1,11 @@
+/* Name: 
+    Nguyen Trang Thien Huong ITITIU21212
+    Nguyen Minh luong ITITIU21240
+    Nguyen Tien Phat ITITIU21273
+    Dinh Thi Thanh Nha ITITIU21266
+ Purpose: This code defines an abstract object class that implements the Base interface in a Java game. 
+ It represents a game object that can be rendered on screen and updated over time.
+*/
 package project.entity;
 
 import java.awt.Graphics;

@@ -1,3 +1,11 @@
+/* Name: 
+    Nguyen Trang Thien Huong ITITIU21212
+    Nguyen Minh luong ITITIU21240
+    Nguyen Tien Phat ITITIU21273
+    Dinh Thi Thanh Nha ITITIU21266
+ Purpose: This code defines the GameOverState class in a Java game that is used to display 
+ the game over screen when the player loses the game.
+*/
 package project.gameState;
 
 import java.awt.*;

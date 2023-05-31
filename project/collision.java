@@ -1,3 +1,11 @@
+/* Name: 
+    Nguyen Trang Thien Huong ITITIU21212
+    Nguyen Minh luong ITITIU21240
+    Nguyen Tien Phat ITITIU21273
+    Dinh Thi Thanh Nha ITITIU21266
+ Purpose: This code defines the collision class in a Java game that handles collision detection between 
+ different game objects such as characters and backgrounds, characters and other game objects.
+*/
 package project;
 
 import java.awt.Rectangle;

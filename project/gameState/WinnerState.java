@@ -1,3 +1,11 @@
+/* Name: 
+    Nguyen Trang Thien Huong ITITIU21212
+    Nguyen Minh luong ITITIU21240
+    Nguyen Tien Phat ITITIU21273
+    Dinh Thi Thanh Nha ITITIU21266
+ Purpose: This code defines a WinnerState class that implements the GameStateBase interface in a Java game. 
+ It represents the game state when the player wins the game.
+*/
 package project.gameState;
 
 import java.awt.*;

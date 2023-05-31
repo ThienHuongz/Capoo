@@ -1,3 +1,12 @@
+/* Name: 
+    Nguyen Trang Thien Huong ITITIU21212
+    Nguyen Minh luong ITITIU21240
+    Nguyen Tien Phat ITITIU21273
+    Dinh Thi Thanh Nha ITITIU21266
+ Purpose: This code defines the main method of the game, which creates a JFrame object, 
+ sets it as the content pane for a custom GamePanel object, and displays the game window on screen. 
+ The game window is fixed in size and cannot be resized by the user.
+*/
 package project;
 
 import javax.swing.*;

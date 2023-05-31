@@ -1,3 +1,13 @@
+/* Name: 
+    Nguyen Trang Thien Huong ITITIU21212
+    Nguyen Minh luong ITITIU21240
+    Nguyen Tien Phat ITITIU21273
+    Dinh Thi Thanh Nha ITITIU21266
+ Purpose: This code defines the character class that extends and implements the Base interface in a Java game. 
+ It represents the game character that the player controls during gameplay. 
+ The class includes methods that handle the movement and animation of the character based on input from the player, 
+ as well as collision detection.
+*/
 package project.entity;
 
 import java.awt.image.BufferedImage;
